@@ -1,0 +1,102 @@
+.project {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+  width: 100%;
+  padding: 25px;
+
+  &__title {
+    text-align: center;
+    &::after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0) 15%,
+        $accent 50%,
+        rgba(0, 0, 0, 0) 85%
+      );
+      margin-top: 5px;
+    }
+  }
+  &__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  &__tags {
+    display: flex;
+    gap: 10px;
+  }
+  &__repo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    a {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+
+      line-height: 1.5;
+      gap: 5px;
+    }
+    svg {
+      width: 25px;
+      height: 25px;
+    }
+  }
+  &__date {
+    display: flex;
+    justify-content: end;
+    gap: 5px;
+  }
+  &__content {
+    margin-top: 25px;
+  }
+  &__heading {
+    margin: 25px 0;
+    padding-bottom: 10px;
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, $secondary, rgba(0, 0, 0, 0) 66%);
+      margin-top: 10px;
+    }
+  }
+
+  &__list-img {
+    display: flex;
+    justify-content: center;
+
+    list-style-type: none;
+    padding: 0;
+    li {
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+  &__large-img {
+    video {
+      width: 250px;
+      height: auto;
+    }
+  }
+}
+
+ul {
+  list-style-type: disc;
+  margin-top: 10px;
+  padding-left: 20px;
+}
