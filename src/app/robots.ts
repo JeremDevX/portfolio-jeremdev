@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: "/private/",
+      disallow: ["/private/", "/cv_jeremdevx.pdf"],
     },
     sitemap: "https://jeremdevx.com/sitemap.xml",
   };
