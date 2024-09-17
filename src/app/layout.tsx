@@ -5,6 +5,8 @@ import { GoogleTagManager } from "@next/third-parties/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { ThemeContextProvider } from "@/context/ThemeContext";
+import ThemeProvider from "@/providers/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -58,12 +60,16 @@ export default function RootLayout({
       </head>
 
       <body className={`${leagueSpartan.className}`}>
-        <header>
-          <Navbar></Navbar>
-        </header>
-        {children}
-        <Analytics />
-        <SpeedInsights />
+        <ThemeContextProvider>
+          <ThemeProvider>
+            <header>
+              <Navbar></Navbar>
+            </header>
+            {children}
+            <Analytics />
+            <SpeedInsights />
+          </ThemeProvider>
+        </ThemeContextProvider>
       </body>
     </html>
   );

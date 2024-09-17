@@ -18,7 +18,7 @@
       background: linear-gradient(
         90deg,
         rgba(0, 0, 0, 0) 15%,
-        $accent 50%,
+        var(--accent) 50%,
         rgba(0, 0, 0, 0) 85%
       );
       margin-top: 5px;
@@ -39,7 +39,11 @@
       left: 0;
       width: 50%;
       height: 2px;
-      background: linear-gradient(90deg, $secondary, rgba(0, 0, 0, 0) 66%);
+      background: linear-gradient(
+        90deg,
+        var(--secondary),
+        rgba(0, 0, 0, 0) 66%
+      );
       margin-top: 10px;
     }
   }
@@ -55,7 +59,7 @@
       gap: 5px;
       &:hover {
         text-decoration: underline;
-        color: $accent;
+        color: var(--accent);
       }
       svg {
         width: 20px;

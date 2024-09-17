@@ -23,7 +23,7 @@ const socialLinks = [
   },
   {
     href: "https://x.com/JeremDevX",
-    label: "x - (Twitter)",
+    label: "X - (Twitter)",
     icon: <FaSquareXTwitter />,
   },
   {
@@ -31,22 +31,17 @@ const socialLinks = [
     label: "CodeWars",
     icon: <SiCodewars />,
   },
-  {
-    href: "https://www.codingame.com/profile/ad8792d8f207fbbed03d9cc327b7a07e4414845",
-    label: "CodinGame",
-    icon: <SiCodingame />,
-  },
+  // {
+  //   href: "https://www.codingame.com/profile/ad8792d8f207fbbed03d9cc327b7a07e4414845",
+  //   label: "CodinGame",
+  //   icon: <SiCodingame />,
+  // },
 ];
 
 export default function Profile() {
   return (
     <main className="profile">
       <h1 className="profile__title">Mon profil</h1>
-      <div className="profile__cv">
-        <Link href="/CV-JeremDevX.pdf" target="_blank" className="btn">
-          Télécharger mon CV
-        </Link>
-      </div>
       <section className="profile__details">
         <div className="profile__infos">
           <h2 className="profile__heading">Infos :</h2>

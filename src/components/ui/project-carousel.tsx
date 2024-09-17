@@ -18,9 +18,9 @@ export default function CarouselProject(props: CarouselProjectProps) {
       <div className="project__large-img">
         <Image
           src={props.src[currentImg]}
-          alt={`${props.alt} image ${currentImg + 1}`}
-          width={1920}
-          height={1080}
+          alt={`${props.alt} image ${currentImg + 1} displayed`}
+          width={1200}
+          height={675}
         />
       </div>
       <ul className="project__list-img">
@@ -28,9 +28,9 @@ export default function CarouselProject(props: CarouselProjectProps) {
           <li key={index}>
             <Image
               src={img}
-              alt={`${props.alt} image ${currentImg + 1}`}
+              alt={`${props.alt} image ${index + 1}`}
               width={250}
-              height={250}
+              height={163}
               onClick={() => {
                 handleImgClick(index);
               }}

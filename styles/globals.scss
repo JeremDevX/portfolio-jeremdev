@@ -3,8 +3,8 @@ html {
 }
 
 body {
-  background-color: $background;
-  color: $text-color;
+  background-color: var(--background);
+  color: var(--text-color);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,7 +24,7 @@ header {
   height: auto;
   border-bottom: 1px solid hsl(0, 0%, 20%);
   margin-bottom: 25px;
-  background-color: $bg-color;
+  background-color: var(--background);
 }
 
 footer {
@@ -36,7 +36,7 @@ footer {
   height: 70px;
   margin-top: auto;
   border-top: 1px solid hsl(0, 0%, 20%);
-  background-color: $bg-color;
+  background-color: var(--bg-color);
 }
 
 section {
@@ -55,7 +55,7 @@ section:not(:last-child)::after {
   background: linear-gradient(
     90deg,
     rgba(0, 0, 0, 0) 5%,
-    $accent 50%,
+    var(--accent) 50%,
     rgba(0, 0, 0, 0) 95%
   );
   margin-top: 10px;
@@ -75,8 +75,8 @@ h3 {
 }
 
 .tag-item {
-  background: $secondary;
-  border: $border-primary;
+  background: var(--primary);
+  border: var(--border-primary);
   border-radius: 7px;
   padding: 1px 15px;
   text-transform: capitalize;
@@ -85,12 +85,12 @@ h3 {
 .btn {
   font-size: large;
   padding: 5px 15px;
-  background: $secondary;
-  border: $border-primary;
+  background: var(--primary);
+  border: var(--border-primary);
   border-radius: 8px;
   &:hover {
-    background: $accent;
-    border-color: $primary;
+    background: var(--accent);
+    border: var(--border-primary);
   }
   &:active {
     transform: translate(1px, 1px);
@@ -98,7 +98,7 @@ h3 {
 }
 
 .accent {
-  color: $accent;
+  color: var(--accent);
 }
 
 .bold {
