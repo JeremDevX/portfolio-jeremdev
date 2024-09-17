@@ -6,7 +6,6 @@ import { FaSun, FaMoon } from "react-icons/fa";
 
 const ThemeToggle: FC = () => {
   const { toggle, theme } = useContext(ThemeContext);
-  console.log("theme", theme);
 
   return (
     <div className="theme-toggle" onClick={toggle}>

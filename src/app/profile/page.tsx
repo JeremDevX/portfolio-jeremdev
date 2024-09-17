@@ -23,7 +23,7 @@ const socialLinks = [
   },
   {
     href: "https://x.com/JeremDevX",
-    label: "x - (Twitter)",
+    label: "X - (Twitter)",
     icon: <FaSquareXTwitter />,
   },
   {
@@ -31,11 +31,11 @@ const socialLinks = [
     label: "CodeWars",
     icon: <SiCodewars />,
   },
-  {
-    href: "https://www.codingame.com/profile/ad8792d8f207fbbed03d9cc327b7a07e4414845",
-    label: "CodinGame",
-    icon: <SiCodingame />,
-  },
+  // {
+  //   href: "https://www.codingame.com/profile/ad8792d8f207fbbed03d9cc327b7a07e4414845",
+  //   label: "CodinGame",
+  //   icon: <SiCodingame />,
+  // },
 ];
 
 export default function Profile() {
