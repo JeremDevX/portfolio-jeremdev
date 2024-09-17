@@ -4,11 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
+import ThemeToggle from "../themeToggle";
 
 const links = [
   { href: "/", label: "Accueil" },
   { href: "/works", label: "Réalisations" },
-  { href: "/docs", label: "Docs" },
   { href: "/profile", label: "Profil" },
 ];
 
@@ -60,6 +60,7 @@ export default function Navbar() {
           >
             <IoIosMail />
           </Link>
+          <ThemeToggle />
         </div>
       </div>
     </nav>

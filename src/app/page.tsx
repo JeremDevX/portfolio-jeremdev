@@ -79,11 +79,6 @@ export default function Home() {
             mon métier, j’affine chaque jour mes compétences pour offrir des
             solutions adaptées aux besoins actuels.
           </p>
-          <div className="hero__buttons">
-            <Link href="/CV-JeremDevX.pdf" target="_blank" className="btn">
-              Télécharger mon CV
-            </Link>
-          </div>
         </div>
         <div className="hero__img-container">
           <Image

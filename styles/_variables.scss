@@ -1,15 +1,35 @@
-$bg-color: hsl(0, 0%, 5%);
-$bg-gradient-color: radial-gradient(
-  circle,
-  rgb(40, 40, 40) -5%,
-  rgb(5, 5, 5) 90%
-);
-$text-color: rgb(235, 240, 246);
-$bg-gradient: linear-gradient(180deg, rgb(67, 67, 67) 0%, rgb(26, 26, 26) 100%);
-$border-primary: rgb(70, 70, 70) solid 1px;
-$card-bg: rgba(255, 255, 255, 0.1);
+:root {
+  --bg-color: hsl(0, 0%, 5%);
+  --text-color: #090f15;
+  --bg-gradient: linear-gradient(
+    180deg,
+    rgb(67, 67, 67) 0%,
+    rgb(26, 26, 26) 100%
+  );
+  --border-primary: rgb(70, 70, 70) solid 1px;
+  --card-bg: rgba(0, 0, 0, 0.1);
 
-$background: rgb(5, 10, 15);
-$primary: rgb(142, 181, 228);
-$secondary: rgb(22, 77, 143);
-$accent: rgb(0, 114, 255);
+  --background: #f0f5fa;
+  --primary: rgb(142, 181, 228);
+  --secondary: rgb(22, 77, 143);
+  --accent: #004ead;
+  --accent-half: rgba(0, 78, 173, 0.15);
+}
+
+.dark {
+  --bg-color: hsl(0, 0%, 5%);
+  --text-color: rgb(235, 240, 246);
+  --bg-gradient: linear-gradient(
+    180deg,
+    rgb(67, 67, 67) 0%,
+    rgb(26, 26, 26) 100%
+  );
+  --border-primary: rgb(70, 70, 70) solid 1px;
+  --card-bg: rgba(255, 255, 255, 0.1);
+
+  --background: rgb(5, 10, 15);
+  --primary: rgb(22, 77, 143);
+  --secondary: rgb(142, 181, 228);
+  --accent: rgb(0, 114, 255);
+  --accent-half: rgba(0, 115, 255, 0.15);
+}

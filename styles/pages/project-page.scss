@@ -16,7 +16,7 @@
       background: linear-gradient(
         90deg,
         rgba(0, 0, 0, 0) 15%,
-        $accent 50%,
+        var(--accent) 50%,
         rgba(0, 0, 0, 0) 85%
       );
       margin-top: 5px;
@@ -69,7 +69,7 @@
       left: 0;
       width: 100%;
       height: 2px;
-      background: linear-gradient(90deg, $secondary, rgba(0, 0, 0, 0) 66%);
+      background: linear-gradient(90deg, var(--accent), rgba(0, 0, 0, 0) 66%);
       margin-top: 10px;
     }
   }
@@ -79,18 +79,31 @@
     justify-content: center;
 
     list-style-type: none;
+    gap: 10px;
     padding: 0;
     li {
       cursor: pointer;
+      border-radius: 5px;
+      padding: 5px;
+      background-color: var(--accent-half);
+      overflow: hidden;
+      img {
+        border-radius: 5px;
+      }
       &:hover {
         transform: scale(1.05);
       }
     }
   }
   &__large-img {
-    video {
-      width: 250px;
-      height: auto;
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--accent-half);
+    padding: 10px;
+    img {
+      border-radius: 15px;
     }
   }
 }

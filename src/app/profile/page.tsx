@@ -42,11 +42,6 @@ export default function Profile() {
   return (
     <main className="profile">
       <h1 className="profile__title">Mon profil</h1>
-      <div className="profile__cv">
-        <Link href="/CV-JeremDevX.pdf" target="_blank" className="btn">
-          Télécharger mon CV
-        </Link>
-      </div>
       <section className="profile__details">
         <div className="profile__infos">
           <h2 className="profile__heading">Infos :</h2>

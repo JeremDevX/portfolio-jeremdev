@@ -31,7 +31,7 @@
         width: 100%;
         height: 3px;
         border-radius: 1px;
-        background: $accent;
+        background: var(--accent);
         transform: scaleX(0);
 
         transform-origin: left;
@@ -52,6 +52,7 @@
     justify-content: center;
 
     gap: 1rem;
+    margin-top: 5px;
     svg {
       width: 25px;
       height: 25px;
@@ -60,7 +61,7 @@
       padding: 3px;
       border-radius: 25%;
       &:hover {
-        background: $secondary;
+        background: var(--accent);
       }
     }
   }
@@ -96,11 +97,10 @@
       &::after {
         content: "";
         position: absolute;
-        top: 0;
         left: 0;
         width: 2px;
-        height: 100%;
-        background: $accent;
+        height: 85%;
+        background: var(--accent);
       }
     }
   }
