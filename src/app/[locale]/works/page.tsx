@@ -1,5 +1,5 @@
 import matter from "gray-matter";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { ImCalendar } from "react-icons/im";
 import fs from "fs";
 import path from "path";

@@ -1,27 +1,32 @@
-import { Inter, League_Spartan } from "next/font/google";
+import { League_Spartan } from "next/font/google";
 import Navbar from "@/components/ui/navbar";
-import "../../styles/main.scss";
+import "/styles/main.scss";
 import { GoogleTagManager } from "@next/third-parties/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeContextProvider } from "@/context/ThemeContext";
 import ThemeProvider from "@/providers/ThemeProvider";
-
-const inter = Inter({ subsets: ["latin"] });
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
+import LanguageSwitcher from "@/components/ui/languageSwitcher";
 
 const leagueSpartan = League_Spartan({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-export default function RootLayout({
+export default async function LocaleLayout({
   children,
+  params: { locale },
 }: Readonly<{
   children: React.ReactNode;
+  params: { locale: string };
 }>) {
+  const messages = await getMessages();
+
   return (
-    <html lang="fr">
+    <html lang={locale}>
       <head>
         <meta
           name="google-site-verification"
@@ -60,16 +65,19 @@ export default function RootLayout({
       </head>
 
       <body className={`${leagueSpartan.className}`}>
-        <ThemeContextProvider>
-          <ThemeProvider>
-            <header>
-              <Navbar></Navbar>
-            </header>
-            {children}
-            <Analytics />
-            <SpeedInsights />
-          </ThemeProvider>
-        </ThemeContextProvider>
+        <NextIntlClientProvider messages={messages}>
+          <ThemeContextProvider>
+            <ThemeProvider>
+              <header>
+                <LanguageSwitcher />
+                <Navbar></Navbar>
+              </header>
+              {children}
+              <Analytics />
+              <SpeedInsights />
+            </ThemeProvider>
+          </ThemeContextProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

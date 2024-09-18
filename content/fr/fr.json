@@ -1,0 +1,21 @@
+{
+  "Home": {
+    "title": "Développeur Front End React et Next.js",
+    "text": "Développeur web spécialisé dans le front-end, je maîtrise des technologies comme <span>React</span>,<span> Next.js</span>,<span> Sass</span>, et<span> TypeScript</span> pour concevoir desinterfaces modernes et entièrement responsives. J’ai également desconnaissances en <span>React Native </span>et en développement back-end avec<span> PostgreSQL</span>,<span> Node.js </span>, et<span> Prisma </span>, ce qui me permet decomprendre l’ensemble du cycle de développement web. Passionné parmon métier, j’affine chaque jour mes compétences pour offrir dessolutions adaptées aux besoins actuels.",
+    "mySkills": "Mes compétences",
+    "mainSkills": "Compétences principales",
+    "secondarySkills": "Compétences secondaires / Connaissances",
+    "myProjects": "Mes projets"
+  },
+  "Profile": {
+    "title": "Mon profil",
+    "infos": "Infos :",
+    "personalInfos": " <li> <strong>Nom :</strong> Jérémie L. </li> <li> <strong>Âge :</strong> <ageYear></ageYear> <ageMonth></ageMonth> <ageDay></ageDay> </li> <li> <strong>Nationalité :</strong> Française </li> <li> <strong>Localisation :</strong> France / Suisse </li> <li> <strong>Mail : </strong> jeremdev.contactpro@gmail.com </li> <li> <strong>Langues :</strong> <ul> <li>Français - (Langue natale)</li> <li>Anglais - (Compétence professionnelle)</li> <li>Allemand - (En cours d'apprentissage)</li> </ul> </li>",
+    "socialsAndStats": "Réseaux sociaux et stats",
+    "years": "ans",
+    "month": "mois",
+    "months": "mois",
+    "day": "jour",
+    "and": "et"
+  }
+}

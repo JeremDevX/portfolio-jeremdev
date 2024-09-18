@@ -1,7 +1,7 @@
 import CarouselHome from "@/components/ui/carousel-home";
 import TechItem from "@/components/ui/tech-item";
 import Image from "next/image";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import {
   FaCss3Alt,
   FaHtml5,
@@ -55,6 +55,8 @@ const techList = {
 };
 
 export default function Home() {
+  const t = useTranslations("Home");
+
   return (
     <main className="home">
       <section className="hero">
@@ -62,22 +64,14 @@ export default function Home() {
           <h1>
             JeremDev<span className="accent">X</span>
           </h1>
-          <h2>Front End Developper</h2>
+
+          <h2>{t("title")}</h2>
           <p>
-            Développeur web spécialisé dans le front-end, je maîtrise des
-            technologies comme <span className="accent bold">React</span>,
-            <span className="accent bold"> Next.js</span>,
-            <span className="accent bold"> Sass</span>, et
-            <span className="accent bold"> TypeScript</span> pour concevoir des
-            interfaces modernes et entièrement responsives. J’ai également des
-            connaissances en <span className="accent bold">React Native </span>
-            et en développement back-end avec
-            <span className="accent bold"> PostgreSQL</span>,
-            <span className="accent bold"> Node.js </span>, et
-            <span className="accent bold"> Prisma </span>, ce qui me permet de
-            comprendre l’ensemble du cycle de développement web. Passionné par
-            mon métier, j’affine chaque jour mes compétences pour offrir des
-            solutions adaptées aux besoins actuels.
+            {t.rich("text", {
+              span: (richText) => (
+                <strong className="accent bold">{richText}</strong>
+              ),
+            })}
           </p>
         </div>
         <div className="hero__img-container">
@@ -92,14 +86,14 @@ export default function Home() {
         </div>
       </section>
       <section className="skills">
-        <h2>Mes compétences</h2>
-        <h3>Compétences principales</h3>
+        <h2>{t("mySkills")}</h2>
+        <h3>{t("mainSkills")}</h3>
         <div className="skill-list">
           {techList.mainTech.map((tech, idx) => (
             <TechItem key={idx} techName={tech.name} icon={tech.icon} />
           ))}
         </div>
-        <h3>Compétences secondaires / Connaissances </h3>
+        <h3>{t("secondarySkills")}</h3>
         <div className="skill-list">
           {techList.secondaryTech.map((tech, idx) => (
             <TechItem key={idx} techName={tech.name} icon={tech.icon} />
@@ -107,7 +101,7 @@ export default function Home() {
         </div>
       </section>
       <section className="projects">
-        <h2>Mes projets</h2>
+        <h2>{t("myProjects")}</h2>
         <CarouselHome />
       </section>
     </main>

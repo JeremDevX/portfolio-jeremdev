@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { InfiniteMovingCards } from "./infinite-moving-cards";
 import ProjectCard from "./project-card";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 
 function useWindowWidth() {
   const [deviceWidth, setDeviceWidth] = useState(0);
@@ -62,7 +62,7 @@ export default function CarouselHome() {
               handleBack();
             }}
           />
-          <Link href={projects[currentCard].href || "/"}>
+          <Link href={projects[currentCard].href}>
             <ProjectCard
               title={projects[currentCard].title}
               techList={projects[currentCard].techList}
