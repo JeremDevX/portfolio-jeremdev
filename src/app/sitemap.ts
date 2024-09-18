@@ -33,12 +33,6 @@ export default function Sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly" as const,
       priority: 0.9,
     },
-    {
-      url: "https://jeremdevx.com/docs",
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    },
   ];
 
   const dynamicRoutes = slugs.map((slug) => ({
