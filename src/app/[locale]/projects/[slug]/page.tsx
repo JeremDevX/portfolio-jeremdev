@@ -59,10 +59,16 @@ function Heading(props: any) {
   return <h2 className="project__heading">{props.children}</h2>;
 }
 
-export default function WorkPage({ params }: { params: { slug: string } }) {
+export default function WorkPage({
+  params,
+  locale,
+}: {
+  params: { slug: string };
+  locale: string;
+}) {
   const t = useTranslations("Project");
   const actualLocale = getLocaleCookie();
-  unstable_setRequestLocale(actualLocale);
+  unstable_setRequestLocale(locale);
   const { slug } = params;
   const filePath = path.join(
     process.cwd(),
