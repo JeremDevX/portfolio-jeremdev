@@ -13,6 +13,7 @@ import {
 } from "react-icons/fa";
 import { SiTypescript, SiStrapi, SiPostgresql, SiPrisma } from "react-icons/si";
 import { getTranslations } from "next-intl/server";
+import { unstable_setRequestLocale } from "next-intl/server";
 
 export async function generateMetadata() {
   const t = await getTranslations("MetaData");
@@ -56,7 +57,9 @@ const techList = {
   ],
 };
 
-export default function Home() {
+export default function Home({ params }: { params: { locale: string } }) {
+  const { locale } = params;
+  unstable_setRequestLocale(locale);
   const t = useTranslations("Home");
 
   return (

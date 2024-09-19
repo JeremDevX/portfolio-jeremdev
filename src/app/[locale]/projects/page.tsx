@@ -5,7 +5,7 @@ import fs from "fs";
 import path from "path";
 import Image from "next/image";
 import { cookies } from "next/headers";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
 export async function generateMetadata() {
   const t = await getTranslations("MetaData");
@@ -55,7 +55,9 @@ const getWorkData = async (): Promise<WorkIndexData> => {
   return { content };
 };
 
-export default async function Work() {
+export default async function Work({ params }: { params: { locale: string } }) {
+  const { locale } = params;
+  unstable_setRequestLocale(locale);
   const t = await getTranslations("projects");
 
   const data = await getWorkData();

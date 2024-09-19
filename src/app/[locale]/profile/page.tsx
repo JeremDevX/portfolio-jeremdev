@@ -3,7 +3,7 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { SiCodewars, SiCodingame } from "react-icons/si";
 import { useTranslations } from "next-intl";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
 export async function generateMetadata() {
   const t = await getTranslations("MetaData");
@@ -68,7 +68,9 @@ const socialLinks = [
   // },
 ];
 
-export default function Profile() {
+export default function Profile({ params }: { params: { locale: string } }) {
+  const { locale } = params;
+  unstable_setRequestLocale(locale);
   const t = useTranslations("Profile");
   const birthDate = "1995-06-12";
   const age = calculateAge(birthDate);

@@ -61,15 +61,13 @@ function Heading(props: any) {
 
 export default function WorkPage({
   params,
-  locale,
 }: {
-  params: { slug: string };
-  locale: string;
+  params: { locale: string; slug: string };
 }) {
+  const { slug, locale } = params;
+  unstable_setRequestLocale(locale);
   const t = useTranslations("Project");
   const actualLocale = getLocaleCookie();
-  unstable_setRequestLocale(locale);
-  const { slug } = params;
   const filePath = path.join(
     process.cwd(),
     `content/${actualLocale}`,
