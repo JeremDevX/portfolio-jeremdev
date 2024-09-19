@@ -2,7 +2,6 @@
 
 Bienvenue sur mon portfolio personnel ! Vous trouverez ici mes réalisations, la liste de mes réseaux sociaux, et les différents moyens pour me contacter.
 
-
 ## Technologies Utilisées
 
 Ce site a été développé en utilisant les technologies suivantes :
@@ -13,9 +12,5 @@ Ce site a été développé en utilisant les technologies suivantes :
 - **Sass** : Préprocesseur CSS qui permet d'écrire du CSS plus maintenable avec des fonctionnalités comme les variables, les mixins, et l'imbrication.
 - **Aceternity UI** : Utilisé pour la base de certains effets et composants UI.
 - **Tailwind CSS** : Utilisé en complément de Aceternity UI pour les animations et la mise en page avec une approche utilitaire.
-
-## Contenu à Venir
-
-Je prévois d'ajouter prochainement une section dédiée à des tutoriels et astuces de dev.
 
 ---
