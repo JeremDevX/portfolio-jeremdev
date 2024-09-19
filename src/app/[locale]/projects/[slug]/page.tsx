@@ -11,6 +11,7 @@ import { Link } from "@/i18n/routing";
 import { FaGithub } from "react-icons/fa";
 import { cookies } from "next/headers";
 import { useTranslations } from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 
 interface WorkData {
   title: string;
@@ -61,6 +62,7 @@ function Heading(props: any) {
 export default function WorkPage({ params }: { params: { slug: string } }) {
   const t = useTranslations("Project");
   const actualLocale = getLocaleCookie();
+  unstable_setRequestLocale(actualLocale);
   const { slug } = params;
   const filePath = path.join(
     process.cwd(),
