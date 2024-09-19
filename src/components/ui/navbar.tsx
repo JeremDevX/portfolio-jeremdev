@@ -6,6 +6,7 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
 import ThemeToggle from "../themeToggle";
 import { useTranslations } from "next-intl";
+import LanguageSwitcher from "../languageSwitcher";
 
 export default function Navbar() {
   const t = useTranslations("Navbar");
@@ -64,6 +65,7 @@ export default function Navbar() {
             <IoIosMail />
           </Link>
           <ThemeToggle />
+          <LanguageSwitcher />
         </div>
       </div>
     </nav>

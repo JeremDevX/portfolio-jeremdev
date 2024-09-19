@@ -4,14 +4,17 @@ import { ImCalendar } from "react-icons/im";
 import fs from "fs";
 import path from "path";
 import Image from "next/image";
-import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "JeremDevX - Réalisations",
-  description: "Liste de mes réalisations.",
-};
+export async function generateMetadata() {
+  const t = await getTranslations("MetaData");
+
+  return {
+    title: t("works.title"),
+    description: t("works.description"),
+  };
+}
 
 interface WorkIndexData {
   content: string[];

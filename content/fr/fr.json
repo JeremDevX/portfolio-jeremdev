@@ -35,5 +35,19 @@
     "ninaCarducci": "Optimisation d'un site web d'une photographe sur le réferecement naturel, la performance et l'accessibilité.",
     "kasa": "Intégration d'un site de location immobilière. Projet pour gérer les routes, les paramètres d'URL et mettre en ouevre des animations CSS via Sass.",
     "qcm": "Création d'une application de QCM. Projet pour gérer une base de données avec un ORM, créer un système d'authetification avec un token JWT et sécuriser les routes."
+  },
+  "MetaData": {
+    "home": {
+      "title": "JeremDevX - Développeur Front End React et Next.js",
+      "description": "Développeur front-end JeremDevX : découvrez mes compétences, mes projets et mon profil."
+    },
+    "works": {
+      "title": "JeremDevX - Réalisations",
+      "description": "Réalisations de JeremDevX : retrouvez la liste de mes projets avec les technologies utilisées, et les liens vers les dépôts GitHub."
+    },
+    "profile": {
+      "title": "JeremDevX - Profil",
+      "description": "Profil JeremDevX : retrouvez la liste de mes réseaux sociaux, mon CV, mes coordonnées et autres."
+    }
   }
 }

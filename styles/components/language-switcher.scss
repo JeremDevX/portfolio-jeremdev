@@ -1,0 +1,48 @@
+.language-switcher {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: auto;
+  height: auto;
+  cursor: pointer;
+
+  &__options {
+    position: absolute;
+    top: 120%;
+    left: -20px;
+    padding: 0;
+    margin: 0;
+    background-color: var(--background);
+    border: 1px solid var(--text-color);
+    list-style: none;
+    border-radius: 8px;
+    transition: all 0.3s ease-out;
+    z-index: 1000;
+    &.display {
+      visibility: visible;
+      opacity: 1;
+    }
+    &.hide {
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+  &__option {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 30px;
+    text-align: center;
+    margin: 5px;
+    padding-top: 5px;
+    border-radius: 5px;
+    font-weight: 500;
+    &:hover {
+      background-color: var(--primary);
+    }
+    &.active {
+      background-color: var(--primary);
+    }
+  }
+}

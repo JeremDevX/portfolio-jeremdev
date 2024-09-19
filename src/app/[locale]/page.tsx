@@ -12,14 +12,16 @@ import {
   FaNodeJs,
 } from "react-icons/fa";
 import { SiTypescript, SiStrapi, SiPostgresql, SiPrisma } from "react-icons/si";
+import { getTranslations } from "next-intl/server";
 
-import type { Metadata } from "next";
+export async function generateMetadata() {
+  const t = await getTranslations("MetaData");
 
-export const metadata: Metadata = {
-  title: "JeremDevX - Développeur Web",
-  description:
-    "Portfolio de JeremDevX, développeur web React, Next.js. Découvrez mes compétences et mes réalisations.",
-};
+  return {
+    title: t("home.title"),
+    description: t("home.description"),
+  };
+}
 
 const techList = {
   mainTech: [

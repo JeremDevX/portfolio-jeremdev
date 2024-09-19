@@ -9,7 +9,6 @@ import { ThemeContextProvider } from "@/context/ThemeContext";
 import ThemeProvider from "@/providers/ThemeProvider";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import LanguageSwitcher from "@/components/ui/languageSwitcher";
 
 const leagueSpartan = League_Spartan({
   subsets: ["latin"],
@@ -69,7 +68,6 @@ export default async function LocaleLayout({
           <ThemeContextProvider>
             <ThemeProvider>
               <header>
-                <LanguageSwitcher />
                 <Navbar></Navbar>
               </header>
               {children}

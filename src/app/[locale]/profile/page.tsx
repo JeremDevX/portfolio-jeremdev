@@ -1,15 +1,18 @@
-import type { Metadata } from "next";
 import { Link } from "@/i18n/routing";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { SiCodewars, SiCodingame } from "react-icons/si";
 import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "JeremDevX - Profil",
-  description:
-    "Profil JeremDevX : retrouvez la liste de mes réseaux sociaux, mon CV, mes coordonnées et autres.",
-};
+export async function generateMetadata() {
+  const t = await getTranslations("MetaData");
+
+  return {
+    title: t("profile.title"),
+    description: t("profile.description"),
+  };
+}
 
 const calculateAge = (birthDate: string) => {
   const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
@@ -33,7 +36,7 @@ const calculateAge = (birthDate: string) => {
 
     return { ageYear, ageMonth, ageDay };
   } else {
-    throw new Error("Birth data is not in a valid format");
+    throw new Error("Birth date is not in a valid format");
   }
 };
 

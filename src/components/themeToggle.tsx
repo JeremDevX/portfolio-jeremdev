@@ -9,11 +9,18 @@ const ThemeToggle: FC = () => {
 
   return (
     <div className="theme-toggle" onClick={toggle}>
-      {theme === "light" ? (
-        <FaSun className="theme-toggle__sun" />
-      ) : (
-        <FaMoon className="theme-toggle__moon" />
-      )}
+      <div className="theme-toggle__icons">
+        <FaSun
+          className={`theme-toggle__sun ${
+            theme === "light" ? "display" : "hide"
+          }`}
+        />
+        <FaMoon
+          className={`theme-toggle__moon ${
+            theme === "dark" ? "display" : "hide"
+          }`}
+        />
+      </div>
     </div>
   );
 };
