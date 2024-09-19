@@ -2,8 +2,11 @@ import type { MetadataRoute } from "next";
 import fs from "fs";
 import path from "path";
 
-function getWorksSlugs() {
-  const files = fs.readdirSync(path.join(process.cwd(), "content"), "utf-8");
+function getprojectsSlugs() {
+  const files = fs.readdirSync(
+    path.join(process.cwd(), "content/en/"),
+    "utf-8"
+  );
   const slugs = files.map((file) => {
     return file.replace(/\.md$/, "");
   });
@@ -12,7 +15,7 @@ function getWorksSlugs() {
 }
 
 export default function Sitemap(): MetadataRoute.Sitemap {
-  const slugs = getWorksSlugs();
+  const slugs = getprojectsSlugs();
 
   const staticRoutes = [
     {
@@ -22,31 +25,43 @@ export default function Sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: "https://jeremdevx.com/works",
+      url: "https://jeremdevx.com/fr/projects",
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.8,
     },
     {
-      url: "https://jeremdevx.com/profile",
+      url: "https://jeremdevx.com/fr/profile",
       lastModified: new Date(),
       changeFrequency: "yearly" as const,
       priority: 0.9,
     },
     {
-      url: "https://jeremdevx.com/docs",
+      url: "https://jeremdevx.com/en/projects",
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
-      priority: 0.7,
+      priority: 0.8,
+    },
+    {
+      url: "https://jeremdevx.com/en/profile",
+      lastModified: new Date(),
+      changeFrequency: "yearly" as const,
+      priority: 0.9,
     },
   ];
 
-  const dynamicRoutes = slugs.map((slug) => ({
-    url: `https://jeremdevx.com/works/${slug}`,
+  const frDynamicRoutes = slugs.map((slug) => ({
+    url: `https://jeremdevx.com/fr/projects/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
+  const enDynamicRoutes = slugs.map((slug) => ({
+    url: `https://jeremdevx.com/en/projects/${slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...dynamicRoutes];
+  return [...staticRoutes, ...frDynamicRoutes, ...enDynamicRoutes];
 }

@@ -1,18 +1,22 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { usePathname } from "next/navigation";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
 import ThemeToggle from "../themeToggle";
-
-const links = [
-  { href: "/", label: "Accueil" },
-  { href: "/works", label: "Réalisations" },
-  { href: "/profile", label: "Profil" },
-];
+import { useTranslations } from "next-intl";
+import LanguageSwitcher from "../languageSwitcher";
 
 export default function Navbar() {
+  const t = useTranslations("Navbar");
+
+  const links = [
+    { href: t("home.href"), label: t("home.label") },
+    { href: t("projects.href"), label: t("projects.label") },
+    { href: t("profile.href"), label: t("profile.label") },
+  ];
+
   const pathname = usePathname();
 
   return (
@@ -61,6 +65,7 @@ export default function Navbar() {
             <IoIosMail />
           </Link>
           <ThemeToggle />
+          <LanguageSwitcher />
         </div>
       </div>
     </nav>

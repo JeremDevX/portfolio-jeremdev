@@ -1,0 +1,53 @@
+{
+  "Home": {
+    "title": "Développeur Front End React et Next.js",
+    "text": "Développeur web spécialisé dans le front-end, je maîtrise des technologies comme <span>React</span>,<span> Next.js</span>,<span> Sass</span>, et<span> TypeScript</span> pour concevoir desinterfaces modernes et entièrement responsives. J’ai également desconnaissances en <span>React Native </span>et en développement back-end avec<span> PostgreSQL</span>,<span> Node.js </span>, et<span> Prisma </span>, ce qui me permet decomprendre l’ensemble du cycle de développement web. Passionné parmon métier, j’affine chaque jour mes compétences pour offrir dessolutions adaptées aux besoins actuels.",
+    "mySkills": "Mes compétences",
+    "mainSkills": "Compétences principales",
+    "secondarySkills": "Compétences secondaires / Connaissances",
+    "myProjects": "Mes projets"
+  },
+  "projects": {
+    "title": "Liste de mes projets"
+  },
+  "Project": {
+    "github": "GitHub du projet"
+  },
+  "Profile": {
+    "title": "Mon profil",
+    "infos": "Infos :",
+    "personalInfos": " <li> <strong>Nom :</strong> Jérémie L. </li> <li> <strong>Âge :</strong> <ageYear></ageYear> <ageMonth></ageMonth> <ageDay></ageDay> </li> <li> <strong>Nationalité :</strong> Française </li> <li> <strong>Localisation :</strong> France / Suisse </li> <li> <strong>Mail : </strong> jeremdev.contactpro@gmail.com </li> <li> <strong>Langues :</strong> <ul> <li>Français - (Langue natale)</li> <li>Anglais - (Compétence professionnelle)</li> <li>Allemand - (En cours d'apprentissage)</li> </ul> </li>",
+    "socialsAndStats": "Réseaux sociaux et stats",
+    "years": "ans",
+    "month": "mois",
+    "months": "mois",
+    "day": "jour",
+    "and": "et"
+  },
+  "Navbar": {
+    "home": { "label": "Accueil", "href": "/" },
+    "projects": { "label": "Réalisations", "href": "/projects" },
+    "profile": { "label": "Profil", "href": "/profile" }
+  },
+  "CarouselHome": {
+    "simonGame": "Création d'un jeu de Simon en utilisant React. Projet pour comprendre le state mangement, les cylces de vie des composants et les hooks.",
+    "argentBank": "Intégration d'une application bancaire, avec un système d'authentification via une API et un store global via Redux.",
+    "ninaCarducci": "Optimisation d'un site web d'une photographe sur le réferecement naturel, la performance et l'accessibilité.",
+    "kasa": "Intégration d'un site de location immobilière. Projet pour gérer les routes, les paramètres d'URL et mettre en ouevre des animations CSS via Sass.",
+    "qcm": "Création d'une application de QCM. Projet pour gérer une base de données avec un ORM, créer un système d'authetification avec un token JWT et sécuriser les routes."
+  },
+  "MetaData": {
+    "home": {
+      "title": "JeremDevX - Développeur Front End React et Next.js",
+      "description": "Développeur front-end JeremDevX : découvrez mes compétences, mes projets et mon profil."
+    },
+    "projects": {
+      "title": "JeremDevX - Réalisations",
+      "description": "Réalisations de JeremDevX : retrouvez la liste de mes projets avec les technologies utilisées, et les liens vers les dépôts GitHub."
+    },
+    "profile": {
+      "title": "JeremDevX - Profil",
+      "description": "Profil JeremDevX : retrouvez la liste de mes réseaux sociaux, mon CV, mes coordonnées et autres."
+    }
+  }
+}

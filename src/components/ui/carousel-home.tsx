@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { InfiniteMovingCards } from "./infinite-moving-cards";
 import ProjectCard from "./project-card";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 function useWindowWidth() {
   const [deviceWidth, setDeviceWidth] = useState(0);
@@ -28,6 +29,7 @@ function useWindowWidth() {
 }
 
 export default function CarouselHome() {
+  const t = useTranslations("CarouselHome");
   const [mounted, setMounted] = useState(false);
   const deviceWidth = useWindowWidth();
   const [currentCard, setCurrentCard] = useState(0);
@@ -50,6 +52,49 @@ export default function CarouselHome() {
     setCurrentCard((prev) => (prev - 1) % projects.length);
   };
 
+  const projects = [
+    {
+      title: "Simon Game",
+      techList: ["React", "ViteJS", "Typescript"],
+      description: t("simonGame"),
+      imgSrc: "/project-img/simon-game/simon-card.png",
+      alt: "Photo Simon Game",
+      href: "/projects/simon-game-project",
+    },
+    {
+      title: "Argent Bank",
+      techList: ["React", "Redux", "Strapi"],
+      description: t("argentBank"),
+      imgSrc: "/project-img/argent-bank/bank-card.png",
+      alt: "Photo Argent Bank",
+      href: "/projects/argent-bank-project",
+    },
+    {
+      title: "Nina Carducci",
+      techList: ["LightHouse", "SEO", "Performance"],
+      description: t("ninaCarducci"),
+      imgSrc: "/project-img/carducci/nina-card.png",
+      alt: "Photo Nina Carducci",
+      href: "/projects/nina-carducci-project",
+    },
+    {
+      title: "Kasa",
+      techList: ["React", "React-Router", "Sass"],
+      description: t("kasa"),
+      imgSrc: "/project-img/kasa/kasa-card.png",
+      alt: "Photo Kasa",
+      href: "/projects/kasa-project",
+    },
+    {
+      title: "QCM",
+      techList: ["NodeJS", "Prisma", "PostgreSQL"],
+      description: t("qcm"),
+      imgSrc: "/project-img/qcm/qcm-card.png",
+      alt: "Photo QCM",
+      href: "/projects/qcm-project",
+    },
+  ];
+
   return (
     <>
       {deviceWidth > 1024 ? (
@@ -62,7 +107,7 @@ export default function CarouselHome() {
               handleBack();
             }}
           />
-          <Link href={projects[currentCard].href || "/"}>
+          <Link href={projects[currentCard].href}>
             <ProjectCard
               title={projects[currentCard].title}
               techList={projects[currentCard].techList}
@@ -83,50 +128,3 @@ export default function CarouselHome() {
     </>
   );
 }
-const projects = [
-  {
-    title: "Simon Game",
-    techList: ["React", "ViteJS", "Typescript"],
-    description:
-      "Création d'un jeu de Simon en utilisant React. Projet pour comprendre le state mangement, les cylces de vie des composants et les hooks.",
-    imgSrc: "/project-img/simon-game/simon-card.png",
-    alt: "Photo du Simon Game",
-    href: "/works/simon-game-project",
-  },
-  {
-    title: "Argent Bank",
-    techList: ["React", "Redux", "Strapi"],
-    description:
-      "Intégration d'une application bancaire, avec un système d'authentification via une API et un store global via Redux.",
-    imgSrc: "/project-img/argent-bank/bank-card.png",
-    alt: "Photo du site Argent Bank",
-    href: "/works/argent-bank-project",
-  },
-  {
-    title: "Nina Carducci",
-    techList: ["LightHouse", "SEO", "Optimisation"],
-    description:
-      "Optimisation d'un site web d'une photographe sur le réferecement naturel, la performance et l'accessibilité.",
-    imgSrc: "/project-img/carducci/nina-card.png",
-    alt: "Photo du site Nina Carducci",
-    href: "/works/nina-carducci-project",
-  },
-  {
-    title: "Kasa",
-    techList: ["React", "React-Router", "Sass"],
-    description:
-      "Intégration d'un site de location immobilière. Projet pour gérer les routes, les paramètres d'URL et mettre en ouevre des animations CSS via Sass.",
-    imgSrc: "/project-img/kasa/kasa-card.png",
-    alt: "Photo du site Kasa",
-    href: "/works/kasa-project",
-  },
-  {
-    title: "QCM",
-    techList: ["NodeJS", "Prisma", "PostgreSQL"],
-    description:
-      "Création d'une application de QCM. Projet pour gérer une base de données avec un ORM, créer un système d'authetification avec un token JWT et sécuriser les routes.",
-    imgSrc: "/project-img/qcm/qcm-card.png",
-    alt: "Photo de l'application QCM",
-    href: "/works/qcm-project",
-  },
-];

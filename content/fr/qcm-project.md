@@ -25,7 +25,7 @@ Projet personnel d’une application de QCM permettant la création de comptes u
 Liste des technologies utilisées :
 
 - Prisma
-- PostgreSQL ( BDDhebergée sur Neon.tech)
+- PostgreSQL ( BDD hebergée sur Neon.tech)
 - Node.js
 - React
 - ViteJS

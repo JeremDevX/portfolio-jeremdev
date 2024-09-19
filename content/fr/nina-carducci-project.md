@@ -1,7 +1,7 @@
 ---
 slug: nina-carducci-project
 title: Nina Carducci
-tags: [LightHouse, SEO, Optimisation]
+tags: [LightHouse, SEO, Performance]
 description: Projet d'optimisation d'un site vitrine pour une photographe professionnelle.
 date: 21/05/2024
 img:

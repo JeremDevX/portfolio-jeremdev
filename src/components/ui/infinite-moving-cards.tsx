@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import ProjectCard from "./project-card";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 
 export const InfiniteMovingCards = ({
   items,

@@ -1,0 +1,53 @@
+{
+  "Home": {
+    "title": "Front End Developer React and Next.js",
+    "text": "As a web developer specializing in front-end, I am proficient in technologies such as <span>React</span>, <span>Next.js</span>, <span>Sass</span>,  and <span>TypeScript</span> to design modern and fully responsive interfaces. I also have knowledge in <span>React Native</span> and back-end development with <span>PostgreSQL</span>, <span>Node.js</span>, and <span>Prisma</span>, which allows me to understand the entire web development cycle. Passionate about my profession, I am constantly improving my skills to provide solutions that meet current needs.",
+    "mySkills": "My skills",
+    "mainSkills": "Main skills",
+    "secondarySkills": "Secondary skills / Knowledge",
+    "myProjects": "My projects"
+  },
+  "projects": {
+    "title": "List of my projects"
+  },
+  "Project": {
+    "github": "Project's GitHub"
+  },
+  "Profile": {
+    "title": "My profile",
+    "infos": "Infos:",
+    "personalInfos": "<li> <strong>Name :</strong> Jérémie L. </li> <li> <strong>Age :</strong> <ageYear></ageYear> <ageMonth></ageMonth> <ageDay></ageDay></li> <li> <strong>Nationality :</strong> French </li> <li> <strong>Location :</strong> France / Switzerland </li> <li> <strong>Mail : </strong> jeremdev.contactpro@gmail.com </li> <li> <strong>Languages :</strong> <ul> <li>French - (Native language)</li> <li>English - (Professional competence)</li> <li>German - (Currently learning)</li> </ul> </li>",
+    "socialsAndStats": "Social netprojects and stats",
+    "years": "years",
+    "month": "month",
+    "months": "months",
+    "day": "day",
+    "and": "and"
+  },
+  "Navbar": {
+    "home": { "label": "Home", "href": "/" },
+    "projects": { "label": "Projects", "href": "/projects" },
+    "profile": { "label": "Profile", "href": "/profile" }
+  },
+  "CarouselHome": {
+    "simonGame": "Creation of a Simon game using React. Project to understand state management, component life cycles, and hooks.",
+    "argentBank": "Integration of a banking application, with authentication system via an API and a global store via Redux.",
+    "ninaCarducci": "Optimization of a photographer's website on natural referencing, performance, and accessibility.",
+    "kasa": "Integration of a real estate rental site. Project to manage routes, URL parameters, and implement CSS animations via Sass.",
+    "qcm": "Creation of a quiz application. Project to manage a database with an ORM, create an authentication system with a JWT token, and secure routes."
+  },
+  "MetaData": {
+    "home": {
+      "title": "JeremDevX - Front End Developer React and Next.js",
+      "description": "JeremDevX front-end developer: find out more about my skills, my projects, and my profile."
+    },
+    "projects": {
+      "title": "JeremDevX - Projects",
+      "description": "JeremDevX projects: find the list of my projects with the technologies used, and the links to the GitHub repositories."
+    },
+    "profile": {
+      "title": "JeremDevX - Profile",
+      "description": "JeremDevX profile: find the list of my social netprojects, my CV, my contact details, and more."
+    }
+  }
+}

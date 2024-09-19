@@ -16,6 +16,7 @@
 
   &__links {
     display: flex;
+    justify-content: center;
     align-items: center;
     padding-bottom: 5px;
     gap: 1rem;
@@ -76,6 +77,7 @@
   .navbar {
     flex-direction: row;
     justify-content: space-between;
+    padding: 15px 25px;
     &__logo {
       margin: 5px 0 0 5px;
     }
