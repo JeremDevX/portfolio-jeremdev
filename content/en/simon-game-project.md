@@ -2,7 +2,7 @@
 slug: simon-game-project
 title: Simon Game
 tags: [React, ViteJS, TypeScript]
-description: Réalisation d'une application du jeu Simon.
+description: Production of a Simon game application.
 date: 10/05/2024
 img:
   [
@@ -15,11 +15,11 @@ repo: "https://github.com/Jerem-Dev/Simon-React"
 
 ## Description
 
-Projet personnel d'une application du jeu Simon. Projet assez simpliste visant à travailler sur le state managemeny et le cycle de vie des composants ainsi que sur la gestion des évenements.
+Personal project of a Simon game application. Fairly simplistic project aimed at working on state management and component lifecycle as well as event management.
 
 ## Technologies
 
-Liste des technologies utilisées :
+List of technologies used:
 
 - React
 - Typescript

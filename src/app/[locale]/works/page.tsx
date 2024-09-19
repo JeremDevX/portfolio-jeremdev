@@ -5,6 +5,8 @@ import fs from "fs";
 import path from "path";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
+import { getTranslations } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "JeremDevX - Réalisations",
@@ -25,11 +27,22 @@ interface WorkData {
 }
 
 const getWorkData = async (): Promise<WorkIndexData> => {
-  const files = fs.readdirSync(path.join(process.cwd(), "content"), "utf-8");
+  const localeCookie = cookies().get("NEXT_LOCALE");
+  const actualLocale = localeCookie ? localeCookie.value : "fr";
+
+  console.log(actualLocale);
+  const files = fs.readdirSync(
+    path.join(process.cwd(), `content/${actualLocale}`),
+    "utf-8"
+  );
   const workSlugs: string[] = files.filter((fn: string) => fn.endsWith(".md"));
 
   const content = workSlugs.map((workSlug) => {
-    const filePath = path.join(process.cwd(), "content", workSlug);
+    const filePath = path.join(
+      process.cwd(),
+      `content/${actualLocale}`,
+      workSlug
+    );
     const rawContent: string = fs.readFileSync(filePath, { encoding: "utf-8" });
     return rawContent;
   });
@@ -38,6 +51,8 @@ const getWorkData = async (): Promise<WorkIndexData> => {
 };
 
 export default async function Work() {
+  const t = await getTranslations("Works");
+
   const data = await getWorkData();
   const { content } = data;
   const workDatas = content.map((work) => matter(work).data as WorkData);
@@ -53,7 +68,7 @@ export default async function Work() {
 
   return (
     <main className="works">
-      <h1>Liste de mes projets</h1>
+      <h1>{t("title")}</h1>
       <div className="works__list">
         {workDatas.map((work, i) => {
           return (
@@ -72,9 +87,9 @@ export default async function Work() {
               <div className="works__meta">
                 {work.tags && (
                   <div className="works__tags">
-                    {work.tags.map((t, k) => (
-                      <div className="tag-item" key={k}>
-                        {t}
+                    {work.tags.map((tag, key) => (
+                      <div className="tag-item" key={tag + key}>
+                        {tag}
                       </div>
                     ))}
                   </div>

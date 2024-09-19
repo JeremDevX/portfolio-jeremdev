@@ -7,6 +7,12 @@
     "secondarySkills": "Secondary skills / Knowledge",
     "myProjects": "My projects"
   },
+  "Works": {
+    "title": "List of my projects"
+  },
+  "Project": {
+    "github": "Project's GitHub"
+  },
   "Profile": {
     "title": "My profile",
     "infos": "Infos:",
@@ -17,5 +23,17 @@
     "months": "months",
     "day": "day",
     "and": "and"
+  },
+  "Navbar": {
+    "home": { "label": "Home", "href": "/" },
+    "projects": { "label": "Projects", "href": "/works" },
+    "profile": { "label": "Profile", "href": "/profile" }
+  },
+  "CarouselHome": {
+    "simonGame": "Creation of a Simon game using React. Project to understand state management, component life cycles, and hooks.",
+    "argentBank": "Integration of a banking application, with authentication system via an API and a global store via Redux.",
+    "ninaCarducci": "Optimization of a photographer's website on natural referencing, performance, and accessibility.",
+    "kasa": "Integration of a real estate rental site. Project to manage routes, URL parameters, and implement CSS animations via Sass.",
+    "qcm": "Creation of a quiz application. Project to manage a database with an ORM, create an authentication system with a JWT token, and secure routes."
   }
 }

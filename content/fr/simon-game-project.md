@@ -15,7 +15,7 @@ repo: "https://github.com/Jerem-Dev/Simon-React"
 
 ## Description
 
-Projet personnel d'une application du jeu Simon. Projet assez simpliste visant à travailler sur le state managemeny et le cycle de vie des composants ainsi que sur la gestion des évenements.
+Projet personnel d'une application du jeu Simon. Projet assez simpliste visant à travailler sur le state managemeny et le cycle de vie des composants ainsi que sur la gestion des évenements
 
 ## Technologies
 

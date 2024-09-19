@@ -9,6 +9,8 @@ import CarouselProject from "@/components/ui/project-carousel";
 import type { Metadata } from "next";
 import { Link } from "@/i18n/routing";
 import { FaGithub } from "react-icons/fa";
+import { cookies } from "next/headers";
+import { useTranslations } from "next-intl";
 
 interface WorkData {
   title: string;
@@ -19,13 +21,25 @@ interface WorkData {
   repo: string;
 }
 
+const getLocaleCookie = () => {
+  const localeCookie = cookies().get("NEXT_LOCALE");
+  const actualLocale = localeCookie ? localeCookie.value : "fr";
+
+  return actualLocale;
+};
+
 export async function generateMetadata({
   params,
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
+  const actualLocale = getLocaleCookie();
   const { slug } = params;
-  const filePath = path.join(process.cwd(), "content", `${slug}.md`);
+  const filePath = path.join(
+    process.cwd(),
+    `content/${actualLocale}`,
+    `${slug}.md`
+  );
 
   if (!fs.existsSync(filePath)) {
     notFound();
@@ -45,8 +59,14 @@ function Heading(props: any) {
 }
 
 export default function WorkPage({ params }: { params: { slug: string } }) {
+  const t = useTranslations("Project");
+  const actualLocale = getLocaleCookie();
   const { slug } = params;
-  const filePath = path.join(process.cwd(), "content", `${slug}.md`);
+  const filePath = path.join(
+    process.cwd(),
+    `content/${actualLocale}`,
+    `${slug}.md`
+  );
 
   if (!fs.existsSync(filePath)) {
     notFound();
@@ -64,7 +84,7 @@ export default function WorkPage({ params }: { params: { slug: string } }) {
         <div className="project__repo">
           <Link href={repo} className="btn">
             <FaGithub />
-            Github du projet
+            {t("github")}
           </Link>
         </div>
         <div className="project__date">
