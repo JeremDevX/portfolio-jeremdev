@@ -22,25 +22,20 @@ interface WorkData {
   repo: string;
 }
 
-const getLocaleCookie = () => {
-  const localeCookie = cookies().get("NEXT_LOCALE");
-  const actualLocale = localeCookie ? localeCookie.value : "fr";
+// const getLocaleCookie = () => {
+//   const localeCookie = cookies().get("NEXT_LOCALE");
+//   const actualLocale = localeCookie ? localeCookie.value : "fr";
 
-  return actualLocale;
-};
+//   return actualLocale;
+// };
 
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: { slug: string; locale: string };
 }): Promise<Metadata> {
-  const actualLocale = getLocaleCookie();
-  const { slug } = params;
-  const filePath = path.join(
-    process.cwd(),
-    `content/${actualLocale}`,
-    `${slug}.md`
-  );
+  const { slug, locale } = params;
+  const filePath = path.join(process.cwd(), `content/${locale}`, `${slug}.md`);
 
   if (!fs.existsSync(filePath)) {
     notFound();
@@ -67,12 +62,7 @@ export default function WorkPage({
   const { slug, locale } = params;
   unstable_setRequestLocale(locale);
   const t = useTranslations("Project");
-  const actualLocale = getLocaleCookie();
-  const filePath = path.join(
-    process.cwd(),
-    `content/${actualLocale}`,
-    `${slug}.md`
-  );
+  const filePath = path.join(process.cwd(), `content/${locale}`, `${slug}.md`);
 
   if (!fs.existsSync(filePath)) {
     notFound();
