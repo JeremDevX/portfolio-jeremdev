@@ -17,7 +17,7 @@
     "title": "My profile",
     "infos": "Infos:",
     "personalInfos": "<li> <strong>Name :</strong> Jérémie L. </li> <li> <strong>Age :</strong> <ageYear></ageYear> <ageMonth></ageMonth> <ageDay></ageDay></li> <li> <strong>Nationality :</strong> French </li> <li> <strong>Location :</strong> France / Switzerland </li> <li> <strong>Mail : </strong> jeremdev.contactpro@gmail.com </li> <li> <strong>Languages :</strong> <ul> <li>French - (Native language)</li> <li>English - (Professional competence)</li> <li>German - (Currently learning)</li> </ul> </li>",
-    "socialsAndStats": "Social netprojects and stats",
+    "socialsAndStats": "Social networks and stats",
     "years": "years",
     "month": "month",
     "months": "months",
