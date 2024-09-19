@@ -11,8 +11,8 @@ export async function generateMetadata() {
   const t = await getTranslations("MetaData");
 
   return {
-    title: t("works.title"),
-    description: t("works.description"),
+    title: t("projects.title"),
+    description: t("projects.description"),
   };
 }
 
@@ -38,13 +38,15 @@ const getWorkData = async (): Promise<WorkIndexData> => {
     path.join(process.cwd(), `content/${actualLocale}`),
     "utf-8"
   );
-  const workSlugs: string[] = files.filter((fn: string) => fn.endsWith(".md"));
+  const projectslugs: string[] = files.filter((fn: string) =>
+    fn.endsWith(".md")
+  );
 
-  const content = workSlugs.map((workSlug) => {
+  const content = projectslugs.map((projectslug) => {
     const filePath = path.join(
       process.cwd(),
       `content/${actualLocale}`,
-      workSlug
+      projectslug
     );
     const rawContent: string = fs.readFileSync(filePath, { encoding: "utf-8" });
     return rawContent;
@@ -54,7 +56,7 @@ const getWorkData = async (): Promise<WorkIndexData> => {
 };
 
 export default async function Work() {
-  const t = await getTranslations("Works");
+  const t = await getTranslations("projects");
 
   const data = await getWorkData();
   const { content } = data;
@@ -70,26 +72,26 @@ export default async function Work() {
   });
 
   return (
-    <main className="works">
+    <main className="projects">
       <h1>{t("title")}</h1>
-      <div className="works__list">
+      <div className="projects__list">
         {workDatas.map((work, i) => {
           return (
             <Link
-              className="works__container"
-              href={`/works/${work.slug}`}
+              className="projects__container"
+              href={`/projects/${work.slug}`}
               key={i}
             >
-              <div className="works__heading">
-                <h2 className="works__title">{work.title}</h2>
-                <div className="works__date">
-                  <ImCalendar className="works__date-icon" />
-                  <div className="works__date-value">{work.date}</div>
+              <div className="projects__heading">
+                <h2 className="projects__title">{work.title}</h2>
+                <div className="projects__date">
+                  <ImCalendar className="projects__date-icon" />
+                  <div className="projects__date-value">{work.date}</div>
                 </div>
               </div>
-              <div className="works__meta">
+              <div className="projects__meta">
                 {work.tags && (
-                  <div className="works__tags">
+                  <div className="projects__tags">
                     {work.tags.map((tag, key) => (
                       <div className="tag-item" key={tag + key}>
                         {tag}
@@ -98,7 +100,7 @@ export default async function Work() {
                   </div>
                 )}
               </div>
-              <div className="works__description">{work.description}</div>
+              <div className="projects__description">{work.description}</div>
               <Image
                 src={work.minia}
                 alt={work.title}

@@ -59,7 +59,7 @@ export default function CarouselHome() {
       description: t("simonGame"),
       imgSrc: "/project-img/simon-game/simon-card.png",
       alt: "Photo Simon Game",
-      href: "/works/simon-game-project",
+      href: "/projects/simon-game-project",
     },
     {
       title: "Argent Bank",
@@ -67,7 +67,7 @@ export default function CarouselHome() {
       description: t("argentBank"),
       imgSrc: "/project-img/argent-bank/bank-card.png",
       alt: "Photo Argent Bank",
-      href: "/works/argent-bank-project",
+      href: "/projects/argent-bank-project",
     },
     {
       title: "Nina Carducci",
@@ -75,7 +75,7 @@ export default function CarouselHome() {
       description: t("ninaCarducci"),
       imgSrc: "/project-img/carducci/nina-card.png",
       alt: "Photo Nina Carducci",
-      href: "/works/nina-carducci-project",
+      href: "/projects/nina-carducci-project",
     },
     {
       title: "Kasa",
@@ -83,7 +83,7 @@ export default function CarouselHome() {
       description: t("kasa"),
       imgSrc: "/project-img/kasa/kasa-card.png",
       alt: "Photo Kasa",
-      href: "/works/kasa-project",
+      href: "/projects/kasa-project",
     },
     {
       title: "QCM",
@@ -91,7 +91,7 @@ export default function CarouselHome() {
       description: t("qcm"),
       imgSrc: "/project-img/qcm/qcm-card.png",
       alt: "Photo QCM",
-      href: "/works/qcm-project",
+      href: "/projects/qcm-project",
     },
   ];
 

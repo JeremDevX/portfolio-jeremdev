@@ -7,7 +7,7 @@
     "secondarySkills": "Secondary skills / Knowledge",
     "myProjects": "My projects"
   },
-  "Works": {
+  "projects": {
     "title": "List of my projects"
   },
   "Project": {
@@ -17,7 +17,7 @@
     "title": "My profile",
     "infos": "Infos:",
     "personalInfos": "<li> <strong>Name :</strong> Jérémie L. </li> <li> <strong>Age :</strong> <ageYear></ageYear> <ageMonth></ageMonth> <ageDay></ageDay></li> <li> <strong>Nationality :</strong> French </li> <li> <strong>Location :</strong> France / Switzerland </li> <li> <strong>Mail : </strong> jeremdev.contactpro@gmail.com </li> <li> <strong>Languages :</strong> <ul> <li>French - (Native language)</li> <li>English - (Professional competence)</li> <li>German - (Currently learning)</li> </ul> </li>",
-    "socialsAndStats": "Social networks and stats",
+    "socialsAndStats": "Social netprojects and stats",
     "years": "years",
     "month": "month",
     "months": "months",
@@ -26,7 +26,7 @@
   },
   "Navbar": {
     "home": { "label": "Home", "href": "/" },
-    "projects": { "label": "Projects", "href": "/works" },
+    "projects": { "label": "Projects", "href": "/projects" },
     "profile": { "label": "Profile", "href": "/profile" }
   },
   "CarouselHome": {
@@ -41,13 +41,13 @@
       "title": "JeremDevX - Front End Developer React and Next.js",
       "description": "JeremDevX front-end developer: find out more about my skills, my projects, and my profile."
     },
-    "works": {
+    "projects": {
       "title": "JeremDevX - Projects",
       "description": "JeremDevX projects: find the list of my projects with the technologies used, and the links to the GitHub repositories."
     },
     "profile": {
       "title": "JeremDevX - Profile",
-      "description": "JeremDevX profile: find the list of my social networks, my CV, my contact details, and more."
+      "description": "JeremDevX profile: find the list of my social netprojects, my CV, my contact details, and more."
     }
   }
 }

@@ -111,9 +111,9 @@ export default function WorkPage({ params }: { params: { slug: string } }) {
 
 export async function generateStaticParams() {
   const files = fs.readdirSync(path.join(process.cwd(), "content"), "utf-8");
-  const workSlugs = files
+  const projectslugs = files
     .filter((fn) => fn.endsWith(".md"))
     .map((fn) => ({ slug: fn.replace(".md", "") }));
 
-  return workSlugs;
+  return projectslugs;
 }
