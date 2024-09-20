@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
-import { Link } from "@/i18n/routing";
-import { usePathname } from "next/navigation";
+import { Link, usePathname } from "@/i18n/routing";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
 import ThemeToggle from "../themeToggle";
@@ -32,11 +31,11 @@ export default function Navbar() {
       </Link>
       <div className="navbar__navigate">
         <div className="navbar__links">
-          {links.map(({ href, label }) => (
+          {links.map(({ href, label }, i) => (
             <Link
               key={href}
               href={href}
-              className={`navbar__link ${pathname === href ? "active" : ""}`}
+              className={`navbar__link ${href === pathname ? "active" : ""}`}
             >
               {label}
             </Link>
