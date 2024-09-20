@@ -7,9 +7,11 @@ function getprojectsSlugs() {
     path.join(process.cwd(), "content/en/"),
     "utf-8"
   );
-  const slugs = files.map((file) => {
-    return file.replace(/\.md$/, "");
-  });
+  const slugs = files
+    .filter((fn: string) => fn.endsWith(".md"))
+    .map((file) => {
+      return file.replace(/\.md$/, "");
+    });
 
   return slugs;
 }
@@ -49,13 +51,13 @@ export default function Sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
   ];
-
   const frDynamicRoutes = slugs.map((slug) => ({
     url: `https://jeremdevx.com/fr/projects/${slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));
+
   const enDynamicRoutes = slugs.map((slug) => ({
     url: `https://jeremdevx.com/en/projects/${slug}`,
     lastModified: new Date(),
