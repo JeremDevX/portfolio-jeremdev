@@ -42,12 +42,6 @@ export default async function LocaleLayout({
           content="https://jeremdevx.com/_next/image?url=/jeremdevx-logo.png&w=256&q=75"
         />
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <GoogleTagManager gtmId="GTM-PTVP83TL" />
-        <Script
-          id="cookieyes"
-          type="text/javascript"
-          src="https://cdn-cookieyes.com/client_data/aa43fadd42453bc455dee382/script.js"
-        ></Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
