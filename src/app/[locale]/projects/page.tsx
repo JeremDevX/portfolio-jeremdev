@@ -30,7 +30,7 @@ interface WorkData {
 }
 
 const getWorkData = async (): Promise<WorkIndexData> => {
-  const localeCookie = cookies().get("NEXT_LOCALE");
+  const localeCookie = (await cookies()).get("NEXT_LOCALE");
   const actualLocale = localeCookie ? localeCookie.value : "fr";
 
   console.log(actualLocale);
@@ -55,9 +55,9 @@ const getWorkData = async (): Promise<WorkIndexData> => {
   return { content };
 };
 
-export default async function Work({ params }: { params: { locale: string } }) {
-  const { locale } = params;
-  unstable_setRequestLocale(locale);
+export default async function Work(props: {
+  params: Promise<{ locale: string }>;
+}) {
   const t = await getTranslations("projects");
 
   const data = await getWorkData();

@@ -1,15 +1,14 @@
 import { League_Spartan } from "next/font/google";
 import Navbar from "@/components/ui/navbar";
 import "/styles/main.scss";
-import { GoogleTagManager } from "@next/third-parties/google";
-import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeContextProvider } from "@/context/ThemeContext";
 import ThemeProvider from "@/providers/ThemeProvider";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages, unstable_setRequestLocale } from "next-intl/server";
+import { getMessages } from "next-intl/server";
 import { routing } from "@/i18n/routing";
+import { notFound } from "next/navigation";
 
 const leagueSpartan = League_Spartan({
   subsets: ["latin"],
@@ -20,14 +19,25 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export default async function LocaleLayout({
-  children,
-  params: { locale },
-}: Readonly<{
-  children: React.ReactNode;
-  params: { locale: string };
-}>) {
-  unstable_setRequestLocale(locale);
+export default async function LocaleLayout(
+  props: Readonly<{
+    children: React.ReactNode;
+    params: { locale: string };
+  }>
+) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
+  const {
+    children
+  } = props;
+
+  if (!routing.locales.includes(locale as any)) {
+    notFound();
+  }
   const messages = await getMessages();
 
   return (

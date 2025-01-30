@@ -1,3 +1,4 @@
+import { use } from "react";
 import CarouselHome from "@/components/ui/carousel-home";
 import TechItem from "@/components/ui/tech-item";
 import Image from "next/image";
@@ -12,7 +13,7 @@ import {
   FaNodeJs,
 } from "react-icons/fa";
 import { SiTypescript, SiStrapi, SiPostgresql, SiPrisma } from "react-icons/si";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { unstable_setRequestLocale } from "next-intl/server";
 
 export async function generateMetadata() {
@@ -57,9 +58,7 @@ const techList = {
   ],
 };
 
-export default function Home({ params }: { params: { locale: string } }) {
-  const { locale } = params;
-  unstable_setRequestLocale(locale);
+export default function Home(props: { params: Promise<{ locale: string }> }) {
   const t = useTranslations("Home");
 
   return (

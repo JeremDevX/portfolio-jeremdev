@@ -1,3 +1,4 @@
+import { use } from "react";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -9,9 +10,7 @@ import CarouselProject from "@/components/ui/project-carousel";
 import type { Metadata } from "next";
 import { Link } from "@/i18n/routing";
 import { FaGithub } from "react-icons/fa";
-import { cookies } from "next/headers";
 import { useTranslations } from "next-intl";
-import { unstable_setRequestLocale } from "next-intl/server";
 
 interface WorkData {
   title: string;
@@ -22,18 +21,10 @@ interface WorkData {
   repo: string;
 }
 
-// const getLocaleCookie = () => {
-//   const localeCookie = cookies().get("NEXT_LOCALE");
-//   const actualLocale = localeCookie ? localeCookie.value : "fr";
-
-//   return actualLocale;
-// };
-
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string; locale: string };
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string; locale: string }>;
 }): Promise<Metadata> {
+  const params = await props.params;
   const { slug, locale } = params;
   const filePath = path.join(process.cwd(), `content/${locale}`, `${slug}.md`);
 
@@ -54,13 +45,11 @@ function Heading(props: any) {
   return <h2 className="project__heading">{props.children}</h2>;
 }
 
-export default function WorkPage({
-  params,
-}: {
-  params: { locale: string; slug: string };
+export default function WorkPage(props: {
+  params: Promise<{ locale: string; slug: string }>;
 }) {
+  const params = use(props.params);
   const { slug, locale } = params;
-  unstable_setRequestLocale(locale);
   const t = useTranslations("Project");
   const filePath = path.join(process.cwd(), `content/${locale}`, `${slug}.md`);
 
