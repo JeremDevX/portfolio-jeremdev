@@ -18,17 +18,6 @@ export default function TechItem(props: TechItemProps) {
     setHover(false);
   };
 
-  // const handleMouseMove = (
-  //   event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  // ) => {
-  //   const rect = event.currentTarget.getBoundingClientRect();
-  //   setCursorPos({
-  //     x: event.clientX - rect.left,
-  //     y: event.clientY - rect.top,
-  //   });
-  //   console.log(cursorPos);
-  // };
-
   const containerStyle = hover
     ? {
         transform: `scale(1.05)`,

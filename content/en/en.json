@@ -2,9 +2,9 @@
   "Home": {
     "title": "Front End Developer React and Next.js",
     "text": "As a web developer specializing in front-end, I am proficient in technologies such as <span>React</span>, <span>Next.js</span>, <span>Sass</span>,  and <span>TypeScript</span> to design modern and fully responsive interfaces. I also have knowledge in <span>React Native</span> and back-end development with <span>PostgreSQL</span>, <span>Node.js</span>, and <span>Prisma</span>, which allows me to understand the entire web development cycle. Passionate about my profession, I am constantly improving my skills to provide solutions that meet current needs.",
-    "mySkills": "My skills",
-    "mainSkills": "Main skills",
-    "secondarySkills": "Secondary skills / Knowledge",
+    "mySkills": "Skills",
+    "mainSkills": "Core skills",
+    "secondarySkills": "Additional skills",
     "myProjects": "My projects"
   },
   "projects": {

@@ -1,3 +1,54 @@
+@use "tailwindcss";
+
+@use "@/styles/pages/projects.scss";
+@use "@/styles/pages/project-page.scss";
+@use "@/styles/pages/profile.scss";
+
+//Components import
+@use "@/styles/components/navbar.scss";
+@use "@/styles/components/project-card.scss";
+@use "@/styles/components/tech-item.scss";
+@use "@/styles/components/theme-toggle.scss";
+@use "@/styles/components/language-switcher.scss";
+
+:root {
+  --bg-color: hsl(0, 0%, 5%);
+  --text-color: #090f15;
+  --bg-gradient: linear-gradient(
+    180deg,
+    rgb(67, 67, 67) 0%,
+    rgb(26, 26, 26) 100%
+  );
+  --border-primary: rgb(70, 70, 70) solid 1px;
+  --card-bg: rgba(0, 0, 0, 0.1);
+
+  --background: #f0f5fa;
+  --primary: rgb(142, 181, 228);
+  --secondary: rgb(22, 77, 143);
+  --accent: #004ead;
+  --accent-half: rgba(0, 78, 173, 0.15);
+  --tech-bg: #0d2c4f;
+}
+
+.dark {
+  --bg-color: hsl(0, 0%, 5%);
+  --text-color: rgb(235, 240, 246);
+  --bg-gradient: linear-gradient(
+    180deg,
+    rgb(67, 67, 67) 0%,
+    rgb(26, 26, 26) 100%
+  );
+  --border-primary: rgb(70, 70, 70) solid 1px;
+  --card-bg: rgba(255, 255, 255, 0.1);
+
+  --background: rgb(5, 10, 15);
+  --primary: rgb(22, 77, 143);
+  --secondary: rgb(142, 181, 228);
+  --accent: rgb(0, 114, 255);
+  --accent-half: rgba(0, 115, 255, 0.15);
+  --tech-bg: #0d2c4f;
+}
+
 html {
   background-color: var(--background);
 }
@@ -48,6 +99,7 @@ section:not(:last-child)::after {
   );
   margin-top: 10px;
 }
+
 h1 {
   font-size: 2.4rem;
   font-weight: 800;
@@ -57,6 +109,7 @@ h2 {
   font-size: 1.7rem;
   font-weight: 600;
 }
+
 h3 {
   font-size: 1.1rem;
   font-weight: 600;

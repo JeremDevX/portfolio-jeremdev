@@ -1,0 +1,127 @@
+.home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  gap: 2rem;
+  padding: 15px;
+  width: 100%;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1rem;
+
+  &__content {
+    width: 90%;
+  }
+
+  &__imgContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  &__img {
+    border-radius: 25px;
+  }
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+    gap: 1rem;
+  }
+}
+
+.projects {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  min-height: 550px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.skills {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+
+  &__title {
+    position: relative;
+    font-size: 2rem;
+    line-height: 1;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    transform: rotate(-5deg);
+
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 110%;
+      height: 6px;
+      background-color: var(--secondary);
+      z-index: -1;
+      border-radius: 0.25rem;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -12px;
+      right: 0;
+      width: 110%;
+      height: 6px;
+      background-color: var(--accent);
+      z-index: -1;
+      border-radius: 0.25rem;
+    }
+  }
+
+  &__subtitle {
+    margin-bottom: 0.25rem;
+  }
+}
+
+.skillList {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 0 10px 25px 10px;
+    &__content {
+      width: 100%;
+      text-align: left;
+    }
+    &__imgContainer {
+      width: 50%;
+      justify-content: end;
+    }
+    &__buttons {
+      justify-content: left;
+    }
+  }
+}
+
+@media (min-width: 1470px) {
+  .home {
+    padding: 0;
+  }
+}

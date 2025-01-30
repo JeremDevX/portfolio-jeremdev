@@ -1,20 +1,8 @@
-import { use } from "react";
-import CarouselHome from "@/components/ui/carousel-home";
-import TechItem from "@/components/ui/tech-item";
+import styles from "./page.module.scss";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import {
-  FaCss3Alt,
-  FaHtml5,
-  FaJsSquare,
-  FaSass,
-  FaReact,
-  FaGithub,
-  FaNodeJs,
-} from "react-icons/fa";
-import { SiTypescript, SiStrapi, SiPostgresql, SiPrisma } from "react-icons/si";
-import { getTranslations, setRequestLocale } from "next-intl/server";
-import { unstable_setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
+import { AnimatedTechs } from "@/components/custom/AnimatedTechs/AnimatedTechs";
 
 export async function generateMetadata() {
   const t = await getTranslations("MetaData");
@@ -25,46 +13,13 @@ export async function generateMetadata() {
   };
 }
 
-const techList = {
-  mainTech: [
-    { name: "React", icon: <FaReact color="#61DAFB" /> },
-    {
-      name: "TypeScript",
-      icon: <SiTypescript color="#3178C6" />,
-    },
-    { name: "Sass", icon: <FaSass color="#CC6699" /> },
-    { name: "Git", icon: <FaGithub color="#FFF" /> },
-    { name: "HTML", icon: <FaHtml5 color="#E34F26" /> },
-    { name: "CSS", icon: <FaCss3Alt color="#1572B6" /> },
-    {
-      name: "JavaScript",
-      icon: <FaJsSquare color="#F7DF1E" />,
-    },
-  ],
-  secondaryTech: [
-    {
-      name: "React Native",
-      icon: <FaReact color="#61DAFB" />,
-      color: "#61DAFB",
-    },
-    { name: "Node.js", icon: <FaNodeJs color="#339933" /> },
-    { name: "Prisma", icon: <SiPrisma color="#FFF" /> },
-    {
-      name: "PostgreSQL",
-      icon: <SiPostgresql color="#336791" />,
-      color: "#336791",
-    },
-    { name: "Strapi", icon: <SiStrapi color="#3F3DFF" /> },
-  ],
-};
-
-export default function Home(props: { params: Promise<{ locale: string }> }) {
+export default function Home() {
   const t = useTranslations("Home");
 
   return (
-    <main className="home">
-      <section className="hero">
-        <div className="hero__content">
+    <main className={styles.home}>
+      <section className={styles.hero}>
+        <div className={styles.hero__content}>
           <h1>
             JeremDev<span className="accent">X</span>
           </h1>
@@ -78,35 +33,27 @@ export default function Home(props: { params: Promise<{ locale: string }> }) {
             })}
           </p>
         </div>
-        <div className="hero__img-container">
+        <div className={styles.hero__imgContainer}>
           <Image
             src="/photo-hero.png"
             alt="Avatar de JeremDevX"
             width={350}
             height={350}
-            className="hero__img"
+            className={styles.hero__img}
             priority
           />
         </div>
       </section>
-      <section className="skills">
-        <h2>{t("mySkills")}</h2>
-        <h3>{t("mainSkills")}</h3>
-        <div className="skill-list">
-          {techList.mainTech.map((tech, idx) => (
-            <TechItem key={idx} techName={tech.name} icon={tech.icon} />
-          ))}
-        </div>
-        <h3>{t("secondarySkills")}</h3>
-        <div className="skill-list">
-          {techList.secondaryTech.map((tech, idx) => (
-            <TechItem key={idx} techName={tech.name} icon={tech.icon} />
-          ))}
-        </div>
+      <section className={styles.skills}>
+        <h2 className={styles.skills__title}>{t("mySkills")}</h2>
+        <h3 className={styles.skills__subtitle}>{t("mainSkills")}</h3>
+        <AnimatedTechs skills="main" />
+        <h3 className={styles.skills__subtitle}>{t("secondarySkills")}</h3>
+        <AnimatedTechs skills="secondary" />
       </section>
-      <section className="projects">
+      <section className={styles.projects}>
         <h2>{t("myProjects")}</h2>
-        <CarouselHome />
+        {/* <CarouselHome /> */}
       </section>
     </main>
   );

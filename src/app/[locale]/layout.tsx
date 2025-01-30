@@ -1,6 +1,6 @@
 import { League_Spartan } from "next/font/google";
 import Navbar from "@/components/ui/navbar";
-import "/styles/main.scss";
+import "../../app/globals.scss";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeContextProvider } from "@/context/ThemeContext";
