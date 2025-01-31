@@ -3,6 +3,9 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { AnimatedTechs } from "@/components/custom/AnimatedTechs/AnimatedTechs";
+import { FlipWords } from "@/components/ui/flip-word";
+import CarouselHome from "@/components/ui/carousel-home";
+import { TabsDemo } from "@/components/ui/tabsdemo";
 
 export async function generateMetadata() {
   const t = await getTranslations("MetaData");
@@ -15,15 +18,21 @@ export async function generateMetadata() {
 
 export default function Home() {
   const t = useTranslations("Home");
+  const words = [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Tailwind",
+    "Sass",
+    "Node.js",
+    "Figma",
+    "GitHub",
+  ];
 
   return (
     <main className={styles.home}>
       <section className={styles.hero}>
         <div className={styles.hero__content}>
-          <h1>
-            JeremDev<span className="accent">X</span>
-          </h1>
-
           <h2>{t("title")}</h2>
           <p>
             {t.rich("text", {
@@ -34,14 +43,7 @@ export default function Home() {
           </p>
         </div>
         <div className={styles.hero__imgContainer}>
-          <Image
-            src="/photo-hero.png"
-            alt="Avatar de JeremDevX"
-            width={350}
-            height={350}
-            className={styles.hero__img}
-            priority
-          />
+          <FlipWords words={words} />
         </div>
       </section>
       <section className={styles.skills}>
@@ -52,9 +54,10 @@ export default function Home() {
         <AnimatedTechs skills="secondary" />
       </section>
       <section className={styles.projects}>
-        <h2>{t("myProjects")}</h2>
-        {/* <CarouselHome /> */}
+        <h2 className={styles.skills__title}>{t("myProjects")}</h2>
+        <TabsDemo />
       </section>
+      <div className={styles.hero__grid}></div>
     </main>
   );
 }

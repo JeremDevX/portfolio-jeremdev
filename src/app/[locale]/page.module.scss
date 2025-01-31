@@ -5,7 +5,6 @@
   flex-direction: column;
 
   gap: 2rem;
-  padding: 15px;
   width: 100%;
 }
 
@@ -17,18 +16,46 @@
   text-align: center;
   gap: 1rem;
 
+  &__grid {
+    position: fixed;
+    inset: 0;
+    height: 150%;
+    background-size: 35px 20px;
+    background-image: linear-gradient(
+        to right,
+        rgba(21, 174, 0, 0.5) 1px,
+        transparent 1px
+      ),
+      linear-gradient(rgba(21, 174, 0, 0.5) 1px, transparent 1px);
+    transform: perspective(100px) rotateX(10deg);
+    z-index: -1;
+    opacity: 0.15;
+    box-shadow: 0 0 500px rgba(21, 174, 0, 1);
+  }
+
+  &__title {
+    display: flex;
+    font-size: 3rem;
+    font-weight: 800;
+  }
+
   &__content {
-    width: 90%;
+    width: 100%;
+    flex: 1;
   }
 
   &__imgContainer {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 5rem;
     width: 100%;
+    flex: 1;
+    filter: drop-shadow(0 0 8px rgba(21, 174, 0, 1));
   }
   &__img {
     border-radius: 25px;
+    opacity: 0;
   }
   &__buttons {
     display: flex;
@@ -54,6 +81,7 @@
   align-items: center;
   position: relative;
   overflow: hidden;
+  margin-top: 2rem;
 
   &__title {
     position: relative;
@@ -61,30 +89,40 @@
     line-height: 1;
     font-weight: bold;
     margin-bottom: 2rem;
-    transform: rotate(-5deg);
+    transform: rotate(-3deg);
 
     &::before {
       content: "";
       position: absolute;
-      bottom: -4px;
-      left: 0;
+      bottom: -6px;
+      left: -10;
       width: 110%;
-      height: 6px;
-      background-color: var(--secondary);
+      height: 2px;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        var(--accent) 100%
+      );
       z-index: -1;
       border-radius: 0.25rem;
+      transform: rotate(3deg);
     }
 
     &::after {
       content: "";
       position: absolute;
-      bottom: -12px;
-      right: 0;
+      bottom: -3px;
+      right: -10;
       width: 110%;
-      height: 6px;
-      background-color: var(--accent);
+      height: 2px;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 0, 0) 0%,
+        var(--accent) 100%
+      );
       z-index: -1;
       border-radius: 0.25rem;
+      transform: rotate(3deg);
     }
   }
 
@@ -105,7 +143,7 @@
   .hero {
     flex-direction: row;
     justify-content: space-evenly;
-    padding: 0 10px 25px 10px;
+    padding: 1.5rem;
     &__content {
       width: 100%;
       text-align: left;
@@ -124,4 +162,14 @@
   .home {
     padding: 0;
   }
+}
+
+.light {
+  position: sticky;
+  // background-color: green;
+  width: 100vw;
+  height: 10px;
+  top: 0;
+  box-shadow: 0 15px 40px rgba(21, 174, 0, 0.5);
+  border-radius: 0 0 50% 50%;
 }

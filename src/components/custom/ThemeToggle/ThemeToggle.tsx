@@ -1,5 +1,5 @@
 "use client";
-
+import styles from "./ThemeToggle.module.scss";
 import { ThemeContext } from "@/context/ThemeContext";
 import { FC, useContext } from "react";
 import { FaSun, FaMoon } from "react-icons/fa";
@@ -8,16 +8,16 @@ const ThemeToggle: FC = () => {
   const { toggle, theme } = useContext(ThemeContext);
 
   return (
-    <div className="theme-toggle" onClick={toggle}>
-      <div className="theme-toggle__icons">
+    <div className={styles.themeToggle} onClick={toggle}>
+      <div className={styles.themeToggle__icons}>
         <FaSun
-          className={`theme-toggle__sun ${
-            theme === "light" ? "display" : "hide"
+          className={`${styles.themeToggle__sun} ${
+            theme === "light" ? styles.display : styles.hide
           }`}
         />
         <FaMoon
-          className={`theme-toggle__moon ${
-            theme === "dark" ? "display" : "hide"
+          className={`${styles.themeToggle__moon} ${
+            theme === "dark" ? styles.display : styles.hide
           }`}
         />
       </div>

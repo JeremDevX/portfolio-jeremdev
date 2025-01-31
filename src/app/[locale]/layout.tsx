@@ -1,5 +1,5 @@
-import { League_Spartan } from "next/font/google";
-import Navbar from "@/components/ui/navbar";
+import { Chakra_Petch } from "next/font/google";
+import Navbar from "@/components/custom/Navbar/Navbar";
 import "../../app/globals.scss";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -10,9 +10,9 @@ import { getMessages } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 
-const leagueSpartan = League_Spartan({
+const leagueSpartan = Chakra_Petch({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export function generateStaticParams() {
@@ -71,6 +71,7 @@ export default async function LocaleLayout(props: {
         <NextIntlClientProvider messages={messages}>
           <ThemeContextProvider>
             <ThemeProvider>
+              <div className={"light"}></div>
               <header>
                 <Navbar></Navbar>
               </header>

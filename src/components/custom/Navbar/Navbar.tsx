@@ -1,11 +1,11 @@
 "use client";
-import Image from "next/image";
+import styles from "./Navbar.module.scss";
 import { Link, usePathname } from "@/i18n/routing";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
-import ThemeToggle from "../themeToggle";
+import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import { useTranslations } from "next-intl";
-import LanguageSwitcher from "../languageSwitcher";
+import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 
 export default function Navbar() {
   const t = useTranslations("Navbar");
@@ -19,29 +19,25 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <nav className="navbar">
-      <Link href="/" className="navbar__logo">
-        <Image
-          src="/jeremdevx-logo.png"
-          alt="JeremDevX logo"
-          width={150}
-          height={50}
-          priority
-        />
+    <nav className={styles.navbar}>
+      <Link href="/" className={styles.navbar__logo}>
+        <h1 className={styles.navbar__logo_title}>Jérémie Lavergnat</h1>
       </Link>
-      <div className="navbar__navigate">
-        <div className="navbar__links">
+      <div className={styles.navbar__navigate}>
+        {/* <div className={styles.navbar__links}>
           {links.map(({ href, label }, i) => (
             <Link
               key={href}
               href={href}
-              className={`navbar__link ${href === pathname ? "active" : ""}`}
+              className={`${styles.navbar__link} ${
+                href === pathname ? styles.active : ""
+              }`}
             >
               {label}
             </Link>
           ))}
-        </div>
-        <div className="navbar__socials">
+        </div> */}
+        <div className={styles.navbar__socials}>
           <Link
             href="https://github.com/JeremDevX"
             target="_blank"
@@ -63,7 +59,7 @@ export default function Navbar() {
           >
             <IoIosMail />
           </Link>
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
           <LanguageSwitcher />
         </div>
       </div>

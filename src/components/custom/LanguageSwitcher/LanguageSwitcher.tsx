@@ -1,5 +1,6 @@
 "use client";
 
+import styles from "./LanguageSwitcher.module.scss";
 import { useLocale } from "next-intl";
 import { useState, useTransition } from "react";
 import { useRouter, usePathname, Locale } from "@/i18n/routing";
@@ -31,18 +32,18 @@ export default function LanguageSwitcher() {
 
   return (
     <div
-      className="language-switcher"
+      className={styles.languageSwitcher}
       onClick={() => toggleLanguages(isPending)}
     >
-      <GrLanguage />
+      <GrLanguage className={styles.languageSwitcher__icon} />
       <ul
-        className={`language-switcher__options ${
-          showSelect ? "display" : "hide"
+        className={`${styles.languageSwitcher__options} ${
+          showSelect ? styles.display : styles.hide
         }`}
       >
         <li
-          className={`language-switcher__option ${
-            localActive === "fr" ? "active" : ""
+          className={`${styles.languageSwitcher__option} ${
+            localActive === "fr" ? styles.active : ""
           }`}
           onClick={(event) => {
             handleLanguageChange("fr", event);
@@ -51,8 +52,8 @@ export default function LanguageSwitcher() {
           FR
         </li>
         <li
-          className={`language-switcher__option ${
-            localActive === "en" ? "active" : ""
+          className={`${styles.languageSwitcher__option} ${
+            localActive === "en" ? styles.active : ""
           }`}
           onClick={(event) => {
             handleLanguageChange("en", event);

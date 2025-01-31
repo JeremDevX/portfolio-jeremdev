@@ -69,10 +69,10 @@ export const AnimatedTooltip = ({
                   rotate: rotate,
                   whiteSpace: "nowrap",
                 }}
-                className="absolute -top-18 left-1/2 -translate-x-1/2 flex text-xs flex-col items-center justify-center rounded-md bg-black z-50 shadow-xl px-6 py-2"
+                className="absolute -top-18 left-1/2 -translate-x-1/2 flex text-xs flex-col items-center justify-center rounded-md bg-black z-50 px-6 py-2 shadow-[0_0px_25px_rgba(0,204,37,0.25)]"
               >
-                <div className="absolute right-5 z-30 w-[50%] -bottom-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent h-px " />
-                <div className="absolute left-5 w-[50%] z-30 -bottom-px bg-gradient-to-r from-transparent via-blue-800 to-transparent h-px " />
+                <div className="absolute left-0 z-30 w-[100%] top-0 bg-gradient-to-r fromtransparent via-[rgba(21,174,0,1)] to-transparent h-3/100" />
+                <div className="absolute right-0 w-[100%] z-30 bottom-0 bg-gradient-to-r from-transparent via-[rgba(21,174,0,1)] to-transparent h-3/100" />
                 <div className="font-bold text-white relative z-30 text-xl">
                   {item.name}
                 </div>
@@ -82,7 +82,7 @@ export const AnimatedTooltip = ({
           </AnimatePresence>
           <div
             onMouseMove={handleMouseMove}
-            className="flex items-center justify-center !m-0 p-3 object-top rounded-3xl h-24 w-24 border-1 group-hover:scale-120 group-hover:z-30 border-slate-900 relative transition duration-500 overflow-hidden"
+            className="flex items-center justify-center !m-0 p-3 object-top rounded-3xl h-25 w-25 border-2 group-hover:scale-120 group-hover:z-30 border-[rgba(21,174,0,0.25)] relative transition duration-500 overflow-hidden hover:shadow-[0_0px_25px_rgba(0,204,37,0)]"
             style={{ backgroundColor: "var(--tech-bg)" }}
           >
             {item.image}
