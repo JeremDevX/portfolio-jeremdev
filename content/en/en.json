@@ -1,11 +1,11 @@
 {
   "Home": {
-    "title": "Front End Developer React and Next.js",
-    "text": "As a web developer specializing in front-end, I am proficient in technologies such as <span>React</span>, <span>Next.js</span>, <span>Sass</span>,  and <span>TypeScript</span> to design modern and fully responsive interfaces. I also have knowledge in <span>React Native</span> and back-end development with <span>PostgreSQL</span>, <span>Node.js</span>, and <span>Prisma</span>, which allows me to understand the entire web development cycle. Passionate about my profession, I am constantly improving my skills to provide solutions that meet current needs.",
+    "title": "Frontend Developer React and Next.js",
+    "text": "Frontend web developer, I use <span>React</span>, <span>Next.js</span>, and <span>TypeScript</span> to design modern and responsive interfaces. <br></br>I also have knowledge in back-end development with <span>PostgreSQL</span>, <span>Node.js</span>, and <span>Prisma</span>, allowing me to understand the entire web development process.",
     "mySkills": "Skills",
     "mainSkills": "Core skills",
     "secondarySkills": "Additional skills",
-    "myProjects": "My projects"
+    "myProjects": "Projects"
   },
   "projects": {
     "title": "List of my projects"
@@ -48,6 +48,20 @@
     "profile": {
       "title": "JeremDevX - Profile",
       "description": "JeremDevX profile: find the list of my social netprojects, my CV, my contact details, and more."
+    }
+  },
+  "Projects": {
+    "gus": {
+      "title": "GitHub User Search",
+      "description": "GitHub user search application. Project from the Frontend Mentor site.<br></br> Pixel-perfect integration of a mockup in responsive design, with a user search system via the GitHub API to find and display user account information.<br></br> The application also has a light and dark theme system set by default according to user preference."
+    },
+    "blog": {
+      "title": "Blog and Devtools",
+      "description": "Personal blog and development tools project.<br></br> The content of the blog section is created using the headless CMS Sanity.io, the development tools section is created in React.<br></br> The site has a search bar coded from scratch to find articles or tools. The article search is done via GROQ queries and the Sanity.io API, the tool search is done via a JSON list."
+    },
+    "finance": {
+      "title": "Personnal Finance App",
+      "description": "Work in Progress <br></br>Personal finance tracking application. Project from the Frontend Mentor site. <br></br> Project under development, the application will allow you to track your expenses and income, categorize them, and visualize them in the form of graphs. The data is currently stored in a JSON file, but will soon be stored in a database or a headless CMS."
     }
   }
 }

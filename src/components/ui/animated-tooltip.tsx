@@ -82,7 +82,7 @@ export const AnimatedTooltip = ({
           </AnimatePresence>
           <div
             onMouseMove={handleMouseMove}
-            className="flex items-center justify-center !m-0 p-3 object-top rounded-3xl h-25 w-25 border-2 group-hover:scale-120 group-hover:z-30 border-[rgba(21,174,0,0.25)] relative transition duration-500 overflow-hidden hover:shadow-[0_0px_25px_rgba(0,204,37,0)]"
+            className="flex items-center justify-center !m-0 p-3 object-top rounded-3xl h-18 w-18 sm:h-25 sm:w-25 border-2 group-hover:scale-120 group-hover:z-30 border-[rgba(21,174,0,0.25)] relative transition duration-500 overflow-hidden hover:shadow-[0_0px_25px_rgba(0,204,37,0)]"
             style={{ backgroundColor: "var(--tech-bg)" }}
           >
             {item.image}

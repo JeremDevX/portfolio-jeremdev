@@ -38,11 +38,11 @@ export const FlipWords = ({
       <motion.div
         initial={{
           opacity: 0,
-          x: 10,
+          x: 0,
         }}
         animate={{
           opacity: 1,
-          x: -10,
+          x: 5,
         }}
         transition={{
           type: "spring",

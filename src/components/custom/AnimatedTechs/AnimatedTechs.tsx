@@ -3,7 +3,6 @@ import {
   SiNextdotjs,
   SiPostgresql,
   SiPrisma,
-  SiStrapi,
   SiTailwindcss,
   SiTypescript,
 } from "react-icons/si";

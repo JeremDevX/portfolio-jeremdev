@@ -40,7 +40,7 @@ export const Tabs = ({
     <>
       <div
         className={cn(
-          "flex flex-row items-center justify-center [perspective:1000px] relative overflow-auto sm:overflow-visible no-visible-scrollbar max-w-full w-full",
+          "flex flex-row items-center justify-center [perspective:1000px] relative sm:overflow-visible no-visible-scrollbar max-w-full w-full",
           containerClassName
         )}
       >
@@ -52,7 +52,10 @@ export const Tabs = ({
             }}
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}
-            className={cn("relative px-4 py-2 rounded-full", tabClassName)}
+            className={cn(
+              "relative px-2 py-1 sm:px-4 sm:py-2 rounded-xl",
+              tabClassName
+            )}
             style={{
               transformStyle: "preserve-3d",
             }}
@@ -62,13 +65,13 @@ export const Tabs = ({
                 layoutId="clickedbutton"
                 transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
                 className={cn(
-                  "absolute inset-0 bg-green-500 dark:bg-[rgba(21,174,0,0.5)] rounded-full cursor-pointer ",
+                  "absolute inset-0 bg-green-500 dark:bg-[rgba(21,174,0,0.5)] rounded-xl cursor-pointer ",
                   activeTabClassName
                 )}
               />
             )}
 
-            <span className="relative block text-black dark:text-white text-xl cursor-pointer">
+            <span className="relative block text-black dark:text-white text-xs sm:text-base min-[768px]:text-xl cursor-pointer">
               {tab.title}
             </span>
           </button>
@@ -79,7 +82,7 @@ export const Tabs = ({
         active={active}
         key={active.value}
         hovering={hovering}
-        className={cn("mt-20", contentClassName)}
+        className={cn("mt-10 sm:mt-20", contentClassName)}
       />
     </>
   );
