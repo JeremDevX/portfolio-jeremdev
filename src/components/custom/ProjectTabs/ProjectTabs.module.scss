@@ -40,7 +40,7 @@
 
   &__link:hover {
     filter: drop-shadow(0 0 6px rgba(21, 174, 0, 1));
-    transform: scale(1.1);
+    transform: scale(1.2);
   }
 }
 
@@ -95,7 +95,7 @@
 
       &:hover {
         opacity: 1;
-        background-color: rgba(0, 0, 0, 0.95);
+        background-color: rgba(0, 0, 0, 0.98);
         box-shadow: 0 0 24px rgba(21, 174, 0, 0.2);
       }
 

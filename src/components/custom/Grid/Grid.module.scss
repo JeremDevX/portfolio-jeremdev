@@ -1,0 +1,118 @@
+.grid {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  background-size: 30px 30px;
+  background-image: linear-gradient(
+      to right,
+      rgba(21, 174, 0, 0.25) 1px,
+      transparent 1px
+    ),
+    linear-gradient(rgba(21, 174, 0, 0.25) 1px, transparent 1px);
+  //   transform: perspective(100px) rotateX(0deg);
+  z-index: -1;
+  opacity: 0.15;
+  box-shadow: 0 0 50px rgba(21, 174, 0, 0.65);
+  overflow: hidden;
+
+  //   &::after {
+  //     content: "";
+  //     position: absolute;
+  //     width: 40px;
+  //     height: 40px;
+  //     left: calc(var(--mouse-col, 0) * 40px);
+  //     top: calc(var(--mouse-row, 0) * 40px);
+  //     background: rgba(21, 174, 0, 1);
+  //     transition: all 0.2s linear;
+  //     pointer-events: none;
+  //   }
+}
+
+.gridMask {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  background: radial-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.15) 100%);
+  z-index: -1;
+}
+
+.movingBarSide {
+  position: absolute;
+  width: 6px;
+  height: 100%;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 0 25px rgba(21, 174, 0, 1);
+  //   filter: drop-shadow(0 0 15px rgba(21, 174, 0, 1));
+  transform: translate(-50%, -50%);
+  border-radius: 0.5rem 0.5rem 0 0;
+  z-index: -1;
+  opacity: 0.25;
+}
+
+.lightSquare {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: rgba(21, 174, 0, 0.75);
+  pointer-events: none;
+}
+
+.hilt {
+  position: absolute;
+  width: 12px;
+  height: 100px;
+  background: linear-gradient(90deg, #3e3e3e 0%, #555 50%, #2f2f2f 100%);
+  border: 2px solid #222;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  bottom: 0;
+  right: -6px;
+  opacity: 0.5;
+
+  &::after {
+    content: "";
+    width: 8px;
+    height: 80px;
+    background: #222222;
+    margin: 0 auto;
+    border-radius: 4px;
+    box-shadow: inset 0 -2px 6px rgba(0, 0, 0, 0.8);
+  }
+
+  &::before {
+    content: "";
+    width: 8px;
+    height: 4px;
+    background: #626262;
+    border-radius: 2px;
+    margin: 0 auto;
+    position: relative;
+    top: 60px;
+    box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.6);
+  }
+}
+
+.button {
+  width: 6px;
+  height: 6px;
+  background: rgb(21, 174, 0);
+  border-radius: 50%;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 5px rgba(21, 174, 0, 0.8);
+}

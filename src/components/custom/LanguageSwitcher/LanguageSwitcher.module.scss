@@ -4,7 +4,7 @@
   position: relative;
   width: auto;
   height: auto;
-  cursor: pointer;
+  cursor: url("../../../app/Link.cur"), auto;
 
   &__icon:hover {
     border-radius: 0.5rem;

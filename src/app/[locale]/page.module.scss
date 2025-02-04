@@ -192,60 +192,6 @@
   flex-wrap: wrap;
 }
 
-.grid {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 1;
-  bottom: 0;
-  height: 150%;
-  max-width: 1440px;
-  margin: 0 auto;
-  background-size: 35px 20px;
-  background-image: linear-gradient(
-      to right,
-      rgba(21, 174, 0, 0.5) 1px,
-      transparent 1px
-    ),
-    linear-gradient(rgba(21, 174, 0, 0.5) 1px, transparent 1px);
-  transform: perspective(100px) rotateX(20deg);
-  z-index: -1;
-  opacity: 0.15;
-  box-shadow: 0 0 500px rgba(21, 174, 0, 1);
-
-  &::after,
-  &::before {
-    position: absolute;
-    content: "";
-    bottom: 0;
-    width: 10px;
-    height: 20%;
-    background-color: white;
-    border-radius: 0.125rem;
-    box-shadow: 0 0 25px rgba(255, 255, 255, 1);
-    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 1));
-  }
-
-  &::after {
-    left: 0;
-  }
-
-  &::before {
-    right: 0;
-    animation-delay: 1s;
-  }
-}
-
-.movingBar {
-  position: absolute;
-  width: 2px;
-  height: 30%;
-  background-color: rgb(255, 255, 255);
-  // box-shadow: 0 0 25px rgba(21, 174, 0, 1);
-  filter: drop-shadow(0 0 15px rgba(21, 174, 0, 1));
-  transform: translate(-50%, -50%);
-}
-
 .light {
   position: sticky;
   width: 100vw;
