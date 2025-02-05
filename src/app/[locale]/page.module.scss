@@ -130,10 +130,10 @@
   align-items: center;
   position: relative;
   overflow: hidden;
-  margin-top: 1rem;
+  padding-top: 1rem;
 
   @media (min-width: 768px) {
-    margin-top: 2rem;
+    padding-top: 2rem;
   }
 
   &__title {

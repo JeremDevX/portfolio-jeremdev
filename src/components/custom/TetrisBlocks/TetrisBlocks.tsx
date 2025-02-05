@@ -1,13 +1,18 @@
 "use client";
 
+import { JSX } from "react";
 import styles from "./TetrisBlocks.module.scss";
-import { motion } from "framer-motion";
+import { HTMLMotionProps, motion } from "framer-motion";
 
-export function TetrisBlockI({ ...props }) {
+interface TetrisBlockProps extends HTMLMotionProps<"div"> {
+  className: string;
+}
+
+function BaseTetrisBlock({ className, ...props }: TetrisBlockProps) {
   return (
     <motion.div
       {...props}
-      className={styles.tetrisBlockI}
+      className={className}
       initial={{ bottom: "100%" }}
       animate={{ bottom: "0%" }}
       transition={{
@@ -19,130 +24,28 @@ export function TetrisBlockI({ ...props }) {
   );
 }
 
-export function TetrisBlockIHorizontal({ ...props }) {
-  return (
-    <motion.div
-      {...props}
-      className={styles.tetrisBlockIHorizontal}
-      initial={{ bottom: "100%" }}
-      animate={{ bottom: "0%" }}
-      transition={{
-        duration: 5,
-        repeat: Infinity,
-        ease: "linear",
-      }}
-    />
-  );
-}
+const blocks = {
+  I: "tetrisBlockI",
+  IHorizontal: "tetrisBlockIHorizontal",
+  O: "tetrisBlockO",
+  T: "tetrisBlockT",
+  THorizontal: "tetrisBlockTHorizontal",
+  L: "tetrisBlockL",
+  LHorizontal: "tetrisBlockLHorizontal",
+  Z: "tetrisBlockZ",
+  ZHorizontal: "tetrisBlockZHorizontal",
+} as const;
 
-export function TetrisBlockO({ ...props }) {
-  return (
-    <motion.div
-      {...props}
-      className={styles.tetrisBlockO}
-      initial={{ bottom: "100%" }}
-      animate={{ bottom: "0%" }}
-      transition={{
-        duration: 5,
-        repeat: Infinity,
-        ease: "linear",
-      }}
-    />
-  );
-}
+type TetrisBlockKeys = keyof typeof blocks;
 
-export function TetrisBlockT({ ...props }) {
-  return (
-    <motion.div
-      {...props}
-      className={styles.tetrisBlockT}
-      initial={{ bottom: "100%" }}
-      animate={{ bottom: "0%" }}
-      transition={{
-        duration: 5,
-        repeat: Infinity,
-        ease: "linear",
-      }}
-    />
-  );
-}
-
-export function TetrisBlockTHorizontal({ ...props }) {
-  return (
-    <motion.div
-      {...props}
-      className={styles.TetrisBlockTHorizontal}
-      initial={{ bottom: "100%" }}
-      animate={{ bottom: "0%" }}
-      transition={{
-        duration: 5,
-        repeat: Infinity,
-        ease: "linear",
-      }}
-    />
-  );
-}
-
-export function TetrisBlockL({ ...props }) {
-  return (
-    <motion.div
-      {...props}
-      className={styles.tetrisBlockL}
-      initial={{ bottom: "100%" }}
-      animate={{ bottom: "0%" }}
-      transition={{
-        duration: 5,
-        repeat: Infinity,
-        ease: "linear",
-      }}
-    />
-  );
-}
-
-export function TetrisBlockLHorizontal({ ...props }) {
-  return (
-    <motion.div
-      {...props}
-      className={styles.TetrisBlockLHorizontal}
-      initial={{ bottom: "100%" }}
-      animate={{ bottom: "0%" }}
-      transition={{
-        duration: 5,
-        repeat: Infinity,
-        ease: "linear",
-      }}
-    />
-  );
-}
-
-export function TetrisBlockZ({ ...props }) {
-  return (
-    <motion.div
-      {...props}
-      className={styles.tetrisBlockZ}
-      initial={{ bottom: "100%" }}
-      animate={{ bottom: "0%" }}
-      transition={{
-        duration: 5,
-        repeat: Infinity,
-        ease: "linear",
-      }}
-    />
-  );
-}
-
-export function TetrisBlockZHorizontal({ ...props }) {
-  return (
-    <motion.div
-      {...props}
-      className={styles.TetrisBlockZHorizontal}
-      initial={{ bottom: "100%" }}
-      animate={{ bottom: "0%" }}
-      transition={{
-        duration: 5,
-        repeat: Infinity,
-        ease: "linear",
-      }}
-    />
-  );
-}
+export const TetrisBlocks = Object.fromEntries(
+  Object.entries(blocks).map(([key, className]) => [
+    key,
+    (props: HTMLMotionProps<"div">) => (
+      <BaseTetrisBlock
+        className={styles[className as keyof typeof styles]}
+        {...props}
+      />
+    ),
+  ])
+) as Record<TetrisBlockKeys, (props: HTMLMotionProps<"div">) => JSX.Element>;

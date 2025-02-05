@@ -1,6 +1,6 @@
 "use client";
 
-import { Component, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./Grid.module.scss";
 import {
   motion,
@@ -9,20 +9,11 @@ import {
   useScroll,
   useSpring,
 } from "framer-motion";
-import {
-  TetrisBlockI,
-  TetrisBlockIHorizontal,
-  TetrisBlockL,
-  TetrisBlockLHorizontal,
-  TetrisBlockO,
-  TetrisBlockT,
-  TetrisBlockTHorizontal,
-  TetrisBlockZ,
-  TetrisBlockZHorizontal,
-} from "../TetrisBlocks/TetrisBlocks";
+import { TetrisBlocks } from "../TetrisBlocks/TetrisBlocks";
 
 export default function Grid() {
   const { scrollYProgress } = useScroll();
+  const [windowWidth, setWindowWidth] = useState<number>(1440);
   const gridRef = useRef<HTMLDivElement | null>(null);
   const rectRef = useRef<DOMRect | null>(null);
   const scaleY = useSpring(scrollYProgress, {
@@ -33,43 +24,52 @@ export default function Grid() {
   const gridSize = 30;
 
   useEffect(() => {
-    const updateGridRect = () => {
-      if (gridRef.current)
+    const updateGridRectAndWindowWidth = () => {
+      if (gridRef.current) {
         rectRef.current = gridRef.current.getBoundingClientRect();
+      }
+      setWindowWidth(window.innerWidth);
     };
 
-    updateGridRect();
-    window.addEventListener("resize", updateGridRect);
+    updateGridRectAndWindowWidth();
+    window.addEventListener("resize", updateGridRectAndWindowWidth);
 
-    return () => window.removeEventListener("resize", updateGridRect);
-  }, []);
+    return () =>
+      window.removeEventListener("resize", updateGridRectAndWindowWidth);
+  }, [gridRef]);
 
   return (
     <>
       <motion.div className={styles.grid} ref={gridRef}>
         <SquareTrail rectRef={rectRef} gridSize={gridSize} />
-        <TetrisFall />
+        <TetrisFall windowWidth={windowWidth} gridSize={gridSize} />
       </motion.div>
       <LightSabers scaleY={scaleY} />
     </>
   );
 }
 
-function TetrisFall() {
+function TetrisFall({
+  windowWidth,
+  gridSize,
+}: {
+  windowWidth: number;
+  gridSize: number;
+}) {
   const [activeBlocks, setActiveBlocks] = useState<
     { id: string; Component: React.FC<any>; left: string; transform: string }[]
   >([]);
 
   const tetrisBlocks = [
-    { Component: TetrisBlockI, width: 1 },
-    { Component: TetrisBlockIHorizontal, width: 4 },
-    { Component: TetrisBlockO, width: 2 },
-    { Component: TetrisBlockT, width: 3 },
-    { Component: TetrisBlockTHorizontal, width: 2 },
-    { Component: TetrisBlockL, width: 2 },
-    { Component: TetrisBlockLHorizontal, width: 3 },
-    { Component: TetrisBlockZ, width: 3 },
-    { Component: TetrisBlockZHorizontal, width: 2 },
+    { Component: TetrisBlocks.I, width: 1 },
+    { Component: TetrisBlocks.IHorizontal, width: 4 },
+    { Component: TetrisBlocks.O, width: 2 },
+    { Component: TetrisBlocks.T, width: 3 },
+    { Component: TetrisBlocks.THorizontal, width: 2 },
+    { Component: TetrisBlocks.L, width: 2 },
+    { Component: TetrisBlocks.LHorizontal, width: 3 },
+    { Component: TetrisBlocks.Z, width: 3 },
+    { Component: TetrisBlocks.ZHorizontal, width: 2 },
   ];
 
   const getRandomMirrorX = () =>
@@ -77,6 +77,8 @@ function TetrisFall() {
 
   const getRandomMirrorY = () =>
     Math.random() > 0.5 ? "scaleY(-1)" : "scaleY(1)";
+
+  const colsNumber = Math.floor(Math.min(windowWidth, 1440) / gridSize);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -86,13 +88,14 @@ function TetrisFall() {
             Math.floor(Math.random() * Object.values(tetrisBlocks).length)
           ];
         const randomBlock = randomBlockData.Component;
-        const randomWidth = randomBlockData.width;
+        const randomBlockWidth = randomBlockData.width;
 
         const newBlock = {
           id: `${Date.now()}`,
           Component: randomBlock,
           left: `${
-            (Math.floor(Math.random() * (48 - randomWidth)) + 1) * 30
+            (Math.floor(Math.random() * (colsNumber - randomBlockWidth)) + 1) *
+            gridSize
           }px`,
           transform: `${getRandomMirrorY()} ${getRandomMirrorX()}`,
         };
@@ -102,7 +105,7 @@ function TetrisFall() {
     }, 2500);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [colsNumber, tetrisBlocks, gridSize]);
 
   return (
     <>
@@ -129,9 +132,9 @@ function LightSabers({ scaleY }: { scaleY: MotionValue<number> }) {
           "0 0 15px rgba(21, 174, 0, 1)",
         ],
         filter: [
-          "drop-shadow(0 0 15px rgba(21, 174, 0, 1))",
-          "drop-shadow(0 0 15px rgba(21, 174, 0, 0.5))",
-          "drop-shadow(0 0 15px rgba(21, 174, 0, 1))",
+          "drop-shadow(0 0 25px rgba(21, 174, 0, 1))",
+          "drop-shadow(0 0 25px rgba(21, 174, 0, 0.5))",
+          "drop-shadow(0 0 25px rgba(21, 174, 0, 1))",
         ],
         transition: {
           duration: 4,
@@ -144,6 +147,7 @@ function LightSabers({ scaleY }: { scaleY: MotionValue<number> }) {
 
     sequence();
   }, [controls]);
+
   return (
     <>
       <div className={styles.gridMask}>
@@ -206,7 +210,6 @@ function SquareTrail({
   const [trail, setTrail] = useState<
     { col: number; row: number; id: string }[]
   >([]);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
   const maxTrailLength = 10;
   let animationFrameId: number | null = null;
 
@@ -216,8 +219,6 @@ function SquareTrail({
 
       const clientX = event.clientX;
       const clientY = event.clientY;
-
-      setPosition({ x: clientX, y: clientY });
 
       const relativeX = clientX - rectRef.current.left;
       const relativeY = clientY - rectRef.current.top;
@@ -280,7 +281,7 @@ function SquareTrail({
       window.removeEventListener("mousemove", handleMove);
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [rectRef, gridSize]);
 
   return (
     <>

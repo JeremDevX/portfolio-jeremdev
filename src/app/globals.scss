@@ -53,10 +53,11 @@
 }
 
 html {
-  cursor: url("./Normal.cur"), auto;
+  cursor: url("/cursors/Normal.cur"), auto;
+  scrollbar-width: none;
 }
 a:hover {
-  cursor: url("./Link.cur"), auto;
+  cursor: url("/cursors/Link.cur"), auto;
 }
 
 body {
@@ -67,7 +68,6 @@ body {
   align-items: center;
   min-height: 100vh;
   position: relative;
-  filter: blur(0);
 }
 
 main {

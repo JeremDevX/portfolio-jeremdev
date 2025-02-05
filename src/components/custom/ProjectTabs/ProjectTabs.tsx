@@ -109,7 +109,7 @@ export function ProjectTabs() {
   ];
 
   return (
-    <div className="h-[54rem] md:h-[54rem] [perspective:1000px] relative b flex flex-col max-w-5xl mx-auto w-full items-start justify-start mt-5 mb-50">
+    <div className="h-[50rem] min-[1024px]:h-[40rem] [perspective:1000px] relative b flex flex-col max-w-4xl mx-auto w-full items-start justify-start mb-50">
       <Tabs tabs={tabs} />
     </div>
   );
@@ -129,8 +129,8 @@ const ContentContainer = (props: ContentContainerProps) => {
         <Image
           src={image}
           alt={`Preview of ${title}`}
-          width={800}
-          height={635}
+          width={1000}
+          height={1000}
           className={styles.contentContainer__image}
         />
         <div className={styles.contentContainer__content}>
@@ -147,7 +147,7 @@ const ContentContainer = (props: ContentContainerProps) => {
               ))}
             </ul>
           </div>
-        </div>
+        </div>{" "}
         <div className={styles.container__links}>
           <Link
             href={sitePreview}
@@ -195,7 +195,7 @@ const ContentContainer = (props: ContentContainerProps) => {
 
 const Container = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="w-full text-center overflow-hidden relative h-full rounded-2xl p-4 md:p-10 text-xl md:text-4xl font-bold bg-black shadow-[0_0_5px_rgba(21,174,0,0.15)] border-2 border-green-500/25">
+    <div className="w-full text-center overflow-hidden relative h-full rounded-2xl p-4 md:p-6 text-xl md:text-4xl font-bold bg-black shadow-[0_0_5px_rgba(21,174,0,0.15)] border-2 border-[rgba(21,174,0,0.25)]">
       {children}
     </div>
   );
