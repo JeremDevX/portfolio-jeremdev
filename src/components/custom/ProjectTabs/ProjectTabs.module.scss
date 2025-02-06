@@ -99,10 +99,6 @@
         background-color: rgba(0, 0, 0, 0.98);
         box-shadow: 0 0 24px rgba(21, 174, 0, 0.2);
       }
-
-      br {
-        margin-top: 0.75rem;
-      }
     }
 
     &_text {
@@ -112,8 +108,10 @@
 
       @media (min-width: 1024px) {
         display: flex;
+        flex-direction: column;
         justify-content: center;
-        align-items: center;
+        // align-items: center;
+        text-align: center;
 
         height: 100%;
         font-size: 1.25rem;
@@ -168,6 +166,10 @@
       }
     }
   }
+}
+
+.break {
+  margin-top: 0.75rem;
 }
 
 .dots {

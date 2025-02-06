@@ -30,7 +30,7 @@ export function ProjectTabs() {
             title={t("blog.title")}
             image={"/blog_devtools.png"}
             description={t.rich("blog.description", {
-              br: () => <br />,
+              br: () => <span className={styles.break} />,
             })}
             techs={[
               <SiNextdotjs key={"next" + t("blog.title")} />,
@@ -53,7 +53,7 @@ export function ProjectTabs() {
             title={t("finance.title")}
             image={"/finance_app.png"}
             description={t.rich("finance.description", {
-              br: () => <br />,
+              br: () => <span className={styles.break} />,
             })}
             techs={[
               <SiNextdotjs key={"next" + t("finance.title")} />,
@@ -75,7 +75,7 @@ export function ProjectTabs() {
             title={t("gus.title")}
             image={"/github_user_search.png"}
             description={t.rich("gus.description", {
-              br: () => <br />,
+              br: () => <span className={styles.break} />,
             })}
             techs={[
               <SiNextdotjs key={"next" + t("gus.title")} />,
@@ -97,7 +97,7 @@ export function ProjectTabs() {
             title={t("gus.title")}
             image={"/github_user_search.png"}
             description={t.rich("gus.description", {
-              br: () => <br />,
+              br: () => <span className={styles.break} />,
             })}
             techs={["Next.js", "TypeScript", "Sass"]}
             sitePreview="https://jeremdevx-fm-challenge-github-user-search.vercel.app"

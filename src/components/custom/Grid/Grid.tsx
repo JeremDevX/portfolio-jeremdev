@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import styles from "./Grid.module.scss";
 import {
   motion,
@@ -32,10 +38,13 @@ export default function Grid() {
     };
 
     updateGridRectAndWindowWidth();
+    console.log("effect");
     window.addEventListener("resize", updateGridRectAndWindowWidth);
 
-    return () =>
+    return () => {
+      console.log("clean");
       window.removeEventListener("resize", updateGridRectAndWindowWidth);
+    };
   }, [gridRef]);
 
   return (
@@ -49,92 +58,108 @@ export default function Grid() {
   );
 }
 
-function TetrisFall({
-  windowWidth,
-  gridSize,
-}: {
-  windowWidth: number;
-  gridSize: number;
-}) {
-  const [activeBlocks, setActiveBlocks] = useState<
-    { id: string; Component: React.FC<any>; left: string; transform: string }[]
-  >([]);
+const TetrisFall = React.memo(
+  ({ windowWidth, gridSize }: { windowWidth: number; gridSize: number }) => {
+    const [activeBlocks, setActiveBlocks] = useState<
+      {
+        id: string;
+        Component: React.FC<any>;
+        left: string;
+        transform: string;
+      }[]
+    >([]);
 
-  const tetrisBlocks = [
-    { Component: TetrisBlocks.I, width: 1 },
-    { Component: TetrisBlocks.IHorizontal, width: 4 },
-    { Component: TetrisBlocks.O, width: 2 },
-    { Component: TetrisBlocks.T, width: 3 },
-    { Component: TetrisBlocks.THorizontal, width: 2 },
-    { Component: TetrisBlocks.L, width: 2 },
-    { Component: TetrisBlocks.LHorizontal, width: 3 },
-    { Component: TetrisBlocks.Z, width: 3 },
-    { Component: TetrisBlocks.ZHorizontal, width: 2 },
-  ];
+    const tetrisBlocks = useMemo(
+      () => [
+        { Component: TetrisBlocks.I, width: 1 },
+        { Component: TetrisBlocks.IHorizontal, width: 4 },
+        { Component: TetrisBlocks.O, width: 2 },
+        { Component: TetrisBlocks.T, width: 3 },
+        { Component: TetrisBlocks.THorizontal, width: 2 },
+        { Component: TetrisBlocks.L, width: 2 },
+        { Component: TetrisBlocks.LHorizontal, width: 3 },
+        { Component: TetrisBlocks.Z, width: 3 },
+        { Component: TetrisBlocks.ZHorizontal, width: 2 },
+      ],
+      []
+    );
 
-  const getRandomMirrorX = () =>
-    Math.random() > 0.5 ? "scaleX(-1)" : "scaleX(1)";
+    const getRandomMirrorX = () =>
+      Math.random() > 0.5 ? "scaleX(-1)" : "scaleX(1)";
 
-  const getRandomMirrorY = () =>
-    Math.random() > 0.5 ? "scaleY(-1)" : "scaleY(1)";
+    const getRandomMirrorY = () =>
+      Math.random() > 0.5 ? "scaleY(-1)" : "scaleY(1)";
 
-  const colsNumber = Math.floor(Math.min(windowWidth, 1440) / gridSize);
+    const colsNumber = Math.floor(Math.min(windowWidth, 1440) / gridSize);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveBlocks((prevBlocks) => {
-        const randomBlockData =
-          Object.values(tetrisBlocks)[
-            Math.floor(Math.random() * Object.values(tetrisBlocks).length)
-          ];
-        const randomBlock = randomBlockData.Component;
-        const randomBlockWidth = randomBlockData.width;
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setActiveBlocks((prevBlocks) => {
+          const randomBlockData =
+            tetrisBlocks[Math.floor(Math.random() * tetrisBlocks.length)];
+          const randomBlock = randomBlockData.Component;
+          const randomBlockWidth = randomBlockData.width;
 
-        const newBlock = {
-          id: `${Date.now()}`,
-          Component: randomBlock,
-          left: `${
-            (Math.floor(Math.random() * (colsNumber - randomBlockWidth)) + 1) *
-            gridSize
-          }px`,
-          transform: `${getRandomMirrorY()} ${getRandomMirrorX()}`,
-        };
+          const newBlock = {
+            id: `${Date.now()}`,
+            Component: randomBlock,
+            left: `${
+              (Math.floor(Math.random() * (colsNumber - randomBlockWidth)) +
+                1) *
+              gridSize
+            }px`,
+            transform: `${getRandomMirrorY()} ${getRandomMirrorX()}`,
+          };
 
-        return [...prevBlocks.slice(-1), newBlock];
-      });
-    }, 2500);
+          return [...prevBlocks.slice(-1), newBlock];
+        });
+      }, 2500);
 
-    return () => clearInterval(interval);
-  }, [colsNumber, tetrisBlocks, gridSize]);
+      return () => clearInterval(interval);
+    }, [colsNumber, tetrisBlocks, gridSize]);
 
-  return (
-    <>
-      {activeBlocks.map(({ id, Component, left, transform }) => (
-        <Component key={id} style={{ left, transform }} />
-      ))}
-    </>
-  );
-}
+    return (
+      <>
+        {activeBlocks.map(({ id, Component, left, transform }) => (
+          <Component key={id} style={{ left, transform }} />
+        ))}
+      </>
+    );
+  }
+);
+
+TetrisFall.displayName = "TetrisFall";
 
 function LightSabers({ scaleY }: { scaleY: MotionValue<number> }) {
   const controls = useAnimation();
 
+  const [hasTriggered, setHasTriggered] = useState(false);
+
   useEffect(() => {
+    const unsubscribe = scaleY.on("change", (value) => {
+      if (value > 0.05 && !hasTriggered) {
+        setHasTriggered(true);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [scaleY, hasTriggered]);
+
+  useEffect(() => {
+    if (!hasTriggered) return;
     const sequence = async () => {
-      await controls.start({
-        transition: { duration: 1, ease: "easeInOut" },
-      });
+      await controls.start({ transition: { duration: 1, ease: "easeInOut" } });
 
       controls.start({
         boxShadow: [
-          "0 0 15px rgba(21, 174, 0, 1)",
-          "0 0 15px rgba(21, 174, 0, 0.5)",
-          "0 0 15px rgba(21, 174, 0, 1)",
+          "0 0 15px rgba(21, 174, 0, 0.25)",
+          "0 0 15px rgba(21, 174, 0, 0.75)",
+          "0 0 15px rgba(21, 174, 0, 0.25)",
         ],
         filter: [
-          "drop-shadow(0 0 25px rgba(21, 174, 0, 1))",
-          "drop-shadow(0 0 25px rgba(21, 174, 0, 0.5))",
-          "drop-shadow(0 0 25px rgba(21, 174, 0, 1))",
+          "drop-shadow(0 0 15px rgba(21, 174, 0, 0.25))",
+          "drop-shadow(0 0 15px rgba(21, 174, 0, 0.75))",
+          "drop-shadow(0 0 15px rgba(21, 174, 0, 0.25))",
         ],
         transition: {
           duration: 4,
@@ -146,7 +171,7 @@ function LightSabers({ scaleY }: { scaleY: MotionValue<number> }) {
     };
 
     sequence();
-  }, [controls]);
+  }, [controls, hasTriggered]);
 
   return (
     <>
@@ -207,11 +232,11 @@ function SquareTrail({
   const [trail, setTrail] = useState<
     { col: number; row: number; id: string }[]
   >([]);
-  const maxTrailLength = 10;
-  let animationFrameId: number | null = null;
+  const lastPosition = useRef<{ col: number; row: number } | null>(null);
+  const maxTrailLength = 5;
 
-  useEffect(() => {
-    const handleMove = (event: MouseEvent) => {
+  const handleMove = useCallback(
+    (event: MouseEvent) => {
       if (!rectRef.current) return;
 
       const clientX = event.clientX;
@@ -222,83 +247,58 @@ function SquareTrail({
       const newCol = Math.floor(relativeX / gridSize);
       const newRow = Math.floor(relativeY / gridSize);
 
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      if (
+        lastPosition.current &&
+        lastPosition.current.col === newCol &&
+        lastPosition.current.row === newRow
+      ) {
+        return;
+      }
 
-      animationFrameId = requestAnimationFrame(() => {
-        setTrail((prevTrail) => {
-          if (prevTrail.length > 0) {
-            const lastPos = prevTrail[prevTrail.length - 1];
+      lastPosition.current = { col: newCol, row: newRow };
 
-            const colDiff = Math.abs(newCol - lastPos.col);
-            const rowDiff = Math.abs(newRow - lastPos.row);
+      setTrail((prevTrail) => {
+        const newTrail = [
+          ...prevTrail,
+          {
+            col: newCol,
+            row: newRow,
+            id: `${newCol}-${newRow}-${Date.now()}`,
+          },
+        ];
 
-            if (colDiff > 1 || rowDiff > 1) {
-              const interpolatedTrail = [];
-              const colStep = newCol > lastPos.col ? 1 : -1;
-              const rowStep = newRow > lastPos.row ? 1 : -1;
+        if (newTrail.length > maxTrailLength) {
+          newTrail.shift();
+        }
 
-              let interpolatedCol = lastPos.col;
-              let interpolatedRow = lastPos.row;
-
-              while (interpolatedCol !== newCol || interpolatedRow !== newRow) {
-                if (interpolatedCol !== newCol) interpolatedCol += colStep;
-                if (interpolatedRow !== newRow) interpolatedRow += rowStep;
-
-                interpolatedTrail.push({
-                  col: interpolatedCol,
-                  row: interpolatedRow,
-                  id: `${interpolatedCol}-${interpolatedRow}-${Date.now()}`,
-                });
-              }
-
-              return [...prevTrail, ...interpolatedTrail].slice(
-                -maxTrailLength
-              );
-            }
-          }
-
-          const newTrail = [
-            ...prevTrail,
-            {
-              col: newCol,
-              row: newRow,
-              id: `${newCol}-${newRow}-${Date.now()}`,
-            },
-          ];
-          if (newTrail.length > maxTrailLength) newTrail.shift();
-
-          return newTrail;
-        });
+        return newTrail;
       });
-    };
+    },
+    [gridSize, rectRef]
+  );
 
+  useEffect(() => {
     window.addEventListener("mousemove", handleMove);
-
     return () => {
       window.removeEventListener("mousemove", handleMove);
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
-  }, [rectRef, gridSize]);
+  }, [handleMove]);
 
   return (
     <>
       {trail.map(({ col, row, id }, index) => (
         <motion.div
-          key={id + index}
+          key={id}
           className={styles.lightSquare}
           style={{
             left: `${col * gridSize}px`,
             top: `${row * gridSize}px`,
           }}
           initial={{ opacity: 1 }}
-          animate={index === trail.length - 1 ? { opacity: 1 } : { opacity: 0 }}
-          exit={{ opacity: 0 }}
-          transition={{
-            opacity: {
-              duration: 0.2,
-              ease: "easeOut",
-            },
-          }}
+          animate={index === trail.length - 1 ? {} : { opacity: 0 }}
+          transition={
+            index === trail.length - 1 ? {} : { duration: 1, ease: "easeOut" }
+          }
         />
       ))}
     </>
