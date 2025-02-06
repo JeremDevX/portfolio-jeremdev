@@ -48,13 +48,13 @@
 
 .movingBarSide {
   position: absolute;
-  width: 6px;
+  width: 4px;
   height: 100%;
   background-color: rgb(166, 255, 158);
   box-shadow: 0 0 25px rgba(21, 174, 0, 1);
   filter: drop-shadow(0 0 15px rgba(21, 174, 0, 1));
   transform: translate(-50%, -50%);
-  border-radius: 0.5rem 0.5rem 0 0;
+  // border-radius: 0.5rem 0.5rem 0 0;
   z-index: -1;
   // opacity: 0.5;
   @media (max-width: 1439px) {

@@ -155,12 +155,10 @@ function LightSabers({ scaleY }: { scaleY: MotionValue<number> }) {
           className={styles.movingBarSide}
           animate={controls}
           style={{
-            top: "100px",
-            left: "-3px",
+            top: "0%",
+            left: "-2px",
             scaleY,
-            maxHeight: "calc(100% - 102px)",
             transformOrigin: "top",
-            borderRadius: "0 0 0.5rem 0.5rem",
           }}
         />
         <motion.div
@@ -174,14 +172,13 @@ function LightSabers({ scaleY }: { scaleY: MotionValue<number> }) {
             delay: 1,
           }}
           style={{
-            bottom: "100px",
-            right: "-3px",
+            bottom: "0%",
+            right: "-2px",
             scaleY,
-            maxHeight: "calc(100% - 102px)",
             transformOrigin: "bottom",
           }}
         />
-        <div className={styles.hilt}>
+        {/* <div className={styles.hilt}>
           <div className={styles.button}></div>
         </div>
         <div
@@ -194,7 +191,7 @@ function LightSabers({ scaleY }: { scaleY: MotionValue<number> }) {
           }}
         >
           <div className={styles.button}></div>
-        </div>
+        </div> */}
       </div>
     </>
   );
