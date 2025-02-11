@@ -6,6 +6,9 @@ import { FlipWords } from "@/components/ui/flip-word";
 import { ProjectTabs } from "@/components/custom/ProjectTabs/ProjectTabs";
 import Grid from "@/components/custom/Grid/Grid";
 import AboutDropdown from "@/components/custom/AboutDropdown/AboutDropdown";
+import Link from "next/link";
+import { FaLinkedin } from "react-icons/fa";
+import { IoIosMail } from "react-icons/io";
 
 export async function generateMetadata() {
   const t = await getTranslations("MetaData");
@@ -48,7 +51,7 @@ export default function Home() {
         <h3 className={styles.skills__subtitle}>{t("mainSkills")}</h3>
         <AnimatedTechs skills="main" />
         <h3 className={styles.skills__subtitle}>{t("secondarySkills")}</h3>
-        <AnimatedTechs skills="secondary" />
+        <AnimatedTechs skills="secondary" reverseAnimation delay />
       </section>
       <section className={styles.projects}>
         <h2 className={styles.projects__title}>{t("myProjects")}</h2>
@@ -65,6 +68,29 @@ export default function Home() {
           />
         ))}
       </section>
+      <section className={styles.contact}>
+        <h2 className={styles.contact__title}>Contact</h2>
+        <p className={styles.contact__desc}>{t("contact")}</p>
+        <div className={styles.contact__links}>
+          <Link
+            href={"https://www.linkedin.com/in/jeremie-lavergnat"}
+            className={styles.contact__link}
+          >
+            <FaLinkedin className={styles.contact__icon} />
+            LinkedIn
+          </Link>
+          <Link
+            href="mailto:jeremdev.contactpro@gmail.com"
+            className={styles.contact__link}
+          >
+            <IoIosMail className={styles.contact__icon} />
+            E-mail
+          </Link>
+        </div>
+      </section>
+      <footer className={styles.footer}>
+        © Jérémie Lavergnat - {new Date().getFullYear()}
+      </footer>
       <Grid />
     </main>
   );

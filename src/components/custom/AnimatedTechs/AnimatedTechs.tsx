@@ -1,4 +1,5 @@
 "use client";
+
 import {
   SiNextdotjs,
   SiPostgresql,
@@ -9,6 +10,7 @@ import {
 import { AnimatedTooltip } from "../../ui/animated-tooltip";
 import styles from "./AnimatedTechs.module.scss";
 import { FaFigma, FaGithub, FaNodeJs, FaReact, FaSass } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const dropShadowStyle = {
   filter: "drop-shadow(0 0 10px var(--accent))",
@@ -130,13 +132,22 @@ const secondarySkills = [
   },
 ];
 
-export function AnimatedTechs(props: { skills: "main" | "secondary" }) {
-  const { skills = "main" } = props;
+export function AnimatedTechs(props: {
+  skills: "main" | "secondary";
+  reverseAnimation?: boolean;
+  delay?: boolean;
+}) {
+  const { skills = "main", reverseAnimation, delay } = props;
   return (
-    <div className={styles.container}>
+    <motion.div
+      className={styles.container}
+      initial={{ opacity: 0, x: reverseAnimation ? "10vw" : "-10vw" }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5, delay: delay ? 0.5 : 0 }}
+    >
       <AnimatedTooltip
         items={skills === "main" ? mainSkills : secondarySkills}
       />
-    </div>
+    </motion.div>
   );
 }
