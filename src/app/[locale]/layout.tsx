@@ -52,7 +52,7 @@ export default async function LocaleLayout(props: {
               "@type": "Person",
               name: "Jérémie Lavergnat",
               alternateName: "JeremDevX",
-              jobTitle: "Développeur Frontend React",
+              jobTitle: "Web Developer",
               url: "https://jeremdevx.com",
               email: "jeremdev.contactpro@gmail.com",
               sameAs: [

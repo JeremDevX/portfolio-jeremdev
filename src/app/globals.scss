@@ -1,12 +1,5 @@
 @use "tailwindcss";
 
-// @use "@/styles/pages/projects.scss";
-// @use "@/styles/pages/project-page.scss";
-// @use "@/styles/pages/profile.scss";
-
-@use "@/styles/components/project-card.scss";
-// @use "@/styles/components/tech-item.scss";
-
 :root {
   --bg-color: hsl(0, 0%, 5%);
   --text-color: rgb(235, 240, 246);
@@ -26,24 +19,6 @@
   --tetris-shadow: 0 0 25px rgba(10, 87, 0, 0.4);
   --tetris-drop-shadow: 0 0 15px rgba(10, 87, 0, 0.4);
   --tetris-bg: rgb(10, 87, 0);
-}
-
-.dark {
-  --bg-color: hsl(0, 0%, 5%);
-  --text-color: rgb(235, 240, 246);
-  --bg-gradient: linear-gradient(
-    180deg,
-    rgb(67, 67, 67) 0%,
-    rgb(26, 26, 26) 100%
-  );
-  --border-primary: rgb(70, 70, 70) solid 1px;
-  --card-bg: rgba(255, 255, 255, 0.1);
-  --background: #000000;
-  --primary: #4598ff;
-  --accent: rgb(21, 174, 0);
-  --secondary: #7512f6;
-  --accent-half: rgba(21, 174, 0, 0.25);
-  --tech-bg: #000000;
 }
 
 html {
@@ -76,8 +51,6 @@ header {
   width: 100%;
   min-height: 100px;
   height: auto;
-  // border-bottom: 1px solid hsl(0, 0%, 20%);
-  // background-color: var(--background);
 }
 
 section {
@@ -129,7 +102,6 @@ section:not(:last-child)::after {
 
 .light {
   position: fixed;
-  // background-color: green;
   top: -50;
   left: 50%;
   transform: translateX(-50%);

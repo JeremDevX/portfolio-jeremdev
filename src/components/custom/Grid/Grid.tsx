@@ -12,7 +12,6 @@ import {
   motion,
   MotionValue,
   useAnimation,
-  useMotionValueEvent,
   useScroll,
   useSpring,
 } from "framer-motion";
@@ -20,9 +19,6 @@ import { TetrisBlocks } from "../TetrisBlocks/TetrisBlocks";
 
 export default function Grid() {
   const { scrollYProgress } = useScroll();
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    console.log("Page scroll: ", latest);
-  });
   const [_, setPageHeight] = useState<null | number>(null);
   const [windowWidth, setWindowWidth] = useState<number>(1440);
   const gridRef = useRef<HTMLDivElement | null>(null);
@@ -54,11 +50,9 @@ export default function Grid() {
     };
 
     updateGridRectAndWindowWidth();
-    console.log("effect");
     window.addEventListener("resize", updateGridRectAndWindowWidth);
 
     return () => {
-      console.log("clean");
       window.removeEventListener("resize", updateGridRectAndWindowWidth);
     };
   }, [gridRef]);
@@ -219,20 +213,6 @@ function LightSabers({ scaleY }: { scaleY: MotionValue<number> }) {
             transformOrigin: "bottom",
           }}
         />
-        {/* <div className={styles.hilt}>
-          <div className={styles.button}></div>
-        </div>
-        <div
-          className={styles.hilt}
-          style={{
-            right: 0,
-            left: "-6px",
-            rotate: "180deg",
-            top: 0,
-          }}
-        >
-          <div className={styles.button}></div>
-        </div> */}
       </div>
     </>
   );
