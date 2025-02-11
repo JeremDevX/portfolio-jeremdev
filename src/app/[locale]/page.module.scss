@@ -166,6 +166,7 @@
   padding: 0 1rem;
   margin-bottom: 2rem;
 }
+
 .contact {
   @include home-title;
   display: flex;
@@ -213,6 +214,11 @@
     align-items: center;
 
     font-size: 1.25rem;
+    margin: 0 auto;
+
+    @media (min-width: 1024px) {
+      margin: unset;
+    }
 
     &:hover {
       transform: scale(1.1);
