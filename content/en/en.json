@@ -5,7 +5,26 @@
     "mySkills": "Skills",
     "mainSkills": "Core skills",
     "secondarySkills": "Additional skills",
-    "myProjects": "Projects"
+    "myProjects": "Projects",
+    "about": "About",
+    "aboutContent": [
+      {
+        "title": "Background and Career Change",
+        "content": "After 10 years in the automotive industry, evolving from technician to team leader, I developed strong team management and problem-solving skills. Passionate about web development, I undertook a career change in 2023 through OpenClassrooms, training in frontend technologies like React, Next.js and TypeScript, combining my technical rigor with my new passion."
+      },
+      {
+        "title": "Continuous Learning / Technology Watch",
+        "content": "My technology watch is mainly done through LinkedIn and X (Twitter), complemented by following tech conferences. I maintain my skills by regularly taking on integration challenges on Frontend Mentor and practicing weekly katas on Exercism and CodeWars to improve my programming logic."
+      },
+      {
+        "title": "Availability and Job Search",
+        "content": "Actively looking, I am available for permanent positions, fixed-term contracts or freelance assignments. Flexible on working arrangements (remote, on-site or hybrid), I am open to all types of projects to put my frontend development skills into practice."
+      },
+      {
+        "title": "Location",
+        "content": "Based in Haute-Savoie near the Swiss border, I am actively seeking opportunities in Lausanne and its surroundings with the goal of settling there. I remain open to opportunities throughout the Lake Geneva region."
+      }
+    ]
   },
   "projects": {
     "title": "List of my projects"
@@ -38,7 +57,7 @@
   },
   "MetaData": {
     "home": {
-      "title": "JeremDevX - Front End Developer React and Next.js",
+      "title": "Jérémie Lavergnat - Front End Developer React and Next.js",
       "description": "JeremDevX front-end developer: find out more about my skills, my projects, and my profile."
     },
     "projects": {

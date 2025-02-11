@@ -12,6 +12,7 @@ import {
   motion,
   MotionValue,
   useAnimation,
+  useMotionValueEvent,
   useScroll,
   useSpring,
 } from "framer-motion";
@@ -19,6 +20,10 @@ import { TetrisBlocks } from "../TetrisBlocks/TetrisBlocks";
 
 export default function Grid() {
   const { scrollYProgress } = useScroll();
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    console.log("Page scroll: ", latest);
+  });
+  const [_, setPageHeight] = useState<null | number>(null);
   const [windowWidth, setWindowWidth] = useState<number>(1440);
   const gridRef = useRef<HTMLDivElement | null>(null);
   const rectRef = useRef<DOMRect | null>(null);
@@ -28,6 +33,17 @@ export default function Grid() {
     restDelta: 0.001,
   });
   const gridSize = 30;
+
+  useEffect(() => {
+    const observer = new ResizeObserver(() => {
+      setPageHeight(document.documentElement.scrollHeight);
+      window.dispatchEvent(new Event("scroll"));
+    });
+
+    observer.observe(document.documentElement);
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const updateGridRectAndWindowWidth = () => {

@@ -5,7 +5,26 @@
     "mySkills": "Skills",
     "mainSkills": "Core skills",
     "secondarySkills": "Additional skills",
-    "myProjects": "Projets"
+    "myProjects": "Projets",
+    "about": "À propos",
+    "aboutContent": [
+      {
+        "title": "Parcours et Reconversion",
+        "content": "Après 10 ans dans le secteur automobile, évoluant de technicien à chef d'équipe, j'ai développé de solides compétences en gestion d'équipe et résolution de problèmes. Passionné par le développement web, j'ai entrepris en 2023 une reconversion via OpenClassrooms, me formant aux technologies frontend comme React, Next.js et TypeScript, alliant ainsi ma rigueur technique à ma nouvelle passion."
+      },
+      {
+        "title": "Formation Continue / Veille Technologique",
+        "content": "Ma veille technologique s'effectue principalement via LinkedIn et X (Twitter), complétée par le suivi de conférences tech. Je maintiens mes compétences en relevant régulièrement des challenges d'intégration sur Frontend Mentor et en pratiquant des katas hebdomadaires sur Exercism et CodeWars pour améliorer ma logique de programmation."
+      },
+      {
+        "title": "Disponibilité et Recherches",
+        "content": "En recherche active, je suis disponible pour des opportunités en CDI, CDD ou missions freelance. Flexible sur les modalités de travail (remote, sur site ou hybride), je suis ouvert à tous types de projets permettant de mettre en pratique mes compétences en développement frontend."
+      },
+      {
+        "title": "Localisation",
+        "content": "Basé en Haute-Savoie près de la frontière suisse, je cherche activement des opportunités sur Lausanne et ses environs avec pour objectif de m'y installer. Je reste néanmoins ouvert aux propositions dans toute la région lémanique."
+      }
+    ]
   },
   "projects": {
     "title": "Liste de mes projets"
@@ -38,7 +57,7 @@
   },
   "MetaData": {
     "home": {
-      "title": "JeremDevX - Développeur Front End React et Next.js",
+      "title": "Jérémie Lavergnat - Développeur Front End React et Next.js",
       "description": "Développeur front-end JeremDevX : découvrez mes compétences, mes projets et mon profil."
     },
     "projects": {
@@ -57,7 +76,7 @@
     },
     "blog": {
       "title": "Blog and Devtools",
-      "description": "Projet personnel de blog et d'outils de développement. <br></br>Le contenu de la partie blog est réalisée à l'aide du headless CMS Sanity.io, la partie outils de développement est réalisée en React.<br></br> Le site possède une barre de recherche codée from scratch pour trouver des articles ou des outils. La recherche d'article se fait via des requêtes GROQ et l'APIO de Sanity.io, la recherche d'outils se fait via une liste JSON."
+      "description": "Projet personnel de blog et d'outils de développement. <br></br>Le contenu de la partie blog est réalisée à l'aide du headless CMS Sanity.io, la partie outils de développement est réalisée en React.<br></br> Le site possède une barre de recherche codée from scratch pour trouver des articles ou des outils. La recherche d'article se fait via des requêtes GROQ et l'API de Sanity.io, la recherche d'outils se fait via une liste JSON."
     },
     "finance": {
       "title": "Personnal Finance App",

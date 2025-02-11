@@ -88,24 +88,24 @@ export function ProjectTabs() {
         </Container>
       ),
     },
-    {
-      title: "Content",
-      value: "content",
-      content: (
-        <Container>
-          <ContentContainer
-            title={t("gus.title")}
-            image={"/github_user_search.png"}
-            description={t.rich("gus.description", {
-              br: () => <span className={styles.break} />,
-            })}
-            techs={["Next.js", "TypeScript", "Sass"]}
-            sitePreview="https://jeremdevx-fm-challenge-github-user-search.vercel.app"
-            githubRepo="https://github.com/JeremDevX/fm-challenge-github-user-search"
-          />
-        </Container>
-      ),
-    },
+    // {
+    //   title: "Content",
+    //   value: "content",
+    //   content: (
+    //     <Container>
+    //       <ContentContainer
+    //         title={t("gus.title")}
+    //         image={"/github_user_search.png"}
+    //         description={t.rich("gus.description", {
+    //           br: () => <span className={styles.break} />,
+    //         })}
+    //         techs={["Next.js", "TypeScript", "Sass"]}
+    //         sitePreview="https://jeremdevx-fm-challenge-github-user-search.vercel.app"
+    //         githubRepo="https://github.com/JeremDevX/fm-challenge-github-user-search"
+    //       />
+    //     </Container>
+    //   ),
+    // },
   ];
 
   return (

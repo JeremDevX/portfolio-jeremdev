@@ -3,8 +3,6 @@ import Navbar from "@/components/custom/Navbar/Navbar";
 import "../../app/globals.scss";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { ThemeContextProvider } from "@/context/ThemeContext";
-import ThemeProvider from "@/providers/ThemeProvider";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { routing } from "@/i18n/routing";
@@ -54,7 +52,7 @@ export default async function LocaleLayout(props: {
               "@type": "Person",
               name: "Jérémie Lavergnat",
               alternateName: "JeremDevX",
-              jobTitle: "Développeur Web React",
+              jobTitle: "Développeur Frontend React",
               url: "https://jeremdevx.com",
               email: "jeremdev.contactpro@gmail.com",
               sameAs: [
@@ -69,17 +67,13 @@ export default async function LocaleLayout(props: {
 
       <body className={`${leagueSpartan.className}`}>
         <NextIntlClientProvider messages={messages}>
-          <ThemeContextProvider>
-            <ThemeProvider>
-              <div className={"light"}></div>
-              <header>
-                <Navbar></Navbar>
-              </header>
-              {children}
-              <Analytics />
-              <SpeedInsights />
-            </ThemeProvider>
-          </ThemeContextProvider>
+          <div className="light"></div>
+          <header>
+            <Navbar></Navbar>
+          </header>
+          {children}
+          <Analytics />
+          <SpeedInsights />
         </NextIntlClientProvider>
       </body>
     </html>

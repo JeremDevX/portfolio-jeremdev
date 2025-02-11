@@ -11,7 +11,7 @@ import styles from "./AnimatedTechs.module.scss";
 import { FaFigma, FaGithub, FaNodeJs, FaReact, FaSass } from "react-icons/fa";
 
 const dropShadowStyle = {
-  filter: "drop-shadow(0 0 10px var(--accent-half))",
+  filter: "drop-shadow(0 0 10px var(--accent))",
   background:
     "radial-gradient(circle, rgba(21,174,0,0.5) 0%, rgba(0,0,0,0) 80%)",
 };

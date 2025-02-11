@@ -5,6 +5,7 @@ import { AnimatedTechs } from "@/components/custom/AnimatedTechs/AnimatedTechs";
 import { FlipWords } from "@/components/ui/flip-word";
 import { ProjectTabs } from "@/components/custom/ProjectTabs/ProjectTabs";
 import Grid from "@/components/custom/Grid/Grid";
+import AboutDropdown from "@/components/custom/AboutDropdown/AboutDropdown";
 
 export async function generateMetadata() {
   const t = await getTranslations("MetaData");
@@ -14,10 +15,16 @@ export async function generateMetadata() {
     description: t("home.description"),
   };
 }
+type AboutContentItem = {
+  title: string;
+  content: string;
+};
 
 export default function Home() {
   const t = useTranslations("Home");
-  const words = ["React", "Next.js", "TypeScript", "Tailwind", "Sass"];
+  const aboutContent: AboutContentItem[] = t.raw("aboutContent");
+
+  const words = ["React", "Next.js", "TypeScript", "Node.js"];
   return (
     <main className={styles.home}>
       <section className={styles.hero}>
@@ -46,6 +53,17 @@ export default function Home() {
       <section className={styles.projects}>
         <h2 className={styles.projects__title}>{t("myProjects")}</h2>
         <ProjectTabs />
+      </section>
+      <section className={styles.about}>
+        <h2 className={styles.about__title}>{t("about")}</h2>
+        {aboutContent.map((content, index) => (
+          <AboutDropdown
+            key={index}
+            title={content.title}
+            content={content.content}
+            index={index}
+          />
+        ))}
       </section>
       <Grid />
     </main>

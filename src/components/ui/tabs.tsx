@@ -71,7 +71,7 @@ export const Tabs = ({
               />
             )}
 
-            <span className="relative block text-black dark:text-white text-xs sm:text-base min-[768px]:text-xl cursor-[url(/cursors/Link.cur),_pointer]">
+            <span className="relative block text-white text-xs sm:text-base min-[768px]:text-xl cursor-[url(/cursors/Link.cur),_pointer]">
               {tab.title}
             </span>
           </button>
