@@ -6,7 +6,7 @@ import { Tabs } from "@/components/ui/tabs";
 import { SiNextdotjs, SiSanity, SiTypescript } from "react-icons/si";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
-import React from "react";
+import React, { useState } from "react";
 import { FaSass } from "react-icons/fa";
 
 interface ContentContainerProps {
@@ -16,10 +16,12 @@ interface ContentContainerProps {
   techs: React.ReactNode[];
   sitePreview: string;
   githubRepo?: string;
+  isActive: boolean;
 }
 
 export function ProjectTabs() {
   const t = useTranslations("Projects");
+  const [activeTab, setActiveTab] = useState<string>("blogTools");
   const tabs = [
     {
       title: "Blog and Devtools",
@@ -40,6 +42,7 @@ export function ProjectTabs() {
             ]}
             sitePreview="https://jeremdev-blog.vercel.app/"
             githubRepo="https://github.com/JeremDevX/jeremdev-blog"
+            isActive={activeTab === "blogTools"}
           />
         </Container>
       ),
@@ -62,6 +65,7 @@ export function ProjectTabs() {
             ]}
             sitePreview="https://github.com/JeremDevX/personnal-finance-app"
             githubRepo="https://github.com/JeremDevX/personnal-finance-app"
+            isActive={activeTab === "personnalFinance"}
           />
         </Container>
       ),
@@ -84,6 +88,7 @@ export function ProjectTabs() {
             ]}
             sitePreview="https://jeremdevx-fm-challenge-github-user-search.vercel.app"
             githubRepo="https://github.com/JeremDevX/fm-challenge-github-user-search"
+            isActive={activeTab === "github"}
           />
         </Container>
       ),
@@ -110,13 +115,21 @@ export function ProjectTabs() {
 
   return (
     <div className="h-[50rem] min-[1024px]:h-[40rem] [perspective:1000px] relative b flex flex-col max-w-4xl mx-auto w-full items-start justify-start mb-50">
-      <Tabs tabs={tabs} />
+      <Tabs tabs={tabs} setActiveTab={setActiveTab} />
     </div>
   );
 }
 
 const ContentContainer = (props: ContentContainerProps) => {
-  const { title, image, description, techs, sitePreview, githubRepo } = props;
+  const {
+    title,
+    image,
+    description,
+    techs,
+    sitePreview,
+    githubRepo,
+    isActive,
+  } = props;
   return (
     <>
       <div className={styles.dots}>
@@ -147,12 +160,13 @@ const ContentContainer = (props: ContentContainerProps) => {
               ))}
             </ul>
           </div>
-        </div>{" "}
+        </div>
         <div className={styles.container__links}>
           <Link
             href={sitePreview}
             className={styles.container__link}
             target="_blank"
+            tabIndex={isActive ? 0 : -1}
           >
             Site Preview
           </Link>
@@ -161,6 +175,7 @@ const ContentContainer = (props: ContentContainerProps) => {
               href={githubRepo}
               className={styles.container__link}
               target="_blank"
+              tabIndex={isActive ? 0 : -1}
             >
               GitHub Repo
             </Link>
@@ -174,6 +189,7 @@ const ContentContainer = (props: ContentContainerProps) => {
           href={sitePreview}
           className={styles.container__link}
           target="_blank"
+          tabIndex={isActive ? 0 : -1}
         >
           Site Preview
         </Link>
@@ -182,6 +198,7 @@ const ContentContainer = (props: ContentContainerProps) => {
             href={githubRepo}
             className={styles.container__link}
             target="_blank"
+            tabIndex={isActive ? 0 : -1}
           >
             GitHub Repo
           </Link>

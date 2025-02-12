@@ -16,12 +16,14 @@ export const Tabs = ({
   activeTabClassName,
   tabClassName,
   contentClassName,
+  setActiveTab,
 }: {
   tabs: Tab[];
   containerClassName?: string;
   activeTabClassName?: string;
   tabClassName?: string;
   contentClassName?: string;
+  setActiveTab: (value: string) => void;
 }) => {
   const [active, setActive] = useState<Tab>(propTabs[0]);
   const [tabs, setTabs] = useState<Tab[]>(propTabs);
@@ -31,6 +33,7 @@ export const Tabs = ({
     const selectedTab = newTabs.splice(idx, 1);
     newTabs.unshift(selectedTab[0]);
     setTabs(newTabs);
+    setActiveTab(newTabs[0].value);
     setActive(newTabs[0]);
   };
 
@@ -49,6 +52,9 @@ export const Tabs = ({
             key={tab.title}
             onClick={() => {
               moveSelectedTabToTop(idx);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") moveSelectedTabToTop(idx);
             }}
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}

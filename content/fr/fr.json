@@ -36,20 +36,15 @@
   "Projects": {
     "gus": {
       "title": "GitHub User Search",
-      "description": "Application de recherche d'utilisateurs GitHub. Projet issu du site Frontend Mentor.<br></br>Intégration pixel-perfect d'une maquette en responsive design, avec un système de recherche d'utilisateur via l'API GitHub pour trouver et afficher les informations de son compte.<br></br>L'application possède également un système de thème clair et sombre défini par défaut selon la préférence utilisateur."
+      "description": "Application web moderne de recherche d'utilisateurs GitHub développée avec Next.js. Cette application s'intègre avec l'API REST de GitHub pour fournir une expérience utilisateur fluide et performante.<br></br>Points clés :<br></br>• Interface responsive avec une intégration pixel-perfect suivant les maquettes Figma de Frontend Mentor<br></br>• Implémentation d'un système de thème dynamique (clair/sombre) avec détection automatique des préférences système<br></br>"
     },
     "blog": {
       "title": "Blog and Devtools",
-      "description": "Projet personnel de blog et d'outils de développement. <br></br>Le contenu de la partie blog est réalisée à l'aide du headless CMS Sanity.io, la partie outils de développement est réalisée en React.<br></br> Le site possède une barre de recherche codée from scratch pour trouver des articles ou des outils. La recherche d'article se fait via des requêtes GROQ et l'API de Sanity.io, la recherche d'outils se fait via une liste JSON."
+      "description": "Plateforme fullstack combinant un blog technique et une suite d'outils de développement.<br></br>Architecture :<br></br>• Backend headless avec Sanity.io pour la gestion de contenu<br></br>• Frontend Next.js avec génération ISR pour les nouveaux articles<br></br>• Moteur de recherche utilisant des requêtes GROQ pour le blog et API standard pour les outils<br></br>"
     },
     "finance": {
       "title": "Personnal Finance App",
-      "description": "Work in Progress <br></br>Application de suivi de finance personnelle. Projet issu du site Frontend Mentor. <br></br> Projet en cours de développement, l'application permettra de suivre ses dépenses et ses revenus, de les catégoriser et de les visualiser sous forme de graphiques. Les données sont actuellement stockées sur un fichier JSON, mais seront prochainement stockées sur une base de données ou un headless CMS."
+      "description": "Application de gestion financière en cours de développement.<br></br>Points clés :<br></br>• Dashboard interactif avec visualisation des différentes données<br></br>• Système de catégorisation des transactions / économies / factures<br></br>• Système de connexion via NextAuth (à venir)<br></br>• Gestion des données via une BDD PostgreSQL (à venir)<br></br> • Interface responsive selon les maquettes Figma de Frontend Mentor<br></br>"
     }
-  },
-  "NotFound": {
-    "title": "Page non trouvée",
-    "description": "La page que vous cherchez n'existe pas. Retournez à l'accueil pour continuer votre navigation.",
-    "backToHome": "Retour à l'accueil"
   }
 }

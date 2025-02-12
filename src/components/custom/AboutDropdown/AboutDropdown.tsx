@@ -31,7 +31,7 @@ export default function AboutDropdown({
       animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: "10vw" }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      <div className={styles.container} onClick={() => setOpen(!open)}>
+      <button className={styles.container} onClick={() => setOpen(!open)}>
         <h3 className={styles.title}>{title}</h3>
         <FaChevronDown
           className={`${styles.icon} ${open && styles.icon__open}`}
@@ -62,7 +62,7 @@ export default function AboutDropdown({
             right: "5.5rem",
           }}
         />
-      </div>
+      </button>
       <motion.div
         className={styles.content}
         initial={{ height: 0, opacity: 0, display: "none" }}

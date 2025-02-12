@@ -39,10 +39,6 @@ export default async function LocaleLayout(props: {
           name="google-site-verification"
           content="xT3V4j3e8lf5TmhLOSlWycOJiDbSXt_LpW_c2GR0oRI"
         />
-        <meta
-          property="og:image"
-          content="https://jeremdevx.com/_next/image?url=/jeremdevx-logo.png&w=256&q=75"
-        />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <script
           type="application/ld+json"

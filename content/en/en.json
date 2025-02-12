@@ -36,20 +36,15 @@
   "Projects": {
     "gus": {
       "title": "GitHub User Search",
-      "description": "GitHub user search application. Project from the Frontend Mentor site.<br></br> Pixel-perfect integration of a mockup in responsive design, with a user search system via the GitHub API to find and display user account information.<br></br> The application also has a light and dark theme system set by default according to user preference."
+      "description": "Modern web application for GitHub users search built with Next.js. This application integrates with GitHub's REST API to provide a smooth and efficient user experience.<br></br>Key features:<br></br>• Responsive interface with pixel-perfect integration following Frontend Mentor's Figma designs<br></br>• Implementation of a dynamic theme system (light/dark) with automatic system preferences detection<br></br>"
     },
     "blog": {
       "title": "Blog and Devtools",
-      "description": "Personal blog and development tools project.<br></br> The content of the blog section is created using the headless CMS Sanity.io, the development tools section is created in React.<br></br> The site has a search bar coded from scratch to find articles or tools. The article search is done via GROQ queries and the Sanity.io API, the tool search is done via a JSON list."
+      "description": "Fullstack platform combining a technical blog and a suite of development tools.<br></br>Architecture:<br></br>• Headless backend with Sanity.io for content management<br></br>• Next.js frontend with ISR generation for new articles<br></br>• Search engine using GROQ queries for the blog and standard API for tools<br></br>"
     },
     "finance": {
-      "title": "Personnal Finance App",
-      "description": "Work in Progress <br></br>Personal finance tracking application. Project from the Frontend Mentor site. <br></br> Project under development, the application will allow you to track your expenses and income, categorize them, and visualize them in the form of graphs. The data is currently stored in a JSON file, but will soon be stored in a database or a headless CMS."
+      "title": "Personal Finance App",
+      "description": "Financial management application under development.<br></br>Key features:<br></br>• Interactive dashboard with various data visualization<br></br>• Categorization system for transactions / savings / bills<br></br>• Authentication system via NextAuth (upcoming)<br></br>• Data management through PostgreSQL database (upcoming)<br></br>• Responsive interface following Frontend Mentor's Figma designs<br></br>"
     }
-  },
-  "NotFound": {
-    "title": "Page non trouvée",
-    "description": "La page que vous cherchez n'existe pas. Retournez à l'accueil pour continuer votre navigation.",
-    "backToHome": "Retour à l'accueil"
   }
 }

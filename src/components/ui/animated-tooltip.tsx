@@ -48,6 +48,9 @@ export const AnimatedTooltip = ({
           onMouseEnter={() => setHoveredIndex(item.id)}
           onMouseLeave={() => setHoveredIndex(null)}
           style={{ zIndex: hoveredIndex === item.id ? 50 : 10 - item.id }}
+          onFocus={() => setHoveredIndex(item.id)}
+          onBlur={() => setHoveredIndex(null)}
+          tabIndex={0}
         >
           <AnimatePresence mode="popLayout">
             {hoveredIndex === item.id && (
