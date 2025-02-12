@@ -48,9 +48,50 @@ export default async function LocaleLayout(props: {
               "@type": "Person",
               name: "Jérémie Lavergnat",
               alternateName: "JeremDevX",
-              jobTitle: "Web Developer",
+              jobTitle: "Front-End React / Next.js Developer",
               url: "https://jeremdevx.com",
               email: "jeremdev.contactpro@gmail.com",
+              knowsAbout: [
+                {
+                  "@type": "Technology",
+                  name: "React.js",
+                },
+                {
+                  "@type": "Technology",
+                  name: "Next.js",
+                },
+                {
+                  "@type": "Technology",
+                  name: "TypeScript",
+                },
+                {
+                  "@type": "Technology",
+                  name: "Prisma",
+                },
+                {
+                  "@type": "Technology",
+                  name: "Node.js",
+                },
+              ],
+              workLocation: [
+                {
+                  "@type": "LocationFeatureSpecification",
+                  name: "Remote",
+                },
+                {
+                  "@type": "LocationFeatureSpecification",
+                  name: "Hybrid",
+                },
+                {
+                  "@type": "LocationFeatureSpecification",
+                  name: "On-site",
+                },
+              ],
+              availableForHire: true,
+              seekingWork: {
+                "@type": "EmploymentType",
+                employmentTypes: ["FULL_TIME", "CONTRACTOR", "FREELANCE"],
+              },
               sameAs: [
                 "https://github.com/JeremDevX",
                 "https://x.com/JeremDevX",
