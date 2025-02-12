@@ -167,6 +167,7 @@ const ContentContainer = (props: ContentContainerProps) => {
             className={styles.container__link}
             target="_blank"
             tabIndex={isActive ? 0 : -1}
+            rel="noopener noreferrer nofollow"
           >
             Site Preview
           </Link>
@@ -176,6 +177,7 @@ const ContentContainer = (props: ContentContainerProps) => {
               className={styles.container__link}
               target="_blank"
               tabIndex={isActive ? 0 : -1}
+              rel="noopener noreferrer nofollow"
             >
               GitHub Repo
             </Link>
@@ -190,6 +192,7 @@ const ContentContainer = (props: ContentContainerProps) => {
           className={styles.container__link}
           target="_blank"
           tabIndex={isActive ? 0 : -1}
+          rel="noopener noreferrer nofollow"
         >
           Site Preview
         </Link>
@@ -199,6 +202,7 @@ const ContentContainer = (props: ContentContainerProps) => {
             className={styles.container__link}
             target="_blank"
             tabIndex={isActive ? 0 : -1}
+            rel="noopener noreferrer nofollow"
           >
             GitHub Repo
           </Link>

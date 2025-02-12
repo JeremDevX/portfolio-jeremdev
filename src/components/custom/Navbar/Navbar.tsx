@@ -17,6 +17,7 @@ export default function Navbar() {
             href="https://github.com/JeremDevX"
             target="_blank"
             aria-label="GitHub"
+            rel="noopener"
           >
             <FaGithub />
           </Link>
@@ -24,6 +25,7 @@ export default function Navbar() {
             href="https://www.linkedin.com/in/jeremie-lavergnat"
             target="_blank"
             aria-label="LinkedIn"
+            rel="noopener"
           >
             <FaLinkedin />
           </Link>
