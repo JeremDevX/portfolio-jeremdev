@@ -1,53 +1,50 @@
 {
   "Home": {
-    "title": "Développeur Front End React et Next.js",
-    "text": "Développeur web spécialisé dans le front-end, je maîtrise des technologies comme <span>React</span>,<span> Next.js</span>,<span> Sass</span>, et<span> TypeScript</span> pour concevoir des interfaces modernes et entièrement responsives. J’ai également desconnaissances en <span>React Native </span>et en développement back-end avec<span> PostgreSQL</span>,<span> Node.js </span>, et<span> Prisma </span>, ce qui me permet decomprendre l’ensemble du cycle de développement web. Passionné parmon métier, j’affine chaque jour mes compétences pour offrir dessolutions adaptées aux besoins actuels.",
-    "mySkills": "Mes compétences",
-    "mainSkills": "Compétences principales",
-    "secondarySkills": "Compétences secondaires / Connaissances",
-    "myProjects": "Mes projets"
-  },
-  "projects": {
-    "title": "Liste de mes projets"
-  },
-  "Project": {
-    "github": "GitHub du projet"
-  },
-  "Profile": {
-    "title": "Mon profil",
-    "infos": "Infos :",
-    "personalInfos": " <li> <strong>Nom :</strong> Jérémie L. </li> <li> <strong>Âge :</strong> <ageYear></ageYear> <ageMonth></ageMonth> <ageDay></ageDay> </li> <li> <strong>Nationalité :</strong> Française </li> <li> <strong>Localisation :</strong> France / Suisse </li> <li> <strong>Mail : </strong> jeremdev.contactpro@gmail.com </li> <li> <strong>Langues :</strong> <ul> <li>Français - (Langue natale)</li> <li>Anglais - (Compétence professionnelle)</li> <li>Allemand - (En cours d'apprentissage)</li> </ul> </li>",
-    "socialsAndStats": "Réseaux sociaux et stats",
-    "years": "ans",
-    "month": "mois",
-    "months": "mois",
-    "day": "jour",
-    "and": "et"
-  },
-  "Navbar": {
-    "home": { "label": "Accueil", "href": "/" },
-    "projects": { "label": "Réalisations", "href": "/projects" },
-    "profile": { "label": "Profil", "href": "/profile" }
-  },
-  "CarouselHome": {
-    "simonGame": "Création d'un jeu de Simon en utilisant React. Projet pour comprendre le state mangement, les cylces de vie des composants et les hooks.",
-    "argentBank": "Intégration d'une application bancaire, avec un système d'authentification via une API et un store global via Redux.",
-    "ninaCarducci": "Optimisation d'un site web d'une photographe sur le réferecement naturel, la performance et l'accessibilité.",
-    "kasa": "Intégration d'un site de location immobilière. Projet pour gérer les routes, les paramètres d'URL et mettre en ouevre des animations CSS via Sass.",
-    "qcm": "Création d'une application de QCM. Projet pour gérer une base de données avec un ORM, créer un système d'authetification avec un token JWT et sécuriser les routes."
+    "title": "Développeur React et Next.js",
+    "text": "Développeur web frontend, j'utilise <span>React</span>, <span> Next.js</span> et<span> TypeScript</span> pour concevoir des interfaces modernes et responsives. <br></br>J’ai également des notions en développement back-end avec<span> PostgreSQL</span>,<span> Node.js</span>, et<span> Prisma</span>, me permettant d'appréhender l'ensemble du développement web.",
+    "mySkills": "Skills",
+    "mainSkills": "Core skills",
+    "secondarySkills": "Additional skills",
+    "myProjects": "Projets",
+    "contact": "Que ce soit pour un projet, une collaboration ou simplement échanger, n’hésitez pas à me contacter !",
+    "about": "À propos",
+    "aboutContent": [
+      {
+        "title": "Parcours et Reconversion",
+        "content": "Après 10 ans dans le secteur automobile, évoluant de technicien à chef d'équipe, j'ai développé de solides compétences en gestion d'équipe et résolution de problèmes. Passionné par le développement web, j'ai entrepris en 2023 une reconversion via OpenClassrooms, me formant aux technologies frontend comme React, Next.js et TypeScript, alliant ainsi ma rigueur technique à ma nouvelle passion."
+      },
+      {
+        "title": "Formation Continue / Veille Technologique",
+        "content": "Ma veille technologique s'effectue principalement via LinkedIn et X (Twitter), complétée par le suivi de conférences tech. Je maintiens mes compétences en relevant régulièrement des challenges d'intégration sur Frontend Mentor et en pratiquant des katas hebdomadaires sur Exercism et CodeWars pour améliorer ma logique de programmation."
+      },
+      {
+        "title": "Disponibilité et Recherches",
+        "content": "En recherche active, je suis disponible pour des opportunités en CDI, CDD ou missions freelance. Flexible sur les modalités de travail (remote, sur site ou hybride), je suis ouvert à tous types de projets permettant de mettre en pratique mes compétences en développement frontend."
+      },
+      {
+        "title": "Localisation",
+        "content": "Basé en Haute-Savoie près de la frontière suisse, je cherche activement des opportunités sur Lausanne et ses environs avec pour objectif de m'y installer. Je reste néanmoins ouvert aux propositions dans toute la région lémanique."
+      }
+    ]
   },
   "MetaData": {
     "home": {
-      "title": "JeremDevX - Développeur Front End React et Next.js",
+      "title": "Jérémie Lavergnat - Développeur Front End React et Next.js",
       "description": "Développeur front-end JeremDevX : découvrez mes compétences, mes projets et mon profil."
+    }
+  },
+  "Projects": {
+    "gus": {
+      "title": "GitHub User Search",
+      "description": "Application web moderne de recherche d'utilisateurs GitHub développée avec Next.js. Cette application s'intègre avec l'API REST de GitHub pour fournir une expérience utilisateur fluide et performante.<br></br>Points clés :<br></br>• Interface responsive avec une intégration pixel-perfect suivant les maquettes Figma de Frontend Mentor<br></br>• Implémentation d'un système de thème dynamique (clair/sombre) avec détection automatique des préférences système<br></br>"
     },
-    "projects": {
-      "title": "JeremDevX - Réalisations",
-      "description": "Réalisations de JeremDevX : retrouvez la liste de mes projets avec les technologies utilisées, et les liens vers les dépôts GitHub."
+    "blog": {
+      "title": "Blog and Devtools",
+      "description": "Plateforme fullstack combinant un blog technique et une suite d'outils de développement.<br></br>Architecture :<br></br>• Backend headless avec Sanity.io pour la gestion de contenu<br></br>• Frontend Next.js avec génération ISR pour les nouveaux articles<br></br>• Moteur de recherche utilisant des requêtes GROQ pour le blog et API standard pour les outils<br></br>"
     },
-    "profile": {
-      "title": "JeremDevX - Profil",
-      "description": "Profil JeremDevX : retrouvez la liste de mes réseaux sociaux, mon CV, mes coordonnées et autres."
+    "finance": {
+      "title": "Personnal Finance App",
+      "description": "Application de gestion financière en cours de développement.<br></br>Points clés :<br></br>• Dashboard interactif avec visualisation des différentes données<br></br>• Système de catégorisation des transactions / économies / factures<br></br>• Système de connexion via NextAuth (à venir)<br></br>• Gestion des données via une BDD PostgreSQL (à venir)<br></br> • Interface responsive selon les maquettes Figma de Frontend Mentor<br></br>"
     }
   }
 }

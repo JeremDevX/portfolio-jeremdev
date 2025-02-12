@@ -1,0 +1,113 @@
+@use "tailwindcss";
+
+:root {
+  --bg-color: hsl(0, 0%, 5%);
+  --text-color: rgb(235, 240, 246);
+  --bg-gradient: linear-gradient(
+    180deg,
+    rgb(67, 67, 67) 0%,
+    rgb(26, 26, 26) 100%
+  );
+  --border-primary: rgb(70, 70, 70) solid 1px;
+  --card-bg: rgba(255, 255, 255, 0.1);
+  --background: #000000;
+  --primary: #4598ff;
+  --accent: rgb(21, 174, 0);
+  --secondary: #7512f6;
+  --accent-half: rgba(21, 174, 0, 0.25);
+  --tech-bg: #000000;
+  --tetris-shadow: 0 0 25px rgba(10, 87, 0, 0.4);
+  --tetris-drop-shadow: 0 0 15px rgba(10, 87, 0, 0.4);
+  --tetris-bg: rgb(10, 87, 0);
+}
+
+html {
+  cursor: url("/cursors/Normal.cur"), auto;
+  scrollbar-width: none;
+}
+a:hover {
+  cursor: url("/cursors/Link.cur"), auto;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
+}
+
+main {
+  max-width: 1440px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  min-height: 100px;
+  height: auto;
+}
+
+section {
+  width: 100%;
+  padding-bottom: 25px;
+  position: relative;
+}
+
+section:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  margin-top: 10px;
+}
+
+.tag-item {
+  background: var(--primary);
+  border: var(--border-primary);
+  border-radius: 7px;
+  padding: 1px 15px;
+  text-transform: capitalize;
+}
+
+.btn {
+  font-size: large;
+  padding: 5px 15px;
+  background: var(--primary);
+  border: var(--border-primary);
+  border-radius: 8px;
+  &:hover {
+    background: var(--accent);
+    border: var(--border-primary);
+  }
+  &:active {
+    transform: translate(1px, 1px);
+  }
+}
+
+.accent {
+  color: var(--accent);
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.light {
+  position: fixed;
+  top: -50;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 50px;
+  width: 100%;
+  max-width: 1440px;
+  box-shadow: 0 0px 500px rgba(21, 174, 0, 0.75);
+  border-radius: 0 0 50% 50%;
+}

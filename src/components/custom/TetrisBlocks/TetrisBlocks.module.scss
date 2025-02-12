@@ -1,0 +1,110 @@
+@mixin tetris-base {
+  position: absolute;
+  background-color: var(--tetris-bg);
+  box-shadow: var(--tetris-shadow);
+  will-change: transform;
+}
+
+.tetrisBlockI {
+  @include tetris-base;
+  width: 30px;
+  height: 120px;
+}
+
+.tetrisBlockIHorizontal {
+  @include tetris-base;
+  width: 120px;
+  height: 30px;
+}
+
+.tetrisBlockO {
+  @include tetris-base;
+  width: 60px;
+  height: 60px;
+}
+
+.tetrisBlockT {
+  @include tetris-base;
+  width: 90px;
+  height: 30px;
+
+  &::after {
+    @include tetris-base;
+    content: "";
+    width: 30px;
+    height: 60px;
+    transform: translateX(30px);
+  }
+}
+
+.tetrisBlockTHorizontal {
+  @include tetris-base;
+  width: 30px;
+  height: 90px;
+
+  &::after {
+    @include tetris-base;
+    content: "";
+    width: 60px;
+    height: 30px;
+    transform: translateY(30px);
+  }
+}
+
+.tetrisBlockL {
+  @include tetris-base;
+  width: 60px;
+  height: 30px;
+
+  &::after {
+    @include tetris-base;
+    content: "";
+    width: 30px;
+    height: 60px;
+    transform: translateY(30px);
+  }
+}
+
+.tetrisBlockLHorizontal {
+  @include tetris-base;
+  width: 30px;
+  height: 60px;
+
+  &::after {
+    @include tetris-base;
+    content: "";
+    width: 60px;
+    height: 30px;
+    transform: translateX(30px);
+  }
+}
+
+.tetrisBlockZ {
+  @include tetris-base;
+  width: 60px;
+  height: 30px;
+
+  &::after {
+    @include tetris-base;
+    content: "";
+    width: 60px;
+    height: 30px;
+    left: 30px;
+    transform: translateY(30px);
+  }
+}
+
+.tetrisBlockZHorizontal {
+  @include tetris-base;
+  width: 30px;
+  height: 60px;
+
+  &::after {
+    @include tetris-base;
+    content: "";
+    width: 30px;
+    height: 60px;
+    top: 30px;
+    transform: translateX(30px);
+  }
+}

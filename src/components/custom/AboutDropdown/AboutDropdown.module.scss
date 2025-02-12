@@ -1,0 +1,75 @@
+.dropdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  width: 100%;
+  max-width: 40rem;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  max-width: 40rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 2px solid var(--accent-half);
+  background-color: black;
+  cursor: url("/cursors/Link.cur"), auto;
+  transition: all 0.3s ease;
+  overflow: hidden;
+
+  &:hover {
+    border-color: var(--accent);
+  }
+}
+
+.test {
+  position: absolute;
+  top: 50%;
+  right: 3.5rem;
+  width: 0.75rem;
+  height: 5rem;
+  background-color: var(--accent-half);
+  z-index: 0;
+  transform: rotate(20deg) translateY(-50%);
+  opacity: 0.25;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.03rem;
+  z-index: 1;
+
+  @media (min-width: 768px) {
+    font-size: 1.125rem;
+  }
+}
+
+.icon {
+  font-size: 1.5rem;
+  transition: all 0.4s ease;
+  transform: rotate(0deg);
+
+  &__open {
+    transform: rotate(180deg);
+  }
+}
+
+.content {
+  font-size: 1rem;
+  width: 100%;
+  max-width: 39.25rem;
+  padding: 0.5rem;
+  border: 2px solid var(--accent-half);
+  border-top: none;
+  border-radius: 0 0 0.5rem 0.5rem;
+  background-color: black;
+  overflow: hidden;
+  letter-spacing: 0.25px;
+}

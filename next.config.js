@@ -7,15 +7,7 @@ const withNextIntl = createNextIntlPlugin();
 const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
-  },
-  async redirects() {
-    return [
-      {
-        source: "/:path((?!fr|en).*)",
-        destination: "/",
-        permanent: true,
-      },
-    ];
+    silenceDeprecations: ["mixed-decls", "legacy-js-api"],
   },
 };
 
