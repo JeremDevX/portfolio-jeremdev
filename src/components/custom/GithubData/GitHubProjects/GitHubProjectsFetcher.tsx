@@ -45,7 +45,7 @@ const fetchGitHubRepositories = async () => {
         openGraphImageUrl
         createdAt
         updatedAt
-        object(expression: "HEAD:README.md") {
+        object(expression: "HEAD:metadata.json") {
           ... on Blob {
             text
           }
