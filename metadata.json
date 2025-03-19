@@ -1,0 +1,6 @@
+{
+  "description": {
+    "fr": "<h2>Portolio personnel</h2> <h3>Description</h3> <p>Portfolio personnel regroupant mes réalisations, mes réseaux sociaux ainsi que les moyens de me contacter.</p>\n<h3>Fonctionnalités principales :</h3>\n<ul>\n<li>Présentation des projets personnels et professionnels</li>\n<li>Liens vers mes réseaux sociaux et contacts directs</li>\n<li>Animations interactives pour améliorer l’expérience utilisateur</li>\n<li>Interface responsive optimisée pour tous les écrans</li>\n</ul>\n<h3>Technologies utilisées :</h3>\n<ul>\n<li>Next.js</li>\n<li>SCSS</li>\n<li>TailwindCSS</li>\n<li>Motion (Framer)</li>\n<li>GitHub API (GraphQL)</li>\n\n</ul>",
+    "en": "<h2>Personnal Portfolio</h2>\n<h3>Description</h3> <p>Personal portfolio showcasing my projects, social networks, and contact information.</p>\n<h3>Key features:</h3>\n<ul>\n<li>Showcase of personal and professional projects</li>\n<li>Quick access to social networks and direct contact methods</li>\n<li>Interactive animations enhancing user experience</li>\n<li>Responsive interface optimized for all devices</li>\n</ul>\n<h3>Built with :</h3>\n<ul>\n<li>Next.js</li>\n<li>SCSS</li>\n<li>TailwindCSS</li>\n<li>Motion (Framer)</li>\n<li>GitHub API (GraphQL)</li>\n</ul>"
+  }
+}
