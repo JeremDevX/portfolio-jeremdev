@@ -55,7 +55,6 @@ const fetchGitHubContributions = async () => {
   });
 
   const data: GitHubResponse = await response.json();
-  console.log(data);
 
   if (data.errors) {
     console.error("GraphQL Error:", data.errors);
