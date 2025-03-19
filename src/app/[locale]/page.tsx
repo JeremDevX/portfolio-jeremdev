@@ -9,6 +9,10 @@ import AboutDropdown from "@/components/custom/AboutDropdown/AboutDropdown";
 import Link from "next/link";
 import { FaLinkedin } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
+import GithubContributions from "@/components/custom/GithubData/GithubContributions/GithubContributions";
+import GithubLanguages from "@/components/custom/GithubData/GithubLanguages/GithubLanguages";
+import GitHubProjects from "@/components/custom/GithubData/GitHubProjects/GitHubProjectsList";
+import GitHubProjectsFetcher from "@/components/custom/GithubData/GitHubProjects/GitHubProjectsFetcher";
 
 export async function generateMetadata() {
   const t = await getTranslations("MetaData");
@@ -55,8 +59,14 @@ export default function Home() {
       </section>
       <section className={styles.projects}>
         <h2 className={styles.projects__title}>{t("myProjects")}</h2>
-        <ProjectTabs />
+        {/* <ProjectTabs /> */}
+        <GitHubProjectsFetcher />
+        <GithubContributions />
       </section>
+      {/* <section className={styles.github}>
+        <h2 className={styles.github__title}>GitHub</h2>
+      </section> */}
+      {/* <GithubLanguages /> */}
       <section className={styles.about}>
         <h2 className={styles.about__title}>{t("about")}</h2>
         {aboutContent.map((content, index) => (
