@@ -1,7 +1,7 @@
 {
   "Home": {
     "title": "Développeur React et Next.js",
-    "text": "Développeur web frontend, j'utilise <span>React</span>, <span> Next.js</span> et<span> TypeScript</span> pour concevoir des interfaces modernes et responsives. <br></br>J’ai également des notions en développement back-end avec<span> PostgreSQL</span>,<span> Node.js</span>, et<span> Prisma</span>, me permettant d'appréhender l'ensemble du développement web.",
+    "text": "Développeur web en recherche d'une alternance, j'utilise <span>React</span>, <span> Next.js</span> et<span> TypeScript</span> pour concevoir des interfaces modernes et responsives. <br></br>J’ai également des notions en développement back-end avec<span> PostgreSQL</span>,<span> Node.js</span>, et<span> Prisma</span>, me permettant d'appréhender l'ensemble du développement web.",
     "mySkills": "Skills",
     "mainSkills": "Core skills",
     "secondarySkills": "Additional skills",
@@ -11,7 +11,7 @@
     "aboutContent": [
       {
         "title": "Parcours et Reconversion",
-        "content": "Après 10 ans dans le secteur automobile, évoluant de technicien à chef d'équipe, j'ai développé de solides compétences en gestion d'équipe et résolution de problèmes. Passionné par le développement web, j'ai entrepris en 2023 une reconversion via OpenClassrooms, me formant aux technologies frontend comme React, Next.js et TypeScript, alliant ainsi ma rigueur technique à ma nouvelle passion."
+        "content": "Après 10 ans dans le secteur automobile (technicien puis chef d’équipe), j’ai entamé en 2023 une reconversion vers le développement web. Formé aux technologies front-end comme React, Next.js et TypeScript, je cherche à intégrer une alternance Bac +3 dès septembre 2025, avec pour objectif de poursuivre vers un MBA Bac +5 en développement fullstack."
       },
       {
         "title": "Formation Continue / Veille Technologique",
@@ -19,11 +19,11 @@
       },
       {
         "title": "Disponibilité et Recherches",
-        "content": "En recherche active, je suis disponible pour des opportunités en CDI, CDD ou missions freelance. Flexible sur les modalités de travail (remote, sur site ou hybride), je suis ouvert à tous types de projets permettant de mettre en pratique mes compétences en développement frontend."
+        "content": "Actuellement en reconversion, je suis en recherche active d’une alternance en développement web à partir de septembre 2025, dans le cadre d’un Bac +3 Concepteur Développeur d’Applications. Ouvert aux environnements sur site, hybrides ou en télétravail, je souhaite intégrer une équipe où je pourrai consolider mes compétences front-end (React, Next.js, TypeScript) tout en contribuant à des projets concrets."
       },
       {
         "title": "Localisation",
-        "content": "Basé en Haute-Savoie près de la frontière suisse, je cherche activement des opportunités sur Genève et ses environs."
+        "content": "Basé en Isère, je cherche activement des opportunités d’alternance sur Grenoble et ses alentours."
       }
     ]
   },
