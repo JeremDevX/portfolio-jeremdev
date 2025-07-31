@@ -1,7 +1,7 @@
 {
   "Home": {
-    "title": "Frontend Developer React and Next.js",
-    "text": "Frontend web developer, I use <span>React</span>, <span>Next.js</span>, and <span>TypeScript</span> to design modern and responsive interfaces. <br></br>I also have knowledge in back-end development with <span>PostgreSQL</span>, <span>Node.js</span>, and <span>Prisma</span>, allowing me to understand the entire web development process.",
+    "title": "Web Developer React and Next.js",
+    "text": "Web developer looking for a work-study, I use <span>React</span>, <span>Next.js</span>, and <span>TypeScript</span> to design modern and responsive interfaces. <br></br>I also have knowledge in back-end development with <span>PostgreSQL</span>, <span>Node.js</span>, and <span>Prisma</span>, allowing me to understand the entire web development process.",
     "mySkills": "Skills",
     "mainSkills": "Core skills",
     "secondarySkills": "Additional skills",
@@ -11,7 +11,7 @@
     "aboutContent": [
       {
         "title": "Background and Career Change",
-        "content": "After 10 years in the automotive industry, evolving from technician to team leader, I developed strong team management and problem-solving skills. Passionate about web development, I undertook a career change in 2023 through OpenClassrooms, training in frontend technologies like React, Next.js and TypeScript, combining my technical rigor with my new passion."
+        "content": "After 10 years in the automotive industry (technician then team leader), I began a career change in 2023 towards web development. Trained in front-end technologies such as React, Next.js, and TypeScript, I am looking to join a work-study program (Bachelor’s level) starting in September 2025, with the goal of continuing toward a fullstack development MBA (Master’s level)."
       },
       {
         "title": "Continuous Learning / Technology Watch",
@@ -19,11 +19,11 @@
       },
       {
         "title": "Availability and Job Search",
-        "content": "Actively looking, I am available for permanent positions, fixed-term contracts or freelance assignments. Flexible on working arrangements (remote, on-site or hybrid), I am open to all types of projects to put my frontend development skills into practice."
+        "content": "Currently retraining, I am actively looking for a work-study opportunity in web development starting in September 2025, as part of a Bachelor’s degree in Application Development. Open to on-site, hybrid, or remote environments, I aim to join a team where I can strengthen my front-end skills (React, Next.js, TypeScript) while contributing to real-world projects."
       },
       {
         "title": "Location",
-        "content": "Based in Haute-Savoie near the Swiss border, I am actively seeking opportunities in Geneva and its surroundings."
+        "content": "Based in Isère, I am actively looking for work-study opportunities in Grenoble and the surrounding area."
       }
     ]
   },
