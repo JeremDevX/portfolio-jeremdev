@@ -1,7 +1,7 @@
 {
   "Home": {
     "title": "Web Developer React and Next.js",
-    "text": "Web developer looking for a work-study, I use <span>React</span>, <span>Next.js</span>, and <span>TypeScript</span> to design modern and responsive interfaces. <br></br>I also have knowledge in back-end development with <span>PostgreSQL</span>, <span>Node.js</span>, and <span>Prisma</span>, allowing me to understand the entire web development process.",
+    "text": "Fullstack developer looking for a work-study program (MBA, Master’s level), I use <span>React</span>, <span>Next.js</span> and <span>TypeScript</span> to build modern and high-performance interfaces.<br></br>I am also developing back-end skills with <span>PostgreSQL</span>, <span>Node.js</span> and <span>Prisma</span>, which helps me understand the full web stack and adapt to other stacks as needed.",
     "mySkills": "Skills",
     "mainSkills": "Core skills",
     "secondarySkills": "Additional skills",
@@ -11,15 +11,15 @@
     "aboutContent": [
       {
         "title": "Background and Career Change",
-        "content": "After 10 years in the automotive industry (technician then team leader), I began a career change in 2023 towards web development. Trained in front-end technologies such as React, Next.js, and TypeScript, I am looking to join a work-study program (Bachelor’s level) starting in September 2025, with the goal of continuing toward a fullstack development MBA (Master’s level)."
+        "content": "After 10 years in automotive (technician then team lead), I shifted to web development in 2023. I’m now pursuing an MBA in Fullstack Development, strengthening React, Next.js and TypeScript with a product-driven mindset. I am motivated to adapt to a company’s stack if needed and have already started exploring other environments."
       },
       {
         "title": "Continuous Learning / Technology Watch",
-        "content": "My technology watch is mainly done through LinkedIn and X (Twitter), complemented by following tech conferences. I maintain my skills by regularly taking on integration challenges on Frontend Mentor and practicing weekly katas on Exercism and CodeWars to improve my programming logic."
+        "content": "Active watch on LinkedIn and X, complemented by conferences and talks. I keep improving through Frontend Mentor challenges, weekly katas (Exercism, CodeWars), and building small functional apps. I also explore practical AI use in development."
       },
       {
         "title": "Availability and Job Search",
-        "content": "Currently retraining, I am actively looking for a work-study opportunity in web development starting in September 2025, as part of a Bachelor’s degree in Application Development. Open to on-site, hybrid, or remote environments, I aim to join a team where I can strengthen my front-end skills (React, Next.js, TypeScript) while contributing to real-world projects."
+        "content": "I’m looking for a two-year work-study (2025–2027) as part of my Fullstack MBA. Open to on-site, hybrid or remote, I want to contribute to real projects, solidify my front end (React/Next.js/TS) and ramp up on the back end (Node/Prisma/SQL)."
       },
       {
         "title": "Location",

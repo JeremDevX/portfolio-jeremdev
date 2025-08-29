@@ -1,7 +1,7 @@
 {
   "Home": {
     "title": "Développeur React et Next.js",
-    "text": "Développeur web en recherche d'une alternance, j'utilise <span>React</span>, <span> Next.js</span> et<span> TypeScript</span> pour concevoir des interfaces modernes et responsives. <br></br>J’ai également des notions en développement back-end avec<span> PostgreSQL</span>,<span> Node.js</span>, et<span> Prisma</span>, me permettant d'appréhender l'ensemble du développement web.",
+    "text": "Développeur fullstack en recherche d'une alternance (MBA Bac+5), j'utilise <span>React</span>, <span>Next.js</span> et <span>TypeScript</span> pour concevoir des interfaces modernes et performantes.<br></br>J’ai également des notions en développement back-end avec <span>PostgreSQL</span>, <span>Node.js</span> et <span>Prisma</span>, me permettant d’appréhender l’ensemble du développement web et de m’adapter à d’autres stacks selon les besoins d’une entreprise.",
     "mySkills": "Skills",
     "mainSkills": "Core skills",
     "secondarySkills": "Additional skills",
@@ -11,15 +11,15 @@
     "aboutContent": [
       {
         "title": "Parcours et Reconversion",
-        "content": "Après 10 ans dans le secteur automobile (technicien puis chef d’équipe), j’ai entamé en 2023 une reconversion vers le développement web. Formé aux technologies front-end comme React, Next.js et TypeScript, je cherche à intégrer une alternance Bac +3 dès septembre 2025, avec pour objectif de poursuivre vers un MBA Bac +5 en développement fullstack."
+        "content": "Après 10 ans dans l’automobile (technicien puis chef d’équipe), j’ai entamé en 2023 une reconversion vers le développement web. Aujourd’hui en MBA Développeur Fullstack (Bac+5), je consolide React, Next.js et TypeScript avec une vraie exigence produit. Je reste motivé à m’adapter aux besoins d’une entreprise, même sur d’autres stacks, et j’ai déjà commencé à m’y intéresser."
       },
       {
         "title": "Formation Continue / Veille Technologique",
-        "content": "Ma veille technologique s'effectue principalement via LinkedIn et X (Twitter), complétée par le suivi de conférences tech. Je maintiens mes compétences en relevant régulièrement des challenges d'intégration sur Frontend Mentor et en pratiquant des katas hebdomadaires sur Exercism et CodeWars pour améliorer ma logique de programmation."
+        "content": "Veille active sur LinkedIn et X, complétée par conférences et talks. Je progresse via challenges Frontend Mentor, des katas hebdomadaires (Exercism, CodeWars), et le développement de petites applications fonctionnelles. J’explore aussi l’usage de l’IA appliquée au développement."
       },
       {
         "title": "Disponibilité et Recherches",
-        "content": "Actuellement en reconversion, je suis en recherche active d’une alternance en développement web à partir de septembre 2025, dans le cadre d’un Bac +3 Concepteur Développeur d’Applications. Ouvert aux environnements sur site, hybrides ou en télétravail, je souhaite intégrer une équipe où je pourrai consolider mes compétences front-end (React, Next.js, TypeScript) tout en contribuant à des projets concrets."
+        "content": "Je recherche une alternance de deux ans (2025–2027) dans le cadre de mon MBA Fullstack. Ouvert au présentiel, hybride ou télétravail, je veux contribuer à des projets concrets, consolider mon front (React/Next.js/TS) et accélérer sur le back (Node/Prisma/SQL)."
       },
       {
         "title": "Localisation",
