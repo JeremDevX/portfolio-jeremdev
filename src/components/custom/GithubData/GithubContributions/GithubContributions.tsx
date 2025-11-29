@@ -1,76 +1,8 @@
+import { fetchContributions } from "@/lib/github";
 import styles from "./GithubContributions.module.scss";
 
-interface GitHubResponse {
-  data: {
-    user: {
-      contributionsCollection: {
-        contributionCalendar: {
-          totalContributions: number;
-          weeks: {
-            contributionDays: {
-              date: string;
-              contributionCount: number;
-            }[];
-          }[];
-        };
-      };
-    };
-  };
-  errors?: { message: string }[];
-}
-
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN_USER_DATA;
-
-const fetchGitHubContributions = async () => {
-  if (!GITHUB_TOKEN) {
-    throw new Error("Missing GitHub Token. Set GITHUB_TOKEN in env variables.");
-  }
-
-  const query = `
-    {
-      user(login: "jeremdevx") {
-        contributionsCollection {
-          contributionCalendar {
-            totalContributions
-            weeks {
-              contributionDays {
-                date
-                contributionCount
-              }
-            }
-          }
-        }
-      }
-    }
-  `;
-
-  const response = await fetch("https://api.github.com/graphql", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${GITHUB_TOKEN}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ query }),
-    next: { revalidate: 3600 },
-  });
-
-  const data: GitHubResponse = await response.json();
-
-  if (data.errors) {
-    console.error("GraphQL Error:", data.errors);
-    return { totalContributions: 0, days: [] };
-  }
-
-  const calendar = data.data.user.contributionsCollection.contributionCalendar;
-  const totalContributions = calendar.totalContributions;
-
-  const days = calendar.weeks.flatMap((week) => week.contributionDays);
-
-  return { totalContributions, days };
-};
-
 export default async function GitHubContributions() {
-  const { totalContributions, days } = await fetchGitHubContributions();
+  const { totalContributions, days } = await fetchContributions();
 
   return (
     <div className={styles.contributions}>

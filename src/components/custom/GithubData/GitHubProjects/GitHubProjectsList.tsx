@@ -25,27 +25,31 @@ export default function GitHubProjectsList({
   const { locale } = useParams();
   const prevRepoRef = useRef<number>(currentRepo);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setDirection(-1);
     setTimeout(() => {
       setCurrentRepo((prev) =>
         prev === repositories.length - 1 ? 0 : prev + 1
       );
     }, 10);
-  };
+  }, [repositories.length]);
 
-  const handlePrevious = () => {
+  const handlePrevious = useCallback(() => {
     setDirection(1);
     setTimeout(() => {
       setCurrentRepo((prev) =>
         prev === 0 ? repositories.length - 1 : prev - 1
       );
     }, 10);
-  };
+  }, [repositories.length]);
 
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     setIsOpen(false);
-  };
+  }, []);
+
+  const handleOpenModal = useCallback(() => {
+    setIsOpen(true);
+  }, []);
 
   // Trigger animation when currentRepo changes
   useEffect(() => {
@@ -59,15 +63,21 @@ export default function GitHubProjectsList({
     }
   }, [currentRepo]);
 
+  // Lock body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
     }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isOpen]);
 
-  // Gestion du cas où il n'y a pas de projets
+  // Handle empty repositories
   if (!repositories || repositories.length === 0) {
     return (
       <div className={styles.project}>
@@ -104,9 +114,12 @@ export default function GitHubProjectsList({
               }}
               transition={{ duration: 0.5, ease: "easeOut" }}
               className={styles.project__content}
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={handleOpenModal}
             >
-              <Project repo={repositories[currentRepo]} />
+              <Project
+                repo={repositories[currentRepo]}
+                isFirst={currentRepo === 0}
+              />
             </motion.div>
           </AnimatePresence>
         </ProjectGhost>
@@ -161,7 +174,13 @@ export default function GitHubProjectsList({
   );
 }
 
-function Project({ repo }: { repo: Repository }) {
+function Project({
+  repo,
+  isFirst = false,
+}: {
+  repo: Repository;
+  isFirst?: boolean;
+}) {
   return (
     <>
       <h2 className={styles.project__title}>{repo.description || repo.name}</h2>
@@ -172,7 +191,8 @@ function Project({ repo }: { repo: Repository }) {
         height={630}
         className={styles.project__image}
         style={{ width: "95%", height: "auto" }}
-        loading="eager"
+        loading={isFirst ? "eager" : "lazy"}
+        priority={isFirst}
       />
     </>
   );
@@ -193,30 +213,32 @@ function ProjectGhost({
       <Image
         style={{ opacity: 0, width: "95%", height: "auto" }}
         src={repo.openGraphImageUrl}
-        alt={repo.name}
+        alt=""
+        aria-hidden="true"
         width={1200}
         height={630}
         className={styles.project__image}
-        loading="eager"
+        loading="lazy"
       />
       {children}
     </div>
   );
 }
 
-function Modal({
-  repo,
-  locale,
-  closeModal,
-}: {
+interface ModalProps {
   repo: Repository;
   locale: string | string[] | undefined;
   closeModal: () => void;
-}) {
+}
+
+function Modal({ repo, locale, closeModal }: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
 
+  // Normalize locale to string
+  const currentLocale = Array.isArray(locale) ? locale[0] : locale ?? "fr";
+
   const desc =
-    locale === "en"
+    currentLocale === "en"
       ? JSON.parse(repo.object?.text || "{}").description?.en ||
         "No description"
       : JSON.parse(repo.object?.text || "{}").description?.fr ||

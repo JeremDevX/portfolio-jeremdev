@@ -37,7 +37,7 @@ export default function AboutDropdown({
           className={`${styles.icon} ${open && styles.icon__open}`}
         />
         <div
-          className={styles.test}
+          className={styles.indicator}
           style={{
             transition: open ? "all 1.3s ease" : "all 0.7s ease",
             backgroundColor: open ? "var(--accent)" : "",
@@ -45,7 +45,7 @@ export default function AboutDropdown({
           }}
         />
         <div
-          className={styles.test}
+          className={styles.indicator}
           style={{
             transition: "all 1s ease",
             backgroundColor: open ? "var(--accent)" : "",
@@ -54,7 +54,7 @@ export default function AboutDropdown({
           }}
         />
         <div
-          className={styles.test}
+          className={styles.indicator}
           style={{
             transition: open ? "all 0.7s ease" : "all 1.3s ease",
             backgroundColor: open ? "var(--accent)" : "",

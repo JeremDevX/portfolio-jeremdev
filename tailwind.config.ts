@@ -1,11 +1,7 @@
 import type { Config } from "tailwindcss";
-
-const defaultTheme = require("tailwindcss/defaultTheme");
-
-const colors = require("tailwindcss/colors");
-const {
-  default: flattenColorPalette,
-} = require("tailwindcss/lib/util/flattenColorPalette");
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const flattenColorPalette =
+  require("tailwindcss/lib/util/flattenColorPalette").default;
 
 const config = {
   darkMode: ["class", "[data-theme='dark']"],
@@ -91,9 +87,18 @@ const config = {
   plugins: [require("tailwindcss-animate"), addVariablesForColors],
 } satisfies Config;
 
-function addVariablesForColors({ addBase, theme }: any) {
-  let allColors = flattenColorPalette(theme("colors"));
-  let newVars = Object.fromEntries(
+function addVariablesForColors({
+  addBase,
+  theme,
+}: {
+  addBase: (styles: Record<string, Record<string, string>>) => void;
+  theme: (path: string) => Record<string, string>;
+}) {
+  const allColors = flattenColorPalette(theme("colors")) as Record<
+    string,
+    string
+  >;
+  const newVars = Object.fromEntries(
     Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
   );
 
@@ -101,4 +106,5 @@ function addVariablesForColors({ addBase, theme }: any) {
     ":root": newVars,
   });
 }
+
 export default config;
