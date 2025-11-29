@@ -168,9 +168,10 @@ function Project({ repo }: { repo: Repository }) {
       <Image
         src={repo.openGraphImageUrl}
         alt={repo.name}
-        width={1000}
-        height={1000}
+        width={1200}
+        height={630}
         className={styles.project__image}
+        style={{ width: "95%", height: "auto" }}
         loading="eager"
       />
     </>
@@ -190,11 +191,11 @@ function ProjectGhost({
         {repo.description || repo.name}
       </h2>
       <Image
-        style={{ opacity: 0 }}
+        style={{ opacity: 0, width: "95%", height: "auto" }}
         src={repo.openGraphImageUrl}
         alt={repo.name}
-        width={1000}
-        height={1000}
+        width={1200}
+        height={630}
         className={styles.project__image}
         loading="eager"
       />
