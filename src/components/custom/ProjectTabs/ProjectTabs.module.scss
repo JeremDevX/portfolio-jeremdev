@@ -38,8 +38,17 @@
   }
 
   &__link:hover {
-    filter: drop-shadow(0 0 6px rgba(21, 174, 0, 1));
-    transform: scale(1.2);
+    filter: drop-shadow(0 0 8px var(--accent))
+      drop-shadow(0 0 16px var(--accent-glow));
+    transform: scale(1.15) translateY(-2px);
+  }
+
+  &__link {
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), filter 0.3s ease;
+
+    &:active {
+      transform: scale(1.05);
+    }
   }
 }
 
@@ -69,6 +78,13 @@
     max-width: 500px;
     object-fit: cover;
     object-position: top;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.3s ease;
+
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px var(--accent-glow), 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
 
     @media (min-width: 768px) {
       max-width: 600px;
@@ -87,17 +103,20 @@
     inset: 0;
     border-radius: 0.5rem;
     overflow: hidden;
-    transition: all 0.2s ease;
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 
     @media (min-width: 1024px) {
       position: absolute;
       opacity: 0;
       line-height: 1.1;
+      backdrop-filter: blur(0px);
 
       &:hover {
         opacity: 1;
-        background-color: rgba(0, 0, 0, 0.98);
-        box-shadow: 0 0 24px rgba(21, 174, 0, 0.2);
+        background-color: rgba(0, 0, 0, 0.95);
+        box-shadow: 0 0 30px var(--accent-glow),
+          inset 0 0 60px rgba(21, 174, 0, 0.05);
+        backdrop-filter: blur(4px);
       }
     }
 

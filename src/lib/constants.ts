@@ -56,6 +56,25 @@ export const SEO_CONFIG = {
 // ==========================================
 
 export const TECH_STACK = {
-  main: ["React.js", "Next.js", "TypeScript", "Tailwind CSS", "Sass", "GitHub"],
-  secondary: ["Node.js", "Prisma", "PostgreSQL", "Figma"],
+  main: [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "JavaScript",
+    "Tailwind CSS",
+    "Sass",
+    "HTML5",
+    "CSS3",
+  ],
+  secondary: [
+    "Node.js",
+    "PostgreSQL",
+    "Prisma",
+    "GitHub",
+    "GitLab",
+    "Sanity",
+    "Strapi",
+    "Python",
+    "PHP",
+  ],
 } as const;

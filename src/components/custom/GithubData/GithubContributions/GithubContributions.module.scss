@@ -13,6 +13,12 @@
   border: 2px solid var(--accent-half);
   border-radius: 0.5rem;
   background-color: black;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(21, 174, 0, 0.15);
+  }
 
   &__title {
     font-size: 1.25rem;

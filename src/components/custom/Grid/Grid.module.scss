@@ -10,14 +10,24 @@
   background-size: 30px 30px;
   background-image: linear-gradient(
       to right,
-      rgba(21, 174, 0, 0.35) 1px,
+      var(--accent-half) 1px,
       transparent 1px
     ),
-    linear-gradient(rgba(21, 174, 0, 0.35) 1px, transparent 1px);
+    linear-gradient(var(--accent-half) 1px, transparent 1px);
   z-index: -1;
-  opacity: 0.15;
-  box-shadow: 0 0 50px rgba(21, 174, 0, 0.65);
+  opacity: 0.12;
+  box-shadow: 0 0 80px var(--accent-glow);
   overflow: hidden;
+  animation: gridFadeIn 1s ease-out;
+}
+
+@keyframes gridFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.12;
+  }
 }
 
 .gridMask {
@@ -51,9 +61,11 @@
   position: absolute;
   width: 30px;
   height: 30px;
-  background: rgba(21, 174, 0, 0.75);
+  background: var(--accent);
   pointer-events: none;
   will-change: opacity;
+  border-radius: 2px;
+  box-shadow: 0 0 12px var(--accent), 0 0 24px var(--accent-glow);
   @media (min-width: 1024px) {
     display: block;
   }
