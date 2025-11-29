@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import { getTranslations, getLocale } from "next-intl/server";
 import { AnimatedTechs } from "@/components/custom/AnimatedTechs/AnimatedTechs";
 import { FlipWords } from "@/components/ui/flip-word";
-import Grid from "@/components/custom/Grid/Grid";
+import GridWrapper from "@/components/custom/Grid/GridWrapper";
 import AboutDropdown from "@/components/custom/AboutDropdown/AboutDropdown";
 import Link from "next/link";
 import { FaLinkedin } from "react-icons/fa";
@@ -12,14 +12,29 @@ import GithubContributions from "@/components/custom/GithubData/GithubContributi
 import GitHubProjectsFetcher from "@/components/custom/GithubData/GitHubProjects/GitHubProjectsFetcher";
 import type { Metadata } from "next";
 
+import { SITE_CONFIG } from "@/lib/constants";
+
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("MetaData");
   const locale = await getLocale();
-  const baseUrl = "https://jeremdevx.com";
+  const { baseUrl } = SITE_CONFIG;
 
   return {
     title: t("home.title"),
     description: t("home.description"),
+    keywords: [
+      "développeur",
+      "front-end",
+      "React",
+      "Next.js",
+      "TypeScript",
+      "portfolio",
+      "Jérémie Lavergnat",
+      "web developer",
+      "freelance",
+    ],
+    authors: [{ name: "Jérémie Lavergnat", url: baseUrl }],
+    creator: "Jérémie Lavergnat",
     alternates: {
       canonical: `${baseUrl}/${locale}`,
       languages: {
@@ -34,16 +49,32 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: "Jérémie Lavergnat - Portfolio",
       locale: locale === "fr" ? "fr_FR" : "en_US",
       type: "website",
+      images: [
+        {
+          url: `${baseUrl}/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: "Jérémie Lavergnat - Développeur React & Next.js",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: t("home.title"),
       description: t("home.description"),
       creator: "@JeremDevX",
+      images: [`${baseUrl}/og-image.png`],
     },
     robots: {
       index: true,
       follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
   };
 }
@@ -121,7 +152,7 @@ export default function Home() {
       <footer className={styles.footer}>
         © Jérémie Lavergnat - {new Date().getFullYear()}
       </footer>
-      <Grid />
+      <GridWrapper />
     </main>
   );
 }

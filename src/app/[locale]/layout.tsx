@@ -17,6 +17,8 @@ import {
 const leagueSpartan = Chakra_Petch({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+  display: "swap",
+  preload: true,
 });
 
 export function generateStaticParams() {
@@ -41,12 +43,15 @@ export default async function LocaleLayout(props: {
   return (
     <html lang={locale}>
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#000000" />
         <meta
           name="google-site-verification"
           content="xT3V4j3e8lf5TmhLOSlWycOJiDbSXt_LpW_c2GR0oRI"
         />
-        <link rel="canonical" href={SITE_CONFIG.baseUrl} />
+        <link rel="canonical" href={`${SITE_CONFIG.baseUrl}/${locale}`} />
         <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
