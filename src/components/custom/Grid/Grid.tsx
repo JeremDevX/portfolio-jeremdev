@@ -19,7 +19,7 @@ import { TetrisBlocks } from "../TetrisBlocks/TetrisBlocks";
 
 export default function Grid() {
   const { scrollYProgress } = useScroll();
-  const [_, setPageHeight] = useState<null | number>(null);
+  const [, setPageHeight] = useState<null | number>(null);
   const [windowWidth, setWindowWidth] = useState<number>(1440);
   const gridRef = useRef<HTMLDivElement | null>(null);
   const rectRef = useRef<DOMRect | null>(null);

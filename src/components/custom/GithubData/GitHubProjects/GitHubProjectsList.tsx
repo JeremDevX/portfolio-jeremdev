@@ -61,45 +61,55 @@ export default function GitHubProjectsList({
     }
   }, [isOpen]);
 
+  // Gestion du cas où il n'y a pas de projets
+  if (!repositories || repositories.length === 0) {
+    return (
+      <div className={styles.project}>
+        <div className={styles.project__error}>
+          <p>Impossible de charger les projets pour le moment.</p>
+          <button
+            onClick={() => window.location.reload()}
+            className={styles.project__retry}
+          >
+            Réessayer
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className={styles.project}>
-        {repositories.length > 0 ? (
-          <ProjectGhost repo={repositories[0]}>
-            <AnimatePresence
-              mode="popLayout"
-              initial={false}
-              custom={direction}
+        <ProjectGhost repo={repositories[0]}>
+          <AnimatePresence mode="popLayout" initial={false} custom={direction}>
+            <motion.div
+              key={repositories[currentRepo].name}
+              initial={{
+                opacity: 0,
+                x: direction * -100 + "%",
+                scale: 0,
+              }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{
+                opacity: 0,
+                x: direction * 100 + "%",
+                scale: 0,
+              }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className={styles.project__content}
+              onClick={() => setIsOpen(!isOpen)}
             >
-              <motion.div
-                key={repositories[currentRepo].name}
-                initial={{
-                  opacity: 0,
-                  x: direction * -100 + "%",
-                  scale: 0,
-                }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{
-                  opacity: 0,
-                  x: direction * 100 + "%",
-                  scale: 0,
-                }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className={styles.project__content}
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                <Project repo={repositories[currentRepo]} />
-              </motion.div>
-            </AnimatePresence>
-          </ProjectGhost>
-        ) : (
-          <p>Error while fetching projects. Please refresh.</p>
-        )}
+              <Project repo={repositories[currentRepo]} />
+            </motion.div>
+          </AnimatePresence>
+        </ProjectGhost>
         <div className={styles.project__info}>
           <Link
             href={repositories[currentRepo].homepageUrl}
             className={styles.project__link}
             target="_blank"
+            rel="noopener noreferrer"
           >
             Live Site
           </Link>
@@ -108,6 +118,7 @@ export default function GitHubProjectsList({
               className={styles.project__arrow}
               onClick={handlePrevious}
               disabled={isAnimating}
+              aria-label="Projet précédent"
             >
               <BiSolidLeftArrow />
             </button>
@@ -118,6 +129,7 @@ export default function GitHubProjectsList({
               className={styles.project__arrow}
               onClick={handleNext}
               disabled={isAnimating}
+              aria-label="Projet suivant"
             >
               <BiSolidRightArrow />
             </button>
@@ -126,6 +138,7 @@ export default function GitHubProjectsList({
             href={repositories[currentRepo].url}
             className={styles.project__link}
             target="_blank"
+            rel="noopener noreferrer"
           >
             Code Repo
           </Link>
@@ -202,9 +215,13 @@ function Modal({
       : JSON.parse(repo.object?.text || "{}").description?.fr ||
         "Pas de description";
 
-  const cleanedDesc = DOMPurify.sanitize(desc);
+  // Sanitize et format uniquement côté client
+  const formatDesc = (rawDesc: string): string => {
+    if (typeof window === "undefined") {
+      return rawDesc;
+    }
 
-  const formatDesc = (cleanedDesc: string) => {
+    const cleanedDesc = DOMPurify.sanitize(rawDesc);
     const parser = new DOMParser();
     const doc = parser.parseFromString(cleanedDesc, "text/html");
 
@@ -215,25 +232,35 @@ function Modal({
     return doc.body.innerHTML;
   };
 
-  const handleClickOutside = (e: MouseEvent) => {
-    if (modalRef.current && !modalRef.current?.contains(e.target as Node)) {
-      closeModal();
-    }
-  };
-
   useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (modalRef.current && !modalRef.current?.contains(e.target as Node)) {
+        closeModal();
+      }
+    };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [closeModal]);
 
   return (
     <>
-      <div className={styles.overlay} />
-      <div className={styles.modal} ref={modalRef}>
-        <div dangerouslySetInnerHTML={{ __html: formatDesc(cleanedDesc) }} />
-        <button onClick={closeModal} className={styles.modal__close}>
+      <div className={styles.overlay} aria-hidden="true" />
+      <div
+        className={styles.modal}
+        ref={modalRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+      >
+        <div dangerouslySetInnerHTML={{ __html: formatDesc(desc) }} />
+        <button
+          onClick={closeModal}
+          className={styles.modal__close}
+          aria-label="Fermer le modal"
+        >
           <IoMdClose />
         </button>
       </div>

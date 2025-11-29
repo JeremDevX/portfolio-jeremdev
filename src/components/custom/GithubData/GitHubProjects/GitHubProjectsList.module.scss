@@ -109,6 +109,43 @@
       height: 100%;
     }
   }
+
+  &__error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    text-align: center;
+    min-height: 200px;
+
+    p {
+      font-size: 1.125rem;
+      color: var(--text-color);
+      opacity: 0.8;
+    }
+  }
+
+  &__retry {
+    padding: 0.5rem 1.5rem;
+    background-color: var(--accent);
+    color: black;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    cursor: url("/cursors/Link.cur"), auto;
+    transition: all 0.2s ease;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
 }
 
 .modal {

@@ -7,6 +7,12 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
+import {
+  PERSONAL_INFO,
+  SITE_CONFIG,
+  SOCIAL_LINKS,
+  TECH_STACK,
+} from "@/lib/constants";
 
 const leagueSpartan = Chakra_Petch({
   subsets: ["latin"],
@@ -39,7 +45,7 @@ export default async function LocaleLayout(props: {
           name="google-site-verification"
           content="xT3V4j3e8lf5TmhLOSlWycOJiDbSXt_LpW_c2GR0oRI"
         />
-        <link rel="canonical" href="https://jeremdevx.com" />
+        <link rel="canonical" href={SITE_CONFIG.baseUrl} />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <script
           type="application/ld+json"
@@ -47,32 +53,20 @@ export default async function LocaleLayout(props: {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Person",
-              name: "Jérémie Lavergnat",
-              alternateName: "JeremDevX",
-              jobTitle: "Front-End React / Next.js Developer",
-              url: "https://jeremdevx.com",
-              email: "jeremdev.contactpro@gmail.com",
+              name: PERSONAL_INFO.name,
+              alternateName: PERSONAL_INFO.alternateName,
+              jobTitle: PERSONAL_INFO.jobTitle,
+              url: SITE_CONFIG.baseUrl,
+              email: PERSONAL_INFO.email,
               knowsAbout: [
-                {
+                ...TECH_STACK.main.map((tech) => ({
                   "@type": "Technology",
-                  name: "React.js",
-                },
-                {
+                  name: tech,
+                })),
+                ...TECH_STACK.secondary.map((tech) => ({
                   "@type": "Technology",
-                  name: "Next.js",
-                },
-                {
-                  "@type": "Technology",
-                  name: "TypeScript",
-                },
-                {
-                  "@type": "Technology",
-                  name: "Prisma",
-                },
-                {
-                  "@type": "Technology",
-                  name: "Node.js",
-                },
+                  name: tech,
+                })),
               ],
               workLocation: [
                 {
@@ -94,9 +88,9 @@ export default async function LocaleLayout(props: {
                 employmentTypes: ["FULL_TIME", "CONTRACTOR", "FREELANCE"],
               },
               sameAs: [
-                "https://github.com/JeremDevX",
-                "https://x.com/JeremDevX",
-                "https://www.linkedin.com/in/jeremie-lavergnat",
+                SOCIAL_LINKS.github,
+                SOCIAL_LINKS.twitter,
+                SOCIAL_LINKS.linkedin,
               ],
             }),
           }}

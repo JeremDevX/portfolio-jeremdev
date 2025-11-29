@@ -1,25 +1,50 @@
 import styles from "./page.module.scss";
 import { useTranslations } from "next-intl";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import { AnimatedTechs } from "@/components/custom/AnimatedTechs/AnimatedTechs";
 import { FlipWords } from "@/components/ui/flip-word";
-import { ProjectTabs } from "@/components/custom/ProjectTabs/ProjectTabs";
 import Grid from "@/components/custom/Grid/Grid";
 import AboutDropdown from "@/components/custom/AboutDropdown/AboutDropdown";
 import Link from "next/link";
 import { FaLinkedin } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
 import GithubContributions from "@/components/custom/GithubData/GithubContributions/GithubContributions";
-import GithubLanguages from "@/components/custom/GithubData/GithubLanguages/GithubLanguages";
-import GitHubProjects from "@/components/custom/GithubData/GitHubProjects/GitHubProjectsList";
 import GitHubProjectsFetcher from "@/components/custom/GithubData/GitHubProjects/GitHubProjectsFetcher";
+import type { Metadata } from "next";
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("MetaData");
+  const locale = await getLocale();
+  const baseUrl = "https://jeremdevx.com";
 
   return {
     title: t("home.title"),
     description: t("home.description"),
+    alternates: {
+      canonical: `${baseUrl}/${locale}`,
+      languages: {
+        fr: `${baseUrl}/fr`,
+        en: `${baseUrl}/en`,
+      },
+    },
+    openGraph: {
+      title: t("home.title"),
+      description: t("home.description"),
+      url: `${baseUrl}/${locale}`,
+      siteName: "Jérémie Lavergnat - Portfolio",
+      locale: locale === "fr" ? "fr_FR" : "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("home.title"),
+      description: t("home.description"),
+      creator: "@JeremDevX",
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
   };
 }
 type AboutContentItem = {
@@ -59,14 +84,9 @@ export default function Home() {
       </section>
       <section className={styles.projects}>
         <h2 className={styles.projects__title}>{t("myProjects")}</h2>
-        {/* <ProjectTabs /> */}
         <GitHubProjectsFetcher />
         <GithubContributions />
       </section>
-      {/* <section className={styles.github}>
-        <h2 className={styles.github__title}>GitHub</h2>
-      </section> */}
-      {/* <GithubLanguages /> */}
       <section className={styles.about}>
         <h2 className={styles.about__title}>{t("about")}</h2>
         {aboutContent.map((content, index) => (
