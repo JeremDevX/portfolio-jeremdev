@@ -20,7 +20,7 @@ const nextConfig = {
   },
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
-    silenceDeprecations: ["mixed-decls", "legacy-js-api"],
+    silenceDeprecations: ["legacy-js-api"],
   },
 };
 
