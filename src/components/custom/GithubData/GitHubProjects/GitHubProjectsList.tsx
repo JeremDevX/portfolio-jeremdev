@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { Repository } from "./GitHubProjectsFetcher";
 import Image from "next/image";
 import styles from "./GitHubProjectsList.module.scss";
@@ -23,6 +23,7 @@ export default function GitHubProjectsList({
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { locale } = useParams();
+  const prevRepoRef = useRef<number>(currentRepo);
 
   const handleNext = () => {
     setDirection(-1);
@@ -46,11 +47,16 @@ export default function GitHubProjectsList({
     setIsOpen(false);
   };
 
+  // Trigger animation when currentRepo changes
   useEffect(() => {
-    setIsAnimating(true);
-    setTimeout(() => {
-      setIsAnimating(false);
-    }, 500);
+    if (prevRepoRef.current !== currentRepo) {
+      setIsAnimating(true);
+      const timer = setTimeout(() => {
+        setIsAnimating(false);
+      }, 500);
+      prevRepoRef.current = currentRepo;
+      return () => clearTimeout(timer);
+    }
   }, [currentRepo]);
 
   useEffect(() => {
