@@ -150,7 +150,12 @@ export default function Home() {
         </div>
       </section>
       <footer className={styles.footer}>
-        © Jérémie Lavergnat - {new Date().getFullYear()}
+        <span className={styles.footer__copyright}>
+          © Jérémie Lavergnat - {new Date().getFullYear()}
+        </span>
+        <span className={styles.footer__tech}>
+          Built with Next.js, TypeScript & ❤️
+        </span>
       </footer>
       <GridWrapper />
     </main>

@@ -3,7 +3,7 @@
 :root {
   --bg-color: hsl(0, 0%, 5%);
   --text-color: rgb(235, 240, 246);
-  --text-muted: rgba(235, 240, 246, 0.7);
+  --text-muted: rgba(235, 240, 246, 0.8);
   --bg-gradient: linear-gradient(
     180deg,
     rgb(67, 67, 67) 0%,
@@ -15,13 +15,19 @@
   --primary: #4598ff;
   --accent: rgb(21, 174, 0);
   --accent-light: rgb(40, 200, 20);
-  --secondary: #7512f6;
   --accent-half: rgba(21, 174, 0, 0.25);
   --accent-glow: rgba(21, 174, 0, 0.4);
   --tech-bg: #000000;
   --tetris-shadow: 0 0 25px rgba(10, 87, 0, 0.4);
   --tetris-drop-shadow: 0 0 15px rgba(10, 87, 0, 0.4);
   --tetris-bg: rgb(10, 87, 0);
+
+  /* Spacing scale */
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
 
   /* Transitions */
   --transition-fast: 0.2s ease;
@@ -107,16 +113,7 @@ header {
 section {
   width: 100%;
   padding-bottom: 25px;
-}
-
-section:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  margin-top: 10px;
+  position: relative;
 }
 
 .tag-item {
@@ -162,4 +159,15 @@ section:not(:last-child)::after {
   box-shadow: 0 0 500px rgba(21, 174, 0, 0.75);
   border-radius: 0 0 50% 50%;
   pointer-events: none;
+}
+
+/* Reduced motion - Accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
