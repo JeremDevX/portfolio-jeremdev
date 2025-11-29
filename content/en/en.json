@@ -1,12 +1,13 @@
 {
   "Home": {
     "title": "Web Developer React and Next.js",
-    "text": "Fullstack developer looking for a work-study program (MBA, Master’s level), I use <span>React</span>, <span>Next.js</span> and <span>TypeScript</span> to build modern and high-performance interfaces.<br></br>I am also developing back-end skills with <span>PostgreSQL</span>, <span>Node.js</span> and <span>Prisma</span>, which helps me understand the full web stack and adapt to other stacks as needed.",
+    "text": "Fullstack developer looking for a work-study program (MBA, Master's level), I use <span>React</span>, <span>Next.js</span> and <span>TypeScript</span> to build modern and high-performance interfaces.<br></br>I am also developing back-end skills with <span>PostgreSQL</span>, <span>Node.js</span> and <span>Prisma</span>, which helps me understand the full web stack and adapt to other stacks as needed.",
     "mySkills": "Skills",
     "mainSkills": "Core skills",
     "secondarySkills": "Additional skills",
     "myProjects": "Projects",
-    "contact": "Whether it’s for a project, a collaboration, or just to connect, feel free to reach out!",
+    "clickForDetails": "Click for more details",
+    "contact": "Whether it's for a project, a collaboration, or just to connect, feel free to reach out!",
     "about": "About",
     "aboutContent": [
       {

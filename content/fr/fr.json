@@ -1,12 +1,13 @@
 {
   "Home": {
     "title": "Développeur React et Next.js",
-    "text": "Développeur fullstack en recherche d'une alternance (MBA Bac+5), j'utilise <span>React</span>, <span>Next.js</span> et <span>TypeScript</span> pour concevoir des interfaces modernes et performantes.<br></br>J’ai également des notions en développement back-end avec <span>PostgreSQL</span>, <span>Node.js</span> et <span>Prisma</span>, me permettant d’appréhender l’ensemble du développement web et de m’adapter à d’autres stacks selon les besoins d’une entreprise.",
+    "text": "Développeur fullstack en recherche d'une alternance (MBA Bac+5), j'utilise <span>React</span>, <span>Next.js</span> et <span>TypeScript</span> pour concevoir des interfaces modernes et performantes.<br></br>J'ai également des notions en développement back-end avec <span>PostgreSQL</span>, <span>Node.js</span> et <span>Prisma</span>, me permettant d'appréhender l'ensemble du développement web et de m'adapter à d'autres stacks selon les besoins d'une entreprise.",
     "mySkills": "Skills",
     "mainSkills": "Core skills",
     "secondarySkills": "Additional skills",
     "myProjects": "Projets",
-    "contact": "Que ce soit pour un projet, une collaboration ou simplement échanger, n’hésitez pas à me contacter !",
+    "clickForDetails": "Cliquer pour plus d'infos",
+    "contact": "Que ce soit pour un projet, une collaboration ou simplement échanger, n'hésitez pas à me contacter !",
     "about": "À propos",
     "aboutContent": [
       {

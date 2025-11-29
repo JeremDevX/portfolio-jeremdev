@@ -1,8 +1,11 @@
 import { fetchContributions } from "@/lib/github";
 import styles from "./GithubContributions.module.scss";
+import ContributionDay from "./ContributionDay";
+import { getLocale } from "next-intl/server";
 
 export default async function GitHubContributions() {
   const { totalContributions, days } = await fetchContributions();
+  const locale = await getLocale();
 
   return (
     <div className={styles.contributions}>
@@ -10,22 +13,11 @@ export default async function GitHubContributions() {
       <div className={styles.contributions__grid}>
         {days.length > 0 ? (
           days.map((day) => (
-            <div
+            <ContributionDay
               key={day.date}
-              className={`${styles.contributions__day} ${
-                day.contributionCount > 0 ? "bg-[var(--accent)]" : "bg-zinc-900"
-              }`}
-              style={{
-                opacity:
-                  day.contributionCount > 0
-                    ? day.contributionCount * 0.1 > 0.25
-                      ? day.contributionCount * 0.1
-                      : 0.25
-                    : "",
-              }}
-              title={`${new Date(day.date).toLocaleDateString()}: ${
-                day.contributionCount
-              } contributions`}
+              date={day.date}
+              count={day.contributionCount}
+              locale={locale}
             />
           ))
         ) : (

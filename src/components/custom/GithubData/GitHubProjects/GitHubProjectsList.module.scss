@@ -43,15 +43,43 @@
 
   &__image {
     border-radius: 0.5rem;
-    width: 95%;
+    width: 100%;
     max-width: 100%;
     height: auto;
     object-fit: contain;
     cursor: url("/cursors/Link.cur"), auto;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     &:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 20px rgba(21, 174, 0, 0.3);
+      transform: scale(1.01);
+      box-shadow: 0 0 15px rgba(21, 174, 0, 0.25);
+    }
+  }
+
+  &__imageWrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 95%;
+  }
+
+  &__tooltip {
+    position: fixed;
+    pointer-events: none;
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid var(--accent);
+    color: var(--text-color);
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.35rem 0.6rem;
+    border-radius: 0.25rem;
+    white-space: nowrap;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    box-shadow: 0 0 10px rgba(21, 174, 0, 0.2);
+
+    &--visible {
+      opacity: 1;
     }
   }
 
@@ -160,79 +188,218 @@
   top: 50%;
   left: 50%;
   max-height: 90vh;
-  max-width: 1000px;
-  width: 100%;
-  background-color: black;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  border: 2px solid var(--accent-half);
-  height: fit-content;
+  max-width: 750px;
+  width: calc(100% - 2rem);
+  background: linear-gradient(180deg, #0d0d0d 0%, #080808 100%);
+  padding: 0;
+  border-radius: 0.75rem;
+  border: 1px solid var(--accent-half);
+  box-shadow: 0 0 0 1px rgba(21, 174, 0, 0.05), 0 0 40px rgba(21, 174, 0, 0.08),
+    0 25px 60px rgba(0, 0, 0, 0.6);
   transform: translate(-50%, -50%);
   z-index: 1000;
-  overflow: auto;
+  overflow: hidden;
+  animation: modalEnter 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @keyframes modalEnter {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -45%) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  &__header {
+    position: relative;
+    padding: 1.25rem 2rem;
+    text-align: center;
+    background: linear-gradient(
+      180deg,
+      rgba(21, 174, 0, 0.06) 0%,
+      transparent 100%
+    );
+    border-bottom: 1px solid var(--accent-half);
+
+    // Ligne décorative en haut
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 2px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        var(--accent),
+        transparent
+      );
+      border-radius: 1px;
+    }
+  }
+
+  &__body {
+    padding: 1.25rem 1.75rem 1.5rem;
+    max-height: 65vh;
+    overflow-y: auto;
+
+    // Custom scrollbar
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: var(--accent-half);
+      border-radius: 3px;
+
+      &:hover {
+        background: var(--accent);
+      }
+    }
+    &::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 3px;
+    }
+  }
 
   h2 {
-    text-align: center;
     font-size: 1.25rem;
-    font-weight: bold;
-    letter-spacing: 0.5px;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-color);
+    letter-spacing: 0.02em;
+
     @media (min-width: 768px) {
-      font-size: 1.75rem;
+      font-size: 1.5rem;
     }
   }
 
   h3 {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     font-size: 1rem;
-    font-weight: bold;
-    letter-spacing: 0.5px;
-    margin-top: 0.75rem;
-    margin-bottom: 0.25rem;
-    text-decoration: underline var(--accent) 2px;
-    text-underline-offset: 0.125rem;
+    font-weight: 600;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    background: rgba(21, 174, 0, 0.08);
+    border-left: 2px solid var(--accent);
+    border-radius: 0 0.25rem 0.25rem 0;
+    color: var(--text-color);
+
+    &:first-of-type {
+      margin-top: 0;
+    }
 
     @media (min-width: 768px) {
-      font-size: 1.25rem;
+      font-size: 1.1rem;
+    }
+  }
+
+  p {
+    line-height: 1.7;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: 0.5rem 0;
+
+    @media (min-width: 768px) {
+      font-size: 0.95rem;
     }
   }
 
   a {
-    font-weight: bold;
-    letter-spacing: 0.5px;
     color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--accent-half);
+    transition: border-color 0.2s ease;
+
     &:hover {
-      text-decoration: underline;
+      border-color: var(--accent);
     }
   }
 
   ul {
-    list-style-type: disc;
-    margin-left: 1.25rem;
+    list-style: none;
+    margin: 0.75rem 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+
+    li {
+      position: relative;
+      padding: 0.35rem 0.5rem 0.35rem 1.25rem;
+      line-height: 1.55;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.015);
+      border-radius: 0.25rem;
+      transition: background 0.15s ease;
+
+      &::before {
+        content: "▸";
+        position: absolute;
+        left: 0.35rem;
+        color: var(--accent);
+        font-size: 0.75rem;
+      }
+
+      &:hover {
+        background: rgba(21, 174, 0, 0.04);
+      }
+
+      @media (min-width: 768px) {
+        font-size: 0.925rem;
+      }
+    }
   }
 
   &__close {
     position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-
-    color: var(--accent);
+    top: 0.75rem;
+    right: 0.75rem;
+    padding: 0.5rem;
+    border-radius: 0.35rem;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid transparent;
     cursor: url("/cursors/Link.cur"), auto;
+    transition: all 0.2s ease;
 
     &:hover {
-      transform: scale(1.1);
+      color: var(--accent);
+      background: rgba(21, 174, 0, 0.1);
+      border-color: var(--accent-half);
     }
 
     svg {
-      width: 1.5rem;
-      height: 1.5rem;
+      width: 1.1rem;
+      height: 1.1rem;
+      display: block;
     }
   }
 }
 
 .overlay {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(2px);
   z-index: 999;
+  animation: fadeIn 0.15s ease-out;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 }

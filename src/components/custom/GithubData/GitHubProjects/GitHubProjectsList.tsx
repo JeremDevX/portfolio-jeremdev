@@ -119,6 +119,11 @@ export default function GitHubProjectsList({
               <Project
                 repo={repositories[currentRepo]}
                 isFirst={currentRepo === 0}
+                tooltipText={
+                  locale === "en"
+                    ? "Click for more details"
+                    : "Cliquer pour plus d'infos"
+                }
               />
             </motion.div>
           </AnimatePresence>
@@ -177,23 +182,47 @@ export default function GitHubProjectsList({
 function Project({
   repo,
   isFirst = false,
+  tooltipText,
 }: {
   repo: Repository;
   isFirst?: boolean;
+  tooltipText: string;
 }) {
+  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    setTooltipPos({ x: e.clientX + 12, y: e.clientY + 12 });
+  };
+
   return (
     <>
       <h2 className={styles.project__title}>{repo.description || repo.name}</h2>
-      <Image
-        src={repo.openGraphImageUrl}
-        alt={repo.name}
-        width={1200}
-        height={630}
-        className={styles.project__image}
-        style={{ width: "95%", height: "auto" }}
-        loading={isFirst ? "eager" : "lazy"}
-        priority={isFirst}
-      />
+      <div
+        className={styles.project__imageWrapper}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={() => setShowTooltip(true)}
+        onMouseLeave={() => setShowTooltip(false)}
+      >
+        <Image
+          src={repo.openGraphImageUrl}
+          alt={repo.name}
+          width={1200}
+          height={630}
+          className={styles.project__image}
+          style={{ width: "100%", height: "auto" }}
+          loading={isFirst ? "eager" : "lazy"}
+          priority={isFirst}
+        />
+        <span
+          className={`${styles.project__tooltip} ${
+            showTooltip ? styles["project__tooltip--visible"] : ""
+          }`}
+          style={{ left: tooltipPos.x, top: tooltipPos.y }}
+        >
+          {tooltipText}
+        </span>
+      </div>
     </>
   );
 }
@@ -274,9 +303,26 @@ function Modal({ repo, locale, closeModal }: ModalProps) {
     };
   }, [closeModal]);
 
+  // Extraire le titre (h2) du contenu et le reste
+  const extractTitleAndContent = (
+    html: string
+  ): { title: string; content: string } => {
+    if (typeof window === "undefined") {
+      return { title: repo.name, content: html };
+    }
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, "text/html");
+    const h2 = doc.querySelector("h2");
+    const title = h2?.textContent || repo.name;
+    if (h2) h2.remove();
+    return { title, content: doc.body.innerHTML };
+  };
+
+  const { title, content } = extractTitleAndContent(formatDesc(desc));
+
   return (
     <>
-      <div className={styles.overlay} aria-hidden="true" />
+      <div className={styles.overlay} aria-hidden="true" onClick={closeModal} />
       <div
         className={styles.modal}
         ref={modalRef}
@@ -284,7 +330,13 @@ function Modal({ repo, locale, closeModal }: ModalProps) {
         aria-modal="true"
         aria-labelledby="modal-title"
       >
-        <div dangerouslySetInnerHTML={{ __html: formatDesc(desc) }} />
+        <div className={styles.modal__header}>
+          <h2 id="modal-title">{title}</h2>
+        </div>
+        <div
+          className={styles.modal__body}
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
         <button
           onClick={closeModal}
           className={styles.modal__close}
