@@ -11,6 +11,7 @@ import { IoIosMail } from "react-icons/io";
 import GithubContributions from "@/components/custom/GithubData/GithubContributions/GithubContributions";
 import GitHubProjectsFetcher from "@/components/custom/GithubData/GitHubProjects/GitHubProjectsFetcher";
 import type { Metadata } from "next";
+import { routing } from "@/i18n/routing";
 
 import { SITE_CONFIG } from "@/lib/constants";
 
@@ -18,6 +19,12 @@ export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("MetaData");
   const locale = await getLocale();
   const { baseUrl } = SITE_CONFIG;
+  const languageAlternates = Object.fromEntries(
+    routing.locales.map((supportedLocale) => [
+      supportedLocale,
+      `${baseUrl}/${supportedLocale}`,
+    ])
+  );
 
   return {
     title: t("home.title"),
@@ -37,10 +44,7 @@ export async function generateMetadata(): Promise<Metadata> {
     creator: "Jérémie Lavergnat",
     alternates: {
       canonical: `${baseUrl}/${locale}`,
-      languages: {
-        fr: `${baseUrl}/fr`,
-        en: `${baseUrl}/en`,
-      },
+      languages: languageAlternates,
     },
     openGraph: {
       title: t("home.title"),

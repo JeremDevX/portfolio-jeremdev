@@ -5,7 +5,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { routing } from "@/i18n/routing";
+import { isLocale, routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import {
   PERSONAL_INFO,
@@ -35,7 +35,7 @@ export default async function LocaleLayout(props: {
 
   const { children } = props;
 
-  if (!routing.locales.includes(locale as any)) {
+  if (!isLocale(locale)) {
     notFound();
   }
   const messages = await getMessages();

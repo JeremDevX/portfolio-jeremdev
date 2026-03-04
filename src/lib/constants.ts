@@ -42,16 +42,6 @@ export const GITHUB_CONFIG = {
 } as const;
 
 // ==========================================
-// SEO
-// ==========================================
-
-export const SEO_CONFIG = {
-  defaultLocale: "fr",
-  locales: ["fr", "en"] as const,
-  twitterHandle: "@JeremDevX",
-} as const;
-
-// ==========================================
 // TECHNOLOGIES / SKILLS
 // ==========================================
 
