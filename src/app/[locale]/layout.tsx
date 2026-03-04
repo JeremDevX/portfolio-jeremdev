@@ -43,7 +43,6 @@ export default async function LocaleLayout(props: {
   return (
     <html lang={locale}>
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
         <meta
           name="google-site-verification"

@@ -53,6 +53,7 @@ test("Home metadata keeps locale-aware canonical/languages without layout duplic
   assert.match(homePageSource, /languages:\s*languageAlternates/);
   assert.doesNotMatch(homePageSource, /languages:\s*\{\s*fr:/);
   assert.doesNotMatch(layoutSource, /rel="canonical"/);
+  assert.doesNotMatch(layoutSource, /name="viewport"/);
 });
 
 test("Robots sitemap is derived from SITE_CONFIG.baseUrl", () => {
