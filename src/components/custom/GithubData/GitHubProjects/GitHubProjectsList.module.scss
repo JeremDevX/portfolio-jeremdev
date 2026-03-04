@@ -27,6 +27,17 @@
     width: 100%;
     position: absolute;
     inset: 0;
+    border: none;
+    background: transparent;
+    padding: 0;
+    text-align: left;
+    cursor: url("/cursors/Link.cur"), auto;
+
+    &:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+      border-radius: 0.75rem;
+    }
   }
 
   &__title {
@@ -374,6 +385,11 @@
       color: var(--accent);
       background: rgba(21, 174, 0, 0.1);
       border-color: var(--accent-half);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
 
     svg {

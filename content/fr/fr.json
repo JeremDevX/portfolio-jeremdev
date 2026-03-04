@@ -60,6 +60,7 @@
       "tooltip": "Cliquer pour plus d'infos",
       "liveSite": "Site en ligne",
       "codeRepo": "Code source",
+      "openProjectDetailsAriaLabel": "Ouvrir les détails du projet {projectName}",
       "previousProjectAriaLabel": "Projet précédent",
       "nextProjectAriaLabel": "Projet suivant",
       "closeModalAriaLabel": "Fermer la fenêtre modale",

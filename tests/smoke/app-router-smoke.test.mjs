@@ -168,6 +168,10 @@ test("FR and EN locale content expose required GitHub i18n keys", () => {
     assert.equal(typeof locale.Github?.projects?.liveSite, "string");
     assert.equal(typeof locale.Github?.projects?.codeRepo, "string");
     assert.equal(
+      typeof locale.Github?.projects?.openProjectDetailsAriaLabel,
+      "string"
+    );
+    assert.equal(
       typeof locale.Github?.projects?.previousProjectAriaLabel,
       "string"
     );
@@ -230,4 +234,67 @@ test("GitHub UI copy is sourced from i18n keys across projects and contributions
   assert.doesNotMatch(projectsListSource, />\s*Code Repo\s*</);
   assert.doesNotMatch(contributionsSource, />\s*GitHub Contributions\s*</);
   assert.doesNotMatch(contributionsSource, />\s*Error: No data\s*</);
+});
+
+test("LanguageSwitcher uses semantic controls and keyboard-safe close behavior", () => {
+  const languageSwitcherSource = readRepoFile(
+    "src/components/custom/LanguageSwitcher/LanguageSwitcher.tsx"
+  );
+
+  assert.match(languageSwitcherSource, /<button[\s\S]*aria-controls=\{optionsId\}/);
+  assert.match(languageSwitcherSource, /aria-expanded=\{showSelect\}/);
+  assert.match(languageSwitcherSource, /<ul[\s\S]*role="menu"/);
+  assert.match(languageSwitcherSource, /role="menuitemradio"/);
+  assert.match(languageSwitcherSource, /if \(event\.key === "Escape"\)/);
+  assert.match(languageSwitcherSource, /triggerRef\.current\?\.focus\(\)/);
+  assert.match(
+    languageSwitcherSource,
+    /document\.addEventListener\("mousedown", handlePointerDownOutside\)/
+  );
+  assert.doesNotMatch(languageSwitcherSource, /<li[^>]*onClick=/);
+});
+
+test("GitHub project card and modal expose keyboard a11y and focus management", () => {
+  const projectsListSource = readRepoFile(
+    "src/components/custom/GithubData/GitHubProjects/GitHubProjectsList.tsx"
+  );
+
+  assert.match(projectsListSource, /<motion\.button[\s\S]*type="button"/);
+  assert.match(projectsListSource, /modalTriggerRef\.current = event\.currentTarget/);
+  assert.match(
+    projectsListSource,
+    /openProjectDetailsAriaLabel",\s*\{\s*projectName: repositories\[currentRepo\]\.name/
+  );
+  assert.match(projectsListSource, /closeButtonRef\.current\?\.focus\(\)/);
+  assert.match(projectsListSource, /if \(event\.key === "Escape"\)/);
+  assert.match(projectsListSource, /if \(event\.key !== "Tab"\)/);
+  assert.match(
+    projectsListSource,
+    /querySelectorAll<HTMLElement>\(\s*'a\[href\], button:not\(\[disabled\]\)/
+  );
+  assert.match(
+    projectsListSource,
+    /window\.requestAnimationFrame\(\(\) => \{\s*modalTriggerRef\.current\?\.focus\(\)/
+  );
+});
+
+test("AboutDropdown exposes accordion ARIA linkage on trigger and panel", () => {
+  const aboutDropdownSource = readRepoFile(
+    "src/components/custom/AboutDropdown/AboutDropdown.tsx"
+  );
+
+  assert.match(aboutDropdownSource, /const panelId = useId\(\)/);
+  assert.match(aboutDropdownSource, /type="button"/);
+  assert.match(aboutDropdownSource, /aria-expanded=\{open\}/);
+  assert.match(aboutDropdownSource, /aria-controls=\{panelId\}/);
+  assert.match(aboutDropdownSource, /id=\{panelId\}/);
+  assert.match(aboutDropdownSource, /role="region"/);
+  assert.match(aboutDropdownSource, /aria-labelledby=\{buttonId\}/);
+});
+
+test("Navbar logo no longer introduces a secondary h1", () => {
+  const navbarSource = readRepoFile("src/components/custom/Navbar/Navbar.tsx");
+
+  assert.match(navbarSource, /<span className=\{styles\.navbar__logo_title\}>/);
+  assert.doesNotMatch(navbarSource, /<h1/);
 });

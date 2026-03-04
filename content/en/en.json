@@ -60,6 +60,7 @@
       "tooltip": "Click for more details",
       "liveSite": "Live Site",
       "codeRepo": "Code Repo",
+      "openProjectDetailsAriaLabel": "Open details for project {projectName}",
       "previousProjectAriaLabel": "Previous project",
       "nextProjectAriaLabel": "Next project",
       "closeModalAriaLabel": "Close modal",

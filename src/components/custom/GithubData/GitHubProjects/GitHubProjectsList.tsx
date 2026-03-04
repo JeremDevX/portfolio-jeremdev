@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useCallback,
+  type MouseEvent as ReactMouseEvent,
+} from "react";
 import { Repository } from "./GitHubProjectsFetcher";
 import Image from "next/image";
 import styles from "./GitHubProjectsList.module.scss";
@@ -64,6 +70,7 @@ export default function GitHubProjectsList({
   const locale = normalizeLocale(localeParam);
   const t = useTranslations("Github.projects");
   const prevRepoRef = useRef<number>(currentRepo);
+  const modalTriggerRef = useRef<HTMLButtonElement | null>(null);
 
   const handleNext = useCallback(() => {
     setDirection(-1);
@@ -85,11 +92,20 @@ export default function GitHubProjectsList({
 
   const handleCloseModal = useCallback(() => {
     setIsOpen(false);
+    if (typeof window !== "undefined") {
+      window.requestAnimationFrame(() => {
+        modalTriggerRef.current?.focus();
+      });
+    }
   }, []);
 
-  const handleOpenModal = useCallback(() => {
-    setIsOpen(true);
-  }, []);
+  const handleOpenModal = useCallback(
+    (event: ReactMouseEvent<HTMLButtonElement>) => {
+      modalTriggerRef.current = event.currentTarget;
+      setIsOpen(true);
+    },
+    []
+  );
 
   // Trigger animation when currentRepo changes
   useEffect(() => {
@@ -139,7 +155,8 @@ export default function GitHubProjectsList({
       <div className={styles.project}>
         <ProjectGhost repo={repositories[0]}>
           <AnimatePresence mode="popLayout" initial={false} custom={direction}>
-            <motion.div
+            <motion.button
+              type="button"
               key={repositories[currentRepo].name}
               initial={{
                 opacity: 0,
@@ -155,13 +172,16 @@ export default function GitHubProjectsList({
               transition={{ duration: 0.5, ease: "easeOut" }}
               className={styles.project__content}
               onClick={handleOpenModal}
+              aria-label={t("openProjectDetailsAriaLabel", {
+                projectName: repositories[currentRepo].name,
+              })}
             >
               <Project
                 repo={repositories[currentRepo]}
                 isFirst={currentRepo === 0}
                 tooltipText={t("tooltip")}
               />
-            </motion.div>
+            </motion.button>
           </AnimatePresence>
         </ProjectGhost>
         <div className={styles.project__info}>
@@ -229,7 +249,7 @@ function Project({
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
   const [showTooltip, setShowTooltip] = useState(false);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
+  const handleMouseMove = (e: ReactMouseEvent<HTMLDivElement>) => {
     setTooltipPos({ x: e.clientX + 12, y: e.clientY + 12 });
   };
 
@@ -308,6 +328,7 @@ function Modal({
   closeModal,
 }: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   const desc = parseRepositoryDescription(
     repo.object?.text,
@@ -333,6 +354,10 @@ function Modal({
   };
 
   useEffect(() => {
+    closeButtonRef.current?.focus();
+  }, []);
+
+  useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (modalRef.current && !modalRef.current?.contains(e.target as Node)) {
         closeModal();
@@ -342,6 +367,57 @@ function Modal({
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [closeModal]);
+
+  useEffect(() => {
+    const handleKeyboardNavigation = (event: KeyboardEvent) => {
+      if (!modalRef.current) {
+        return;
+      }
+
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeModal();
+        return;
+      }
+
+      if (event.key !== "Tab") {
+        return;
+      }
+
+      const focusableElements = modalRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+
+      if (focusableElements.length === 0) {
+        event.preventDefault();
+        return;
+      }
+
+      const firstFocusableElement = focusableElements[0];
+      const lastFocusableElement = focusableElements[focusableElements.length - 1];
+      const activeElement = document.activeElement;
+
+      if (!modalRef.current.contains(activeElement)) {
+        event.preventDefault();
+        firstFocusableElement.focus();
+        return;
+      }
+
+      if (event.shiftKey && activeElement === firstFocusableElement) {
+        event.preventDefault();
+        lastFocusableElement.focus();
+      } else if (!event.shiftKey && activeElement === lastFocusableElement) {
+        event.preventDefault();
+        firstFocusableElement.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyboardNavigation);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyboardNavigation);
     };
   }, [closeModal]);
 
@@ -380,7 +456,9 @@ function Modal({
           dangerouslySetInnerHTML={{ __html: content }}
         />
         <button
+          type="button"
           onClick={closeModal}
+          ref={closeButtonRef}
           className={styles.modal__close}
           aria-label={closeModalAriaLabel}
         >

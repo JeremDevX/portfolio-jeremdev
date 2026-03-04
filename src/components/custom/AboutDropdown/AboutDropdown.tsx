@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useId, useRef, useState } from "react";
 import styles from "./AboutDropdown.module.scss";
 import { FaChevronDown } from "react-icons/fa6";
 import { motion, useInView } from "framer-motion";
@@ -18,6 +18,8 @@ export default function AboutDropdown({
 }: AboutDropdownProps) {
   const [open, setOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const panelId = useId();
+  const buttonId = `${panelId}-button`;
   const isInView = useInView(dropdownRef, {
     once: true,
     amount: 0.9,
@@ -31,7 +33,14 @@ export default function AboutDropdown({
       animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: "10vw" }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      <button className={styles.container} onClick={() => setOpen(!open)}>
+      <button
+        type="button"
+        id={buttonId}
+        className={styles.container}
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+        aria-controls={panelId}
+      >
         <h3 className={styles.title}>{title}</h3>
         <FaChevronDown
           className={`${styles.icon} ${open && styles.icon__open}`}
@@ -64,6 +73,9 @@ export default function AboutDropdown({
         />
       </button>
       <motion.div
+        id={panelId}
+        role="region"
+        aria-labelledby={buttonId}
         className={styles.content}
         initial={{ height: 0, opacity: 0, display: "none" }}
         animate={
