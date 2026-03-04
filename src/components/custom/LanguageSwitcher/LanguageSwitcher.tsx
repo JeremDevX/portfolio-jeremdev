@@ -14,6 +14,11 @@ import {
 } from "react";
 import { useRouter, usePathname, Locale } from "@/i18n/routing";
 import { GrLanguage } from "react-icons/gr";
+import {
+  isEscapeKey,
+  isPointerOutsideContainer,
+  shouldCloseOnBlur,
+} from "./languageSwitcher.helpers";
 
 export default function LanguageSwitcher() {
   const router = useRouter();
@@ -54,13 +59,13 @@ export default function LanguageSwitcher() {
   const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
     const nextFocusedElement = event.relatedTarget as Node | null;
 
-    if (!event.currentTarget.contains(nextFocusedElement)) {
+    if (shouldCloseOnBlur(event.currentTarget, nextFocusedElement)) {
       closeSelect();
     }
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "Escape") {
+    if (isEscapeKey(event.key)) {
       event.preventDefault();
       closeSelect();
       triggerRef.current?.focus();
@@ -73,10 +78,7 @@ export default function LanguageSwitcher() {
     }
 
     const handlePointerDownOutside = (event: MouseEvent) => {
-      if (
-        languageSwitcherRef.current &&
-        !languageSwitcherRef.current.contains(event.target as Node)
-      ) {
+      if (isPointerOutsideContainer(languageSwitcherRef.current, event.target)) {
         closeSelect();
       }
     };

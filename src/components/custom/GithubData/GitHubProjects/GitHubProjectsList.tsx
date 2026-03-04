@@ -17,46 +17,15 @@ import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import DOMPurify from "dompurify";
 import { IoMdClose } from "react-icons/io";
+import {
+  normalizeLocale,
+  parseRepositoryDescription,
+  resolveModalKeyboardAction,
+  type SupportedLocale,
+} from "./projectModal.helpers";
 
 interface GitHubProjectsListProps {
   repositories: Repository[];
-}
-
-type SupportedLocale = "en" | "fr";
-
-type RepositoryMetadata = {
-  description?: Partial<Record<SupportedLocale, string>>;
-};
-
-function normalizeLocale(locale: string | string[] | undefined): SupportedLocale {
-  const localeValue = Array.isArray(locale) ? locale[0] : locale;
-  return localeValue === "en" ? "en" : "fr";
-}
-
-function parseRepositoryDescription(
-  metadataText: string | undefined,
-  locale: SupportedLocale,
-  fallbackDescription: string
-): string {
-  if (!metadataText) {
-    return fallbackDescription;
-  }
-
-  try {
-    const parsedMetadata = JSON.parse(metadataText) as RepositoryMetadata;
-    const localizedDescription = parsedMetadata.description?.[locale];
-
-    if (
-      typeof localizedDescription === "string" &&
-      localizedDescription.trim().length > 0
-    ) {
-      return localizedDescription;
-    }
-  } catch {
-    return fallbackDescription;
-  }
-
-  return fallbackDescription;
 }
 
 export default function GitHubProjectsList({
@@ -376,41 +345,42 @@ function Modal({
         return;
       }
 
-      if (event.key === "Escape") {
+      const focusableElements = Array.from(
+        modalRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      );
+
+      const activeIndex = focusableElements.indexOf(
+        document.activeElement as HTMLElement
+      );
+      const action = resolveModalKeyboardAction({
+        key: event.key,
+        shiftKey: event.shiftKey,
+        focusableCount: focusableElements.length,
+        activeIndex,
+      });
+
+      if (action === "close") {
         event.preventDefault();
         closeModal();
         return;
       }
 
-      if (event.key !== "Tab") {
-        return;
-      }
-
-      const focusableElements = modalRef.current.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-      );
-
-      if (focusableElements.length === 0) {
+      if (action === "trap-empty") {
         event.preventDefault();
         return;
       }
 
-      const firstFocusableElement = focusableElements[0];
-      const lastFocusableElement = focusableElements[focusableElements.length - 1];
-      const activeElement = document.activeElement;
-
-      if (!modalRef.current.contains(activeElement)) {
+      if (action === "focus-first") {
         event.preventDefault();
-        firstFocusableElement.focus();
+        focusableElements[0]?.focus();
         return;
       }
 
-      if (event.shiftKey && activeElement === firstFocusableElement) {
+      if (action === "focus-last") {
         event.preventDefault();
-        lastFocusableElement.focus();
-      } else if (!event.shiftKey && activeElement === lastFocusableElement) {
-        event.preventDefault();
-        firstFocusableElement.focus();
+        focusableElements[focusableElements.length - 1]?.focus();
       }
     };
 

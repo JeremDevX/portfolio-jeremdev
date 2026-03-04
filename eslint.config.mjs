@@ -1,14 +1,22 @@
-import nextConfig from "eslint-config-next";
+import globals from "globals";
+import tseslint from "typescript-eslint";
 
-/** @type {import('eslint').Linter.Config[]} */
-const config = [
-  ...nextConfig,
+export default tseslint.config(
   {
-    rules: {
-      // Disable this rule as it's too strict for animation state management
-      "react-hooks/set-state-in-effect": "off",
-    },
+    ignores: ["node_modules/**", ".next/**", "public/**"],
   },
-];
-
-export default config;
+  ...tseslint.configs.recommended,
+  {
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+    },
+    rules: {
+      // Keep existing behavior from previous config baseline.
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-require-imports": "off",
+    },
+  }
+);

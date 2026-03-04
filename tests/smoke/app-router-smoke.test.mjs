@@ -199,15 +199,18 @@ test("GitHub project modal parsing is guarded and no longer parses metadata inli
   const projectsListSource = readRepoFile(
     "src/components/custom/GithubData/GitHubProjects/GitHubProjectsList.tsx"
   );
+  const modalHelpersSource = readRepoFile(
+    "src/components/custom/GithubData/GitHubProjects/projectModal.helpers.ts"
+  );
 
-  assert.match(projectsListSource, /function parseRepositoryDescription\(/);
-  assert.match(projectsListSource, /try\s*\{\s*const parsedMetadata = JSON\.parse/);
-  assert.match(projectsListSource, /\}\s*catch\s*\{/);
+  assert.match(projectsListSource, /from "\.\/projectModal\.helpers"/);
   assert.match(projectsListSource, /fallbackDescription=\{t\("descriptionFallback"\)\}/);
   assert.match(
     projectsListSource,
     /parseRepositoryDescription\(\s*repo\.object\?\.text,\s*locale,\s*fallbackDescription\s*\)/
   );
+  assert.match(modalHelpersSource, /try\s*\{\s*const parsedMetadata = JSON\.parse/);
+  assert.match(modalHelpersSource, /\}\s*catch\s*\{/);
   assert.doesNotMatch(projectsListSource, /JSON\.parse\(repo\.object\?\.text/);
 });
 
@@ -240,16 +243,33 @@ test("LanguageSwitcher uses semantic controls and keyboard-safe close behavior",
   const languageSwitcherSource = readRepoFile(
     "src/components/custom/LanguageSwitcher/LanguageSwitcher.tsx"
   );
+  const languageSwitcherHelpersSource = readRepoFile(
+    "src/components/custom/LanguageSwitcher/languageSwitcher.helpers.ts"
+  );
 
   assert.match(languageSwitcherSource, /<button[\s\S]*aria-controls=\{optionsId\}/);
   assert.match(languageSwitcherSource, /aria-expanded=\{showSelect\}/);
   assert.match(languageSwitcherSource, /<ul[\s\S]*role="menu"/);
   assert.match(languageSwitcherSource, /role="menuitemradio"/);
-  assert.match(languageSwitcherSource, /if \(event\.key === "Escape"\)/);
+  assert.match(languageSwitcherSource, /if \(isEscapeKey\(event\.key\)\)/);
+  assert.match(
+    languageSwitcherSource,
+    /if \(shouldCloseOnBlur\(event\.currentTarget,\s*nextFocusedElement\)\)/
+  );
+  assert.match(
+    languageSwitcherSource,
+    /if \(isPointerOutsideContainer\(languageSwitcherRef\.current,\s*event\.target\)\)/
+  );
   assert.match(languageSwitcherSource, /triggerRef\.current\?\.focus\(\)/);
   assert.match(
     languageSwitcherSource,
     /document\.addEventListener\("mousedown", handlePointerDownOutside\)/
+  );
+  assert.match(languageSwitcherHelpersSource, /export function isEscapeKey\(/);
+  assert.match(languageSwitcherHelpersSource, /export function shouldCloseOnBlur\(/);
+  assert.match(
+    languageSwitcherHelpersSource,
+    /export function isPointerOutsideContainer\(/
   );
   assert.doesNotMatch(languageSwitcherSource, /<li[^>]*onClick=/);
 });
@@ -257,6 +277,9 @@ test("LanguageSwitcher uses semantic controls and keyboard-safe close behavior",
 test("GitHub project card and modal expose keyboard a11y and focus management", () => {
   const projectsListSource = readRepoFile(
     "src/components/custom/GithubData/GitHubProjects/GitHubProjectsList.tsx"
+  );
+  const modalHelpersSource = readRepoFile(
+    "src/components/custom/GithubData/GitHubProjects/projectModal.helpers.ts"
   );
 
   assert.match(projectsListSource, /<motion\.button[\s\S]*type="button"/);
@@ -266,12 +289,14 @@ test("GitHub project card and modal expose keyboard a11y and focus management", 
     /openProjectDetailsAriaLabel",\s*\{\s*projectName: repositories\[currentRepo\]\.name/
   );
   assert.match(projectsListSource, /closeButtonRef\.current\?\.focus\(\)/);
-  assert.match(projectsListSource, /if \(event\.key === "Escape"\)/);
-  assert.match(projectsListSource, /if \(event\.key !== "Tab"\)/);
+  assert.match(projectsListSource, /resolveModalKeyboardAction\(\{/);
   assert.match(
     projectsListSource,
     /querySelectorAll<HTMLElement>\(\s*'a\[href\], button:not\(\[disabled\]\)/
   );
+  assert.match(modalHelpersSource, /if \(key === "Escape"\)/);
+  assert.match(modalHelpersSource, /if \(key !== "Tab"\)/);
+  assert.match(modalHelpersSource, /if \(focusableCount === 0\)/);
   assert.match(
     projectsListSource,
     /window\.requestAnimationFrame\(\(\) => \{\s*modalTriggerRef\.current\?\.focus\(\)/
