@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-// eslint-disable-next-line @typescript-eslint/no-require-imports
 const flattenColorPalette =
   require("tailwindcss/lib/util/flattenColorPalette").default;
 

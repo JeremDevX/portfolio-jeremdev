@@ -12,7 +12,7 @@ import {
   SiPython,
   SiPhp,
   SiHtml5,
-  SiCss3,
+  SiCss,
   SiJavascript,
 } from "react-icons/si";
 import { AnimatedTooltip } from "../../ui/animated-tooltip";
@@ -104,7 +104,7 @@ const mainSkills = [
     name: "CSS3",
     designation: "Stylesheet Language",
     image: (
-      <SiCss3 color="#000" className="w-full h-full" style={dropShadowStyle} />
+      <SiCss color="#000" className="w-full h-full" style={dropShadowStyle} />
     ),
   },
 ];
