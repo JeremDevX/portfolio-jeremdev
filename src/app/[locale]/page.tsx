@@ -92,7 +92,7 @@ export default function Home() {
     <main className={styles.home}>
       <section className={styles.hero}>
         <div className={styles.hero__content}>
-          <h2 className={styles.hero__title}>{t("title")}</h2>
+          <h1 className={styles.hero__title}>{t("title")}</h1>
           <p className={styles.hero__text}>
             {t.rich("text", {
               span: (richText) => (
@@ -130,7 +130,7 @@ export default function Home() {
         ))}
       </section>
       <section className={styles.contact}>
-        <h2 className={styles.contact__title}>Contact</h2>
+        <h2 className={styles.contact__title}>{t("contactTitle")}</h2>
         <p className={styles.contact__desc}>{t("contact")}</p>
         <div className={styles.contact__links}>
           <Link
@@ -138,14 +138,14 @@ export default function Home() {
             className={styles.contact__link}
           >
             <FaLinkedin className={styles.contact__icon} />
-            LinkedIn
+            {t("contactLinkedInLabel")}
           </Link>
           <Link
             href="mailto:jeremdev.contactpro@gmail.com"
             className={styles.contact__link}
           >
             <IoIosMail className={styles.contact__icon} />
-            E-mail
+            {t("contactEmailLabel")}
           </Link>
         </div>
       </section>
@@ -153,9 +153,7 @@ export default function Home() {
         <span className={styles.footer__copyright}>
           © Jérémie Lavergnat - {new Date().getFullYear()}
         </span>
-        <span className={styles.footer__tech}>
-          Built with Next.js, TypeScript & ❤️
-        </span>
+        <span className={styles.footer__tech}>{t("footerBuiltWith")}</span>
       </footer>
       <GridWrapper />
     </main>

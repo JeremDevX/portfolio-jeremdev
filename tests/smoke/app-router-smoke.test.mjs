@@ -15,12 +15,18 @@ test("FR and EN locale content expose the required Home and MetaData shape", () 
     assert.equal(typeof locale.Home?.text, "string");
     assert.ok(Array.isArray(locale.Home?.aboutContent));
     assert.ok(locale.Home.aboutContent.length > 0);
+    assert.equal(typeof locale.Home?.contactTitle, "string");
+    assert.equal(typeof locale.Home?.contactLinkedInLabel, "string");
+    assert.equal(typeof locale.Home?.contactEmailLabel, "string");
+    assert.equal(typeof locale.Home?.footerBuiltWith, "string");
     assert.equal(typeof locale.MetaData?.home?.title, "string");
     assert.equal(typeof locale.MetaData?.home?.description, "string");
   }
 
   assert.match(fr.Home.title, /React et Next\.js/i);
   assert.match(en.Home.title, /React and Next\.js/i);
+  assert.notEqual(fr.Home.contact, en.Home.contact);
+  assert.notEqual(fr.Home.footerBuiltWith, en.Home.footerBuiltWith);
 });
 
 test("Home metadata keeps locale-aware canonical and language alternates", () => {
@@ -39,4 +45,29 @@ test("Locale routing and static params are aligned on the same locale source", (
     /generateStaticParams\(\)\s*\{\s*return routing\.locales\.map\(\(locale\) => \(\{ locale \}\)\);\s*\}/
   );
   assert.match(layoutSource, /if \(!routing\.locales\.includes\(locale/);
+});
+
+test("Home page source keeps translatable contact/footer copy and avoids hardcoded UI strings", () => {
+  const homePageSource = readRepoFile("src/app/[locale]/page.tsx");
+
+  assert.match(homePageSource, /t\("contactTitle"\)/);
+  assert.match(homePageSource, /t\("contactLinkedInLabel"\)/);
+  assert.match(homePageSource, /t\("contactEmailLabel"\)/);
+  assert.match(homePageSource, /t\("footerBuiltWith"\)/);
+
+  assert.doesNotMatch(homePageSource, /<h2 className=\{styles\.hero__title\}>/);
+  assert.doesNotMatch(homePageSource, /Built with Next\.js, TypeScript & ❤️/);
+});
+
+test("Home page keeps a single h1 and all main sections rendered", () => {
+  const homePageSource = readRepoFile("src/app/[locale]/page.tsx");
+  const h1Matches = homePageSource.match(/<h1\b/g) ?? [];
+
+  assert.equal(h1Matches.length, 1);
+
+  assert.match(homePageSource, /<section className=\{styles\.hero\}>/);
+  assert.match(homePageSource, /<section className=\{styles\.skills\}>/);
+  assert.match(homePageSource, /<section className=\{styles\.projects\}>/);
+  assert.match(homePageSource, /<section className=\{styles\.about\}>/);
+  assert.match(homePageSource, /<section className=\{styles\.contact\}>/);
 });

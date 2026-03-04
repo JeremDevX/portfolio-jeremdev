@@ -26,7 +26,11 @@
         "title": "Location",
         "content": "Based in Isère, I am actively looking for work-study opportunities in Grenoble and the surrounding area."
       }
-    ]
+    ],
+    "contactTitle": "Contact",
+    "contactLinkedInLabel": "LinkedIn",
+    "contactEmailLabel": "E-mail",
+    "footerBuiltWith": "Built with Next.js, TypeScript & ❤️"
   },
   "MetaData": {
     "home": {

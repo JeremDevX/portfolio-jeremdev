@@ -26,7 +26,11 @@
         "title": "Localisation",
         "content": "Basé en Isère, je cherche activement des opportunités d’alternance sur Grenoble et ses alentours."
       }
-    ]
+    ],
+    "contactTitle": "Contact",
+    "contactLinkedInLabel": "LinkedIn",
+    "contactEmailLabel": "E-mail",
+    "footerBuiltWith": "Construit avec Next.js, TypeScript et ❤️"
   },
   "MetaData": {
     "home": {
