@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { test } from "node:test";
 
@@ -54,6 +54,23 @@ test("Home metadata keeps locale-aware canonical/languages without layout duplic
   assert.doesNotMatch(homePageSource, /languages:\s*\{\s*fr:/);
   assert.doesNotMatch(layoutSource, /rel="canonical"/);
   assert.doesNotMatch(layoutSource, /name="viewport"/);
+});
+
+test("SEO metadata and touch icon point to existing assets", () => {
+  const homePageSource = readRepoFile("src/app/[locale]/page.tsx");
+  const layoutSource = readRepoFile("src/app/[locale]/layout.tsx");
+
+  assert.match(homePageSource, /`\$\{baseUrl\}\/og-image\.png`/);
+  assert.match(layoutSource, /rel="apple-touch-icon"\s+href="\/apple-touch-icon\.png"/);
+
+  assert.ok(
+    existsSync(path.join(process.cwd(), "public/og-image.png")),
+    "public/og-image.png should exist"
+  );
+  assert.ok(
+    existsSync(path.join(process.cwd(), "public/apple-touch-icon.png")),
+    "public/apple-touch-icon.png should exist"
+  );
 });
 
 test("Robots sitemap is derived from SITE_CONFIG.baseUrl", () => {

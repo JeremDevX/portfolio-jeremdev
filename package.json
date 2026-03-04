@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbo",
     "build": "next build",
+    "check:agent": "npm run lint && npx tsc --noEmit && npm run test && npm run build -- --webpack --experimental-build-mode compile",
     "start": "next start",
     "lint": "eslint .",
     "lint:app": "eslint src/app",
