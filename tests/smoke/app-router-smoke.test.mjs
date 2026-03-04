@@ -29,12 +29,28 @@ test("FR and EN locale content expose the required Home and MetaData shape", () 
   assert.notEqual(fr.Home.footerBuiltWith, en.Home.footerBuiltWith);
 });
 
-test("Home metadata keeps locale-aware canonical and language alternates", () => {
+test("Home metadata keeps locale-aware canonical/languages without layout duplication", () => {
   const homePageSource = readRepoFile("src/app/[locale]/page.tsx");
+  const layoutSource = readRepoFile("src/app/[locale]/layout.tsx");
 
   assert.match(homePageSource, /canonical:\s*`\$\{baseUrl\}\/\$\{locale\}`/);
   assert.match(homePageSource, /languages:\s*\{\s*fr:\s*`\$\{baseUrl\}\/fr`/);
   assert.match(homePageSource, /languages:\s*\{[\s\S]*en:\s*`\$\{baseUrl\}\/en`/);
+  assert.doesNotMatch(layoutSource, /rel="canonical"/);
+});
+
+test("Robots sitemap is derived from SITE_CONFIG.baseUrl", () => {
+  const robotsSource = readRepoFile("src/app/robots.ts");
+
+  assert.match(
+    robotsSource,
+    /import\s+\{\s*SITE_CONFIG\s*\}\s+from\s+"@\/lib\/constants"/
+  );
+  assert.match(
+    robotsSource,
+    /sitemap:\s*`\$\{SITE_CONFIG\.baseUrl\}\/sitemap\.xml`/
+  );
+  assert.doesNotMatch(robotsSource, /sitemap:\s*"https?:\/\//);
 });
 
 test("Locale routing and static params are aligned on the same locale source", () => {

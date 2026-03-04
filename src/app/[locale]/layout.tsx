@@ -49,7 +49,6 @@ export default async function LocaleLayout(props: {
           name="google-site-verification"
           content="xT3V4j3e8lf5TmhLOSlWycOJiDbSXt_LpW_c2GR0oRI"
         />
-        <link rel="canonical" href={`${SITE_CONFIG.baseUrl}/${locale}`} />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <script
