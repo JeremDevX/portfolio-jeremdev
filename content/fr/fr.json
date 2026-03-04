@@ -55,6 +55,7 @@
   "Github": {
     "projects": {
       "noData": "Aucune donnée",
+      "fetchError": "Impossible de récupérer les projets GitHub pour le moment.",
       "emptyStateMessage": "Impossible de charger les projets pour le moment.",
       "retryButton": "Réessayer",
       "tooltip": "Cliquer pour plus d'infos",
@@ -69,8 +70,10 @@
     "contributions": {
       "title": "Contributions GitHub",
       "noData": "Erreur : aucune donnée",
+      "fetchError": "Impossible de récupérer les contributions GitHub pour le moment.",
       "inLastYear": "{count, plural, one {contribution au cours de la dernière année} other {contributions au cours de la dernière année}}",
-      "dayTooltipCount": "{count, plural, one {# contribution} other {# contributions}}"
+      "dayTooltipCount": "{count, plural, one {# contribution} other {# contributions}}",
+      "dayAriaLabel": "{count, plural, one {# contribution le {date}} other {# contributions le {date}}}"
     }
   }
 }

@@ -7,6 +7,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { isLocale, routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import {
   PERSONAL_INFO,
   SITE_CONFIG,
@@ -20,6 +21,57 @@ const leagueSpartan = Chakra_Petch({
   display: "swap",
   preload: true,
 });
+
+const PERSON_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: PERSONAL_INFO.name,
+  alternateName: PERSONAL_INFO.alternateName,
+  jobTitle: PERSONAL_INFO.jobTitle,
+  url: SITE_CONFIG.baseUrl,
+  email: PERSONAL_INFO.email,
+  knowsAbout: [
+    ...TECH_STACK.main.map((tech) => ({
+      "@type": "Technology",
+      name: tech,
+    })),
+    ...TECH_STACK.secondary.map((tech) => ({
+      "@type": "Technology",
+      name: tech,
+    })),
+  ],
+  workLocation: [
+    {
+      "@type": "LocationFeatureSpecification",
+      name: "Remote",
+    },
+    {
+      "@type": "LocationFeatureSpecification",
+      name: "Hybrid",
+    },
+    {
+      "@type": "LocationFeatureSpecification",
+      name: "On-site",
+    },
+  ],
+  availableForHire: true,
+  seekingWork: {
+    "@type": "EmploymentType",
+    employmentTypes: ["FULL_TIME", "CONTRACTOR", "FREELANCE"],
+  },
+  sameAs: [SOCIAL_LINKS.github, SOCIAL_LINKS.twitter, SOCIAL_LINKS.linkedin],
+};
+
+export const metadata: Metadata = {
+  themeColor: "#000000",
+  verification: {
+    google: "xT3V4j3e8lf5TmhLOSlWycOJiDbSXt_LpW_c2GR0oRI",
+  },
+  icons: {
+    icon: [{ url: "/favicon.ico", sizes: "any" }],
+    apple: [{ url: "/apple-touch-icon.png" }],
+  },
+};
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -42,65 +94,13 @@ export default async function LocaleLayout(props: {
 
   return (
     <html lang={locale}>
-      <head>
-        <meta name="theme-color" content="#000000" />
-        <meta
-          name="google-site-verification"
-          content="xT3V4j3e8lf5TmhLOSlWycOJiDbSXt_LpW_c2GR0oRI"
-        />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      <body className={`${leagueSpartan.className}`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              name: PERSONAL_INFO.name,
-              alternateName: PERSONAL_INFO.alternateName,
-              jobTitle: PERSONAL_INFO.jobTitle,
-              url: SITE_CONFIG.baseUrl,
-              email: PERSONAL_INFO.email,
-              knowsAbout: [
-                ...TECH_STACK.main.map((tech) => ({
-                  "@type": "Technology",
-                  name: tech,
-                })),
-                ...TECH_STACK.secondary.map((tech) => ({
-                  "@type": "Technology",
-                  name: tech,
-                })),
-              ],
-              workLocation: [
-                {
-                  "@type": "LocationFeatureSpecification",
-                  name: "Remote",
-                },
-                {
-                  "@type": "LocationFeatureSpecification",
-                  name: "Hybrid",
-                },
-                {
-                  "@type": "LocationFeatureSpecification",
-                  name: "On-site",
-                },
-              ],
-              availableForHire: true,
-              seekingWork: {
-                "@type": "EmploymentType",
-                employmentTypes: ["FULL_TIME", "CONTRACTOR", "FREELANCE"],
-              },
-              sameAs: [
-                SOCIAL_LINKS.github,
-                SOCIAL_LINKS.twitter,
-                SOCIAL_LINKS.linkedin,
-              ],
-            }),
+            __html: JSON.stringify(PERSON_SCHEMA),
           }}
         />
-      </head>
-
-      <body className={`${leagueSpartan.className}`}>
         <NextIntlClientProvider messages={messages}>
           <div className="light"></div>
           <header>

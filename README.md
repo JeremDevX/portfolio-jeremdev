@@ -1,16 +1,50 @@
-# Portfolio de JeremDev
+# Portfolio JeremDev
 
-Bienvenue sur mon portfolio personnel ! Vous trouverez ici mes réalisations, la liste de mes réseaux sociaux, et les différents moyens pour me contacter.
+Portfolio personnel construit avec Next.js App Router, TypeScript et next-intl.
 
-## Technologies Utilisées
+## Stack
 
-Ce site a été développé en utilisant les technologies suivantes :
+- Next.js 16 (App Router)
+- React 19
+- TypeScript
+- next-intl (FR/EN)
+- Sass modules
+- framer-motion
 
-- **Next.js** : Framework React pour le rendu côté serveur et le développement de sites web modernes.
-- **TypeScript** : Superset de JavaScript qui ajoute des types statiques, offrant une meilleure vérification des erreurs et une maintenance facilitée du code.
-- **Markdown** : Utilisé pour formater et structurer le contenu textuel de manière simple et efficace.
-- **Sass** : Préprocesseur CSS qui permet d'écrire du CSS plus maintenable avec des fonctionnalités comme les variables, les mixins, et l'imbrication.
-- **Aceternity UI** : Utilisé pour la base de certains effets et composants UI.
-- **Tailwind CSS** : Utilisé en complément de Aceternity UI pour les animations et la mise en page avec une approche utilitaire.
+## Prerequisites
 
----
+- Node.js 20+
+- npm 10+
+
+## Setup
+
+```bash
+npm install
+cp .env.example .env
+```
+
+Variable d'environnement requise pour les données GitHub:
+
+```env
+GITHUB_TOKEN_USER_DATA=your_github_token
+```
+
+## Commands
+
+- `npm run dev`: lance le serveur de dev
+- `npm run lint`: lint TypeScript/React
+- `npm run test`: tests smoke + unit
+- `npm run build`: build production
+- `npm run check:agent`: lint + typecheck + tests + build (commande de validation complète)
+
+## Architecture rapide
+
+- `src/app/[locale]`: routes App Router localisées
+- `src/i18n`: config de routing et chargement des messages
+- `src/components/custom/GithubData`: intégration GitHub (server fetch + UI client)
+- `content/fr` et `content/en`: messages de traduction
+
+## Documentation locale
+
+- `src/i18n/README.md`
+- `src/components/custom/GithubData/README.md`

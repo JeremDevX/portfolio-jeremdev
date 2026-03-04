@@ -126,7 +126,7 @@ export default function Home() {
         <h2 className={styles.about__title}>{t("about")}</h2>
         {aboutContent.map((content, index) => (
           <AboutDropdown
-            key={index}
+            key={`${content.title}-${content.content}`}
             title={content.title}
             content={content.content}
             index={index}

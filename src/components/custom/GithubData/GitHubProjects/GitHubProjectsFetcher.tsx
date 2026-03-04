@@ -6,12 +6,18 @@ import { getTranslations } from "next-intl/server";
 export type { Repository } from "@/lib/github";
 
 export default async function GitHubProjectsFetcher() {
-  const repositories = await fetchRepositories();
   const t = await getTranslations("Github.projects");
 
-  if (!repositories || repositories.length === 0) {
-    return <p>{t("noData")}</p>;
-  }
+  try {
+    const repositories = await fetchRepositories();
 
-  return <GitHubProjectsList repositories={repositories} />;
+    if (repositories.length === 0) {
+      return <p>{t("noData")}</p>;
+    }
+
+    return <GitHubProjectsList repositories={repositories} />;
+  } catch (error) {
+    console.error("Failed to fetch GitHub repositories:", error);
+    return <p>{t("fetchError")}</p>;
+  }
 }

@@ -1,13 +1,13 @@
 /**
- * Service centralisé pour les appels à l'API GitHub GraphQL
- * Évite la duplication de code entre les différents composants
+ * Service centralisé pour les appels à l'API GitHub GraphQL.
  */
 
 import { GITHUB_CONFIG } from "./constants";
-
-// ==========================================
-// TYPES
-// ==========================================
+import {
+  extractContributionsFromCalendar,
+  getGraphQLDataOrThrow,
+  sortAndFilterRepositories,
+} from "./github.transformers";
 
 export interface Repository {
   name: string;
@@ -27,31 +27,37 @@ export interface ContributionDay {
   contributionCount: number;
 }
 
-interface GitHubRepositoriesResponse {
-  data: {
-    user: {
-      repositories: {
-        nodes: Repository[];
+interface GitHubRepositoriesData {
+  user?: {
+    repositories?: {
+      nodes?: Repository[];
+    };
+  };
+}
+
+interface GitHubContributionsData {
+  user?: {
+    contributionsCollection?: {
+      contributionCalendar?: {
+        totalContributions?: number;
+        weeks?: {
+          contributionDays?: ContributionDay[];
+        }[];
       };
     };
   };
+}
+
+interface GitHubGraphQLResponse<TData> {
+  data?: TData;
   errors?: { message: string }[];
 }
 
-interface GitHubContributionsResponse {
-  data: {
-    user: {
-      contributionsCollection: {
-        contributionCalendar: {
-          totalContributions: number;
-          weeks: {
-            contributionDays: ContributionDay[];
-          }[];
-        };
-      };
-    };
-  };
-  errors?: { message: string }[];
+export class GitHubApiError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "GitHubApiError";
+  }
 }
 
 // ==========================================
@@ -99,26 +105,26 @@ const CONTRIBUTIONS_QUERY = `
   }
 `;
 
-// ==========================================
-// FETCH HELPER
-// ==========================================
+function getGitHubToken(): string {
+  const token = process.env.GITHUB_TOKEN_USER_DATA;
+  if (!token) {
+    throw new GitHubApiError(
+      "Missing GitHub token. Set GITHUB_TOKEN_USER_DATA in environment variables."
+    );
+  }
 
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN_USER_DATA;
+  return token;
+}
 
 async function fetchGitHubGraphQL<T>(
   query: string,
   variables: Record<string, string> = {}
 ): Promise<T> {
-  if (!GITHUB_TOKEN) {
-    throw new Error(
-      "Missing GitHub Token. Set GITHUB_TOKEN_USER_DATA in env variables."
-    );
-  }
-
+  const token = getGitHubToken();
   const response = await fetch(GITHUB_CONFIG.apiUrl, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${GITHUB_TOKEN}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ query, variables }),
@@ -126,76 +132,58 @@ async function fetchGitHubGraphQL<T>(
   });
 
   if (!response.ok) {
-    throw new Error(
+    throw new GitHubApiError(
       `GitHub API error: ${response.status} ${response.statusText}`
     );
   }
 
-  return response.json();
+  const payload = (await response.json()) as GitHubGraphQLResponse<T>;
+  try {
+    return getGraphQLDataOrThrow(payload);
+  } catch (error) {
+    const message =
+      error instanceof Error
+        ? error.message
+        : "GitHub GraphQL response cannot be parsed.";
+    throw new GitHubApiError(message);
+  }
 }
 
 // ==========================================
 // PUBLIC API
 // ==========================================
 
-/**
- * Récupère les repositories publics avec un site déployé
- * Triés par date de création (plus récent en premier)
- */
 export async function fetchRepositories(): Promise<Repository[]> {
-  try {
-    const data = await fetchGitHubGraphQL<GitHubRepositoriesResponse>(
-      REPOSITORIES_QUERY,
-      { username: GITHUB_CONFIG.username }
-    );
+  const data = await fetchGitHubGraphQL<GitHubRepositoriesData>(
+    REPOSITORIES_QUERY,
+    { username: GITHUB_CONFIG.username }
+  );
 
-    if (data.errors) {
-      console.error("GraphQL Error:", data.errors);
-      return [];
-    }
-
-    const repos = data.data.user.repositories.nodes;
-
-    // Filtrer les repos avec un site et trier par date
-    return repos
-      .filter((repo) => repo.homepageUrl)
-      .sort(
-        (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      );
-  } catch (error) {
-    console.error("Error fetching repositories:", error);
-    return [];
+  const repositories = data.user?.repositories?.nodes;
+  if (!Array.isArray(repositories)) {
+    throw new GitHubApiError("GitHub repositories response has an invalid shape.");
   }
+
+  return sortAndFilterRepositories(repositories);
 }
 
-/**
- * Récupère les contributions GitHub de l'année
- */
 export async function fetchContributions(): Promise<{
   totalContributions: number;
   days: ContributionDay[];
 }> {
+  const data = await fetchGitHubGraphQL<GitHubContributionsData>(
+    CONTRIBUTIONS_QUERY,
+    { username: GITHUB_CONFIG.username }
+  );
+
+  const calendar = data.user?.contributionsCollection?.contributionCalendar;
   try {
-    const data = await fetchGitHubGraphQL<GitHubContributionsResponse>(
-      CONTRIBUTIONS_QUERY,
-      { username: GITHUB_CONFIG.username }
-    );
-
-    if (data.errors) {
-      console.error("GraphQL Error:", data.errors);
-      return { totalContributions: 0, days: [] };
-    }
-
-    const calendar =
-      data.data.user.contributionsCollection.contributionCalendar;
-
-    return {
-      totalContributions: calendar.totalContributions,
-      days: calendar.weeks.flatMap((week) => week.contributionDays),
-    };
+    return extractContributionsFromCalendar(calendar);
   } catch (error) {
-    console.error("Error fetching contributions:", error);
-    return { totalContributions: 0, days: [] };
+    const message =
+      error instanceof Error
+        ? error.message
+        : "GitHub contributions cannot be extracted.";
+    throw new GitHubApiError(message);
   }
 }

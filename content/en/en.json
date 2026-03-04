@@ -55,6 +55,7 @@
   "Github": {
     "projects": {
       "noData": "No data",
+      "fetchError": "Unable to fetch GitHub projects right now.",
       "emptyStateMessage": "Unable to load projects right now.",
       "retryButton": "Retry",
       "tooltip": "Click for more details",
@@ -69,8 +70,10 @@
     "contributions": {
       "title": "GitHub Contributions",
       "noData": "Error: No data",
+      "fetchError": "Unable to fetch GitHub contributions right now.",
       "inLastYear": "{count, plural, one {contribution in the last year} other {contributions in the last year}}",
-      "dayTooltipCount": "{count, plural, one {# contribution} other {# contributions}}"
+      "dayTooltipCount": "{count, plural, one {# contribution} other {# contributions}}",
+      "dayAriaLabel": "{count, plural, one {# contribution on {date}} other {# contributions on {date}}}"
     }
   }
 }

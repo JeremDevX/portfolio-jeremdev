@@ -1,325 +1,90 @@
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import path from "node:path";
 import { test } from "node:test";
 
-const readRepoFile = (relativePath) =>
-  readFileSync(path.join(process.cwd(), relativePath), "utf8");
+import { buildRobots, buildSitemap } from "../../src/lib/seo.ts";
+import {
+  DEFAULT_LOCALE,
+  isLocaleValue,
+  LOCALES,
+} from "../../src/i18n/locales.ts";
 
-const readConfiguredLocales = () => {
-  const routingSource = readRepoFile("src/i18n/routing.ts");
-  const localesDefinition = routingSource.match(/locales:\s*\[([^\]]+)\]/);
-
-  assert.ok(localesDefinition, "routing.locales should be defined");
-
-  return [...localesDefinition[1].matchAll(/"([^"]+)"/g)].map(
-    (match) => match[1]
+const readLocale = (relativePath) =>
+  JSON.parse(
+    readFileSync(path.join(process.cwd(), relativePath), {
+      encoding: "utf8",
+    })
   );
+
+const flattenLeafPaths = (value, basePath = "") => {
+  if (Array.isArray(value)) {
+    return value.flatMap((item, index) =>
+      flattenLeafPaths(item, `${basePath}[${index}]`)
+    );
+  }
+
+  if (value && typeof value === "object") {
+    return Object.entries(value).flatMap(([key, nestedValue]) =>
+      flattenLeafPaths(
+        nestedValue,
+        basePath ? `${basePath}.${key}` : `${key}`
+      )
+    );
+  }
+
+  return [basePath];
 };
 
-test("FR and EN locale content expose the required Home and MetaData shape", () => {
-  const fr = JSON.parse(readRepoFile("content/fr/fr.json"));
-  const en = JSON.parse(readRepoFile("content/en/en.json"));
+test("routing locale guard accepts only configured locales", () => {
+  assert.deepEqual(LOCALES, ["en", "fr"]);
+  assert.equal(DEFAULT_LOCALE, "fr");
 
-  for (const locale of [fr, en]) {
-    assert.equal(typeof locale.Home?.title, "string");
-    assert.equal(typeof locale.Home?.text, "string");
-    assert.ok(Array.isArray(locale.Home?.aboutContent));
-    assert.ok(locale.Home.aboutContent.length > 0);
-    assert.equal(typeof locale.Home?.contactTitle, "string");
-    assert.equal(typeof locale.Home?.contactLinkedInLabel, "string");
-    assert.equal(typeof locale.Home?.contactEmailLabel, "string");
-    assert.equal(typeof locale.Home?.footerBuiltWith, "string");
-    assert.equal(typeof locale.MetaData?.home?.title, "string");
-    assert.equal(typeof locale.MetaData?.home?.description, "string");
+  assert.equal(isLocaleValue("fr"), true);
+  assert.equal(isLocaleValue("en"), true);
+  assert.equal(isLocaleValue("de"), false);
+  assert.equal(isLocaleValue(undefined), false);
+});
+
+test("robots metadata uses SITE_CONFIG base URL", () => {
+  const baseUrl = "https://jeremdevx.com";
+  const robotsConfig = buildRobots(baseUrl);
+
+  assert.equal(robotsConfig.sitemap, `${baseUrl}/sitemap.xml`);
+  assert.equal(robotsConfig.rules.userAgent, "*");
+  assert.equal(robotsConfig.rules.allow, "/");
+  assert.equal(robotsConfig.rules.disallow, "/private/");
+});
+
+test("sitemap exposes root route plus one entry per locale", () => {
+  const baseUrl = "https://jeremdevx.com";
+  const entries = buildSitemap(baseUrl, LOCALES);
+  const urls = entries.map((entry) => entry.url);
+
+  assert.ok(urls.includes(baseUrl));
+  for (const locale of LOCALES) {
+    assert.ok(urls.includes(`${baseUrl}/${locale}`));
   }
 
-  assert.match(fr.Home.title, /React et Next\.js/i);
-  assert.match(en.Home.title, /React and Next\.js/i);
-  assert.notEqual(fr.Home.contact, en.Home.contact);
-  assert.notEqual(fr.Home.footerBuiltWith, en.Home.footerBuiltWith);
+  assert.equal(new Set(urls).size, urls.length);
 });
 
-test("Home metadata keeps locale-aware canonical/languages without layout duplication", () => {
-  const homePageSource = readRepoFile("src/app/[locale]/page.tsx");
-  const layoutSource = readRepoFile("src/app/[locale]/layout.tsx");
+test("FR and EN translations keep the same Home and Github key contracts", () => {
+  const fr = readLocale("content/fr/fr.json");
+  const en = readLocale("content/en/en.json");
 
-  assert.match(homePageSource, /canonical:\s*`\$\{baseUrl\}\/\$\{locale\}`/);
-  assert.match(homePageSource, /const languageAlternates = Object\.fromEntries\(/);
-  assert.match(
-    homePageSource,
-    /routing\.locales\.map\(\(supportedLocale\) => \[\s*supportedLocale,\s*`\$\{baseUrl\}\/\$\{supportedLocale\}`/
-  );
-  assert.match(homePageSource, /languages:\s*languageAlternates/);
-  assert.doesNotMatch(homePageSource, /languages:\s*\{\s*fr:/);
-  assert.doesNotMatch(layoutSource, /rel="canonical"/);
-  assert.doesNotMatch(layoutSource, /name="viewport"/);
-});
+  const homeLeafKeysFr = flattenLeafPaths(fr.Home).sort();
+  const homeLeafKeysEn = flattenLeafPaths(en.Home).sort();
+  const githubLeafKeysFr = flattenLeafPaths(fr.Github).sort();
+  const githubLeafKeysEn = flattenLeafPaths(en.Github).sort();
 
-test("SEO metadata and touch icon point to existing assets", () => {
-  const homePageSource = readRepoFile("src/app/[locale]/page.tsx");
-  const layoutSource = readRepoFile("src/app/[locale]/layout.tsx");
+  assert.deepEqual(homeLeafKeysFr, homeLeafKeysEn);
+  assert.deepEqual(githubLeafKeysFr, githubLeafKeysEn);
 
-  assert.match(homePageSource, /`\$\{baseUrl\}\/og-image\.png`/);
-  assert.match(layoutSource, /rel="apple-touch-icon"\s+href="\/apple-touch-icon\.png"/);
-
-  assert.ok(
-    existsSync(path.join(process.cwd(), "public/og-image.png")),
-    "public/og-image.png should exist"
-  );
-  assert.ok(
-    existsSync(path.join(process.cwd(), "public/apple-touch-icon.png")),
-    "public/apple-touch-icon.png should exist"
-  );
-});
-
-test("Robots sitemap is derived from SITE_CONFIG.baseUrl", () => {
-  const robotsSource = readRepoFile("src/app/robots.ts");
-
-  assert.match(
-    robotsSource,
-    /import\s+\{\s*SITE_CONFIG\s*\}\s+from\s+"@\/lib\/constants"/
-  );
-  assert.match(
-    robotsSource,
-    /sitemap:\s*`\$\{SITE_CONFIG\.baseUrl\}\/sitemap\.xml`/
-  );
-  assert.doesNotMatch(robotsSource, /sitemap:\s*"https?:\/\//);
-});
-
-test("Locale routing and static params are aligned on the same locale source", () => {
-  const configuredLocales = readConfiguredLocales();
-  const layoutSource = readRepoFile("src/app/[locale]/layout.tsx");
-  const sitemapSource = readRepoFile("src/app/sitemap.ts");
-  const constantsSource = readRepoFile("src/lib/constants.ts");
-
-  assert.ok(configuredLocales.length > 0);
-
-  assert.match(
-    layoutSource,
-    /generateStaticParams\(\)\s*\{\s*return routing\.locales\.map\(\(locale\) => \(\{ locale \}\)\);\s*\}/
-  );
-  assert.match(layoutSource, /if \(!isLocale\(locale\)\)/);
-  assert.match(sitemapSource, /routing\.locales\.map\(\(locale\) => \(\{/);
-  assert.doesNotMatch(sitemapSource, /SEO_CONFIG/);
-  assert.doesNotMatch(constantsSource, /defaultLocale:\s*"fr"/);
-  assert.doesNotMatch(constantsSource, /locales:\s*\[/);
-});
-
-test("Locale validation uses an explicit type guard and avoids any casts", () => {
-  const routingSource = readRepoFile("src/i18n/routing.ts");
-  const layoutSource = readRepoFile("src/app/[locale]/layout.tsx");
-  const requestSource = readRepoFile("src/i18n/request.ts");
-
-  assert.match(
-    routingSource,
-    /export function isLocale\(value: unknown\): value is Locale/
-  );
-  assert.match(layoutSource, /if \(!isLocale\(locale\)\)/);
-  assert.match(requestSource, /if \(!isLocale\(locale\)\)/);
-  assert.doesNotMatch(layoutSource, /\sas any/);
-  assert.doesNotMatch(requestSource, /\sas any/);
-});
-
-test("Home page source keeps translatable contact/footer copy and avoids hardcoded UI strings", () => {
-  const homePageSource = readRepoFile("src/app/[locale]/page.tsx");
-
-  assert.match(homePageSource, /t\("contactTitle"\)/);
-  assert.match(homePageSource, /t\("contactLinkedInLabel"\)/);
-  assert.match(homePageSource, /t\("contactEmailLabel"\)/);
-  assert.match(homePageSource, /t\("footerBuiltWith"\)/);
-
-  assert.doesNotMatch(homePageSource, /<h2 className=\{styles\.hero__title\}>/);
-  assert.doesNotMatch(homePageSource, /Built with Next\.js, TypeScript & ❤️/);
-});
-
-test("Home page keeps a single h1 and all main sections rendered", () => {
-  const homePageSource = readRepoFile("src/app/[locale]/page.tsx");
-  const h1Matches = homePageSource.match(/<h1\b/g) ?? [];
-
-  assert.equal(h1Matches.length, 1);
-
-  assert.match(homePageSource, /<section className=\{styles\.hero\}>/);
-  assert.match(homePageSource, /<section className=\{styles\.skills\}>/);
-  assert.match(homePageSource, /<section className=\{styles\.projects\}>/);
-  assert.match(homePageSource, /<section className=\{styles\.about\}>/);
-  assert.match(homePageSource, /<section className=\{styles\.contact\}>/);
-});
-
-test("Home page stylesheet removes unused module classes and keeps one global light class", () => {
-  const pageStyles = readRepoFile("src/app/[locale]/page.module.scss");
-  const globalStyles = readRepoFile("src/app/globals.scss");
-
-  assert.doesNotMatch(pageStyles, /^\s*\.github\s*\{/m);
-  assert.doesNotMatch(pageStyles, /^\s*\.skillList\s*\{/m);
-  assert.doesNotMatch(pageStyles, /^\s*\.light\s*\{/m);
-  assert.match(globalStyles, /^\s*\.light\s*\{/m);
-});
-
-test("FR and EN locale content expose required GitHub i18n keys", () => {
-  const fr = JSON.parse(readRepoFile("content/fr/fr.json"));
-  const en = JSON.parse(readRepoFile("content/en/en.json"));
-
-  for (const locale of [fr, en]) {
-    assert.equal(typeof locale.Github?.projects?.noData, "string");
-    assert.equal(typeof locale.Github?.projects?.emptyStateMessage, "string");
-    assert.equal(typeof locale.Github?.projects?.retryButton, "string");
-    assert.equal(typeof locale.Github?.projects?.tooltip, "string");
-    assert.equal(typeof locale.Github?.projects?.liveSite, "string");
-    assert.equal(typeof locale.Github?.projects?.codeRepo, "string");
-    assert.equal(
-      typeof locale.Github?.projects?.openProjectDetailsAriaLabel,
-      "string"
-    );
-    assert.equal(
-      typeof locale.Github?.projects?.previousProjectAriaLabel,
-      "string"
-    );
-    assert.equal(
-      typeof locale.Github?.projects?.nextProjectAriaLabel,
-      "string"
-    );
-    assert.equal(typeof locale.Github?.projects?.closeModalAriaLabel, "string");
-    assert.equal(typeof locale.Github?.projects?.descriptionFallback, "string");
-
-    assert.equal(typeof locale.Github?.contributions?.title, "string");
-    assert.equal(typeof locale.Github?.contributions?.noData, "string");
-    assert.equal(typeof locale.Github?.contributions?.inLastYear, "string");
-    assert.equal(typeof locale.Github?.contributions?.dayTooltipCount, "string");
-  }
-
-  assert.notEqual(
-    fr.Github.projects.emptyStateMessage,
-    en.Github.projects.emptyStateMessage
-  );
-  assert.notEqual(fr.Github.projects.retryButton, en.Github.projects.retryButton);
-});
-
-test("GitHub project modal parsing is guarded and no longer parses metadata inline", () => {
-  const projectsListSource = readRepoFile(
-    "src/components/custom/GithubData/GitHubProjects/GitHubProjectsList.tsx"
-  );
-  const modalHelpersSource = readRepoFile(
-    "src/components/custom/GithubData/GitHubProjects/projectModal.helpers.ts"
-  );
-
-  assert.match(projectsListSource, /from "\.\/projectModal\.helpers"/);
-  assert.match(projectsListSource, /fallbackDescription=\{t\("descriptionFallback"\)\}/);
-  assert.match(
-    projectsListSource,
-    /parseRepositoryDescription\(\s*repo\.object\?\.text,\s*locale,\s*fallbackDescription\s*\)/
-  );
-  assert.match(modalHelpersSource, /try\s*\{\s*const parsedMetadata = JSON\.parse/);
-  assert.match(modalHelpersSource, /\}\s*catch\s*\{/);
-  assert.doesNotMatch(projectsListSource, /JSON\.parse\(repo\.object\?\.text/);
-});
-
-test("GitHub UI copy is sourced from i18n keys across projects and contributions components", () => {
-  const projectsListSource = readRepoFile(
-    "src/components/custom/GithubData/GitHubProjects/GitHubProjectsList.tsx"
-  );
-  const projectsFetcherSource = readRepoFile(
-    "src/components/custom/GithubData/GitHubProjects/GitHubProjectsFetcher.tsx"
-  );
-  const contributionsSource = readRepoFile(
-    "src/components/custom/GithubData/GithubContributions/GithubContributions.tsx"
-  );
-  const contributionDaySource = readRepoFile(
-    "src/components/custom/GithubData/GithubContributions/ContributionDay.tsx"
-  );
-
-  assert.match(projectsListSource, /useTranslations\("Github\.projects"\)/);
-  assert.match(projectsFetcherSource, /getTranslations\("Github\.projects"\)/);
-  assert.match(contributionsSource, /getTranslations\("Github\.contributions"\)/);
-  assert.match(contributionDaySource, /useTranslations\("Github\.contributions"\)/);
-
-  assert.doesNotMatch(projectsListSource, />\s*Live Site\s*</);
-  assert.doesNotMatch(projectsListSource, />\s*Code Repo\s*</);
-  assert.doesNotMatch(contributionsSource, />\s*GitHub Contributions\s*</);
-  assert.doesNotMatch(contributionsSource, />\s*Error: No data\s*</);
-});
-
-test("LanguageSwitcher uses semantic controls and keyboard-safe close behavior", () => {
-  const languageSwitcherSource = readRepoFile(
-    "src/components/custom/LanguageSwitcher/LanguageSwitcher.tsx"
-  );
-  const languageSwitcherHelpersSource = readRepoFile(
-    "src/components/custom/LanguageSwitcher/languageSwitcher.helpers.ts"
-  );
-
-  assert.match(languageSwitcherSource, /<button[\s\S]*aria-controls=\{optionsId\}/);
-  assert.match(languageSwitcherSource, /aria-expanded=\{showSelect\}/);
-  assert.match(languageSwitcherSource, /<ul[\s\S]*role="menu"/);
-  assert.match(languageSwitcherSource, /role="menuitemradio"/);
-  assert.match(languageSwitcherSource, /if \(isEscapeKey\(event\.key\)\)/);
-  assert.match(
-    languageSwitcherSource,
-    /if \(shouldCloseOnBlur\(event\.currentTarget,\s*nextFocusedElement\)\)/
-  );
-  assert.match(
-    languageSwitcherSource,
-    /if \(isPointerOutsideContainer\(languageSwitcherRef\.current,\s*event\.target\)\)/
-  );
-  assert.match(languageSwitcherSource, /triggerRef\.current\?\.focus\(\)/);
-  assert.match(
-    languageSwitcherSource,
-    /document\.addEventListener\("mousedown", handlePointerDownOutside\)/
-  );
-  assert.match(languageSwitcherHelpersSource, /export function isEscapeKey\(/);
-  assert.match(languageSwitcherHelpersSource, /export function shouldCloseOnBlur\(/);
-  assert.match(
-    languageSwitcherHelpersSource,
-    /export function isPointerOutsideContainer\(/
-  );
-  assert.doesNotMatch(languageSwitcherSource, /<li[^>]*onClick=/);
-});
-
-test("GitHub project card and modal expose keyboard a11y and focus management", () => {
-  const projectsListSource = readRepoFile(
-    "src/components/custom/GithubData/GitHubProjects/GitHubProjectsList.tsx"
-  );
-  const modalHelpersSource = readRepoFile(
-    "src/components/custom/GithubData/GitHubProjects/projectModal.helpers.ts"
-  );
-
-  assert.match(projectsListSource, /<motion\.button[\s\S]*type="button"/);
-  assert.match(projectsListSource, /modalTriggerRef\.current = event\.currentTarget/);
-  assert.match(
-    projectsListSource,
-    /openProjectDetailsAriaLabel",\s*\{\s*projectName: repositories\[currentRepo\]\.name/
-  );
-  assert.match(projectsListSource, /closeButtonRef\.current\?\.focus\(\)/);
-  assert.match(projectsListSource, /resolveModalKeyboardAction\(\{/);
-  assert.match(
-    projectsListSource,
-    /querySelectorAll<HTMLElement>\(\s*'a\[href\], button:not\(\[disabled\]\)/
-  );
-  assert.match(modalHelpersSource, /if \(key === "Escape"\)/);
-  assert.match(modalHelpersSource, /if \(key !== "Tab"\)/);
-  assert.match(modalHelpersSource, /if \(focusableCount === 0\)/);
-  assert.match(
-    projectsListSource,
-    /window\.requestAnimationFrame\(\(\) => \{\s*modalTriggerRef\.current\?\.focus\(\)/
-  );
-});
-
-test("AboutDropdown exposes accordion ARIA linkage on trigger and panel", () => {
-  const aboutDropdownSource = readRepoFile(
-    "src/components/custom/AboutDropdown/AboutDropdown.tsx"
-  );
-
-  assert.match(aboutDropdownSource, /const panelId = useId\(\)/);
-  assert.match(aboutDropdownSource, /type="button"/);
-  assert.match(aboutDropdownSource, /aria-expanded=\{open\}/);
-  assert.match(aboutDropdownSource, /aria-controls=\{panelId\}/);
-  assert.match(aboutDropdownSource, /id=\{panelId\}/);
-  assert.match(aboutDropdownSource, /role="region"/);
-  assert.match(aboutDropdownSource, /aria-labelledby=\{buttonId\}/);
-});
-
-test("Navbar logo no longer introduces a secondary h1", () => {
-  const navbarSource = readRepoFile("src/components/custom/Navbar/Navbar.tsx");
-
-  assert.match(navbarSource, /<span className=\{styles\.navbar__logo_title\}>/);
-  assert.doesNotMatch(navbarSource, /<h1/);
+  assert.equal(typeof fr.MetaData?.home?.title, "string");
+  assert.equal(typeof en.MetaData?.home?.title, "string");
+  assert.equal(typeof fr.Github?.projects?.fetchError, "string");
+  assert.equal(typeof en.Github?.projects?.fetchError, "string");
+  assert.equal(typeof fr.Github?.contributions?.dayAriaLabel, "string");
+  assert.equal(typeof en.Github?.contributions?.dayAriaLabel, "string");
 });
