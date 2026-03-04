@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import styles from "./GithubContributions.module.scss";
+import { useTranslations } from "next-intl";
 
 interface ContributionDayProps {
   date: string;
@@ -14,6 +15,7 @@ export default function ContributionDay({
   count,
   locale,
 }: ContributionDayProps) {
+  const t = useTranslations("Github.contributions");
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
   const [showTooltip, setShowTooltip] = useState(false);
 
@@ -30,10 +32,7 @@ export default function ContributionDay({
     }
   );
 
-  const contributionText =
-    locale === "en"
-      ? `${count} contribution${count !== 1 ? "s" : ""}`
-      : `${count} contribution${count > 1 ? "s" : ""}`;
+  const contributionText = t("dayTooltipCount", { count });
 
   return (
     <>

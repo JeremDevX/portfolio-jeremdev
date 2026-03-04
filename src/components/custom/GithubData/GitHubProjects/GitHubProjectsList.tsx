@@ -8,11 +8,49 @@ import { BiSolidLeftArrow, BiSolidRightArrow } from "react-icons/bi";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import DOMPurify from "dompurify";
 import { IoMdClose } from "react-icons/io";
 
 interface GitHubProjectsListProps {
   repositories: Repository[];
+}
+
+type SupportedLocale = "en" | "fr";
+
+type RepositoryMetadata = {
+  description?: Partial<Record<SupportedLocale, string>>;
+};
+
+function normalizeLocale(locale: string | string[] | undefined): SupportedLocale {
+  const localeValue = Array.isArray(locale) ? locale[0] : locale;
+  return localeValue === "en" ? "en" : "fr";
+}
+
+function parseRepositoryDescription(
+  metadataText: string | undefined,
+  locale: SupportedLocale,
+  fallbackDescription: string
+): string {
+  if (!metadataText) {
+    return fallbackDescription;
+  }
+
+  try {
+    const parsedMetadata = JSON.parse(metadataText) as RepositoryMetadata;
+    const localizedDescription = parsedMetadata.description?.[locale];
+
+    if (
+      typeof localizedDescription === "string" &&
+      localizedDescription.trim().length > 0
+    ) {
+      return localizedDescription;
+    }
+  } catch {
+    return fallbackDescription;
+  }
+
+  return fallbackDescription;
 }
 
 export default function GitHubProjectsList({
@@ -22,7 +60,9 @@ export default function GitHubProjectsList({
   const [direction, setDirection] = useState<number>(1);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { locale } = useParams();
+  const { locale: localeParam } = useParams();
+  const locale = normalizeLocale(localeParam);
+  const t = useTranslations("Github.projects");
   const prevRepoRef = useRef<number>(currentRepo);
 
   const handleNext = useCallback(() => {
@@ -82,12 +122,12 @@ export default function GitHubProjectsList({
     return (
       <div className={styles.project}>
         <div className={styles.project__error}>
-          <p>Impossible de charger les projets pour le moment.</p>
+          <p>{t("emptyStateMessage")}</p>
           <button
             onClick={() => window.location.reload()}
             className={styles.project__retry}
           >
-            Réessayer
+            {t("retryButton")}
           </button>
         </div>
       </div>
@@ -119,11 +159,7 @@ export default function GitHubProjectsList({
               <Project
                 repo={repositories[currentRepo]}
                 isFirst={currentRepo === 0}
-                tooltipText={
-                  locale === "en"
-                    ? "Click for more details"
-                    : "Cliquer pour plus d'infos"
-                }
+                tooltipText={t("tooltip")}
               />
             </motion.div>
           </AnimatePresence>
@@ -135,14 +171,14 @@ export default function GitHubProjectsList({
             target="_blank"
             rel="noopener noreferrer"
           >
-            Live Site
+            {t("liveSite")}
           </Link>
           <div className={styles.project__pagination}>
             <button
               className={styles.project__arrow}
               onClick={handlePrevious}
               disabled={isAnimating}
-              aria-label="Projet précédent"
+              aria-label={t("previousProjectAriaLabel")}
             >
               <BiSolidLeftArrow />
             </button>
@@ -153,7 +189,7 @@ export default function GitHubProjectsList({
               className={styles.project__arrow}
               onClick={handleNext}
               disabled={isAnimating}
-              aria-label="Projet suivant"
+              aria-label={t("nextProjectAriaLabel")}
             >
               <BiSolidRightArrow />
             </button>
@@ -164,7 +200,7 @@ export default function GitHubProjectsList({
             target="_blank"
             rel="noopener noreferrer"
           >
-            Code Repo
+            {t("codeRepo")}
           </Link>
         </div>
       </div>
@@ -172,6 +208,8 @@ export default function GitHubProjectsList({
         <Modal
           repo={repositories[currentRepo]}
           locale={locale}
+          fallbackDescription={t("descriptionFallback")}
+          closeModalAriaLabel={t("closeModalAriaLabel")}
           closeModal={handleCloseModal}
         />
       )}
@@ -256,22 +294,26 @@ function ProjectGhost({
 
 interface ModalProps {
   repo: Repository;
-  locale: string | string[] | undefined;
+  locale: SupportedLocale;
+  fallbackDescription: string;
+  closeModalAriaLabel: string;
   closeModal: () => void;
 }
 
-function Modal({ repo, locale, closeModal }: ModalProps) {
+function Modal({
+  repo,
+  locale,
+  fallbackDescription,
+  closeModalAriaLabel,
+  closeModal,
+}: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Normalize locale to string
-  const currentLocale = Array.isArray(locale) ? locale[0] : locale ?? "fr";
-
-  const desc =
-    currentLocale === "en"
-      ? JSON.parse(repo.object?.text || "{}").description?.en ||
-        "No description"
-      : JSON.parse(repo.object?.text || "{}").description?.fr ||
-        "Pas de description";
+  const desc = parseRepositoryDescription(
+    repo.object?.text,
+    locale,
+    fallbackDescription
+  );
 
   // Sanitize et format uniquement côté client
   const formatDesc = (rawDesc: string): string => {
@@ -340,7 +382,7 @@ function Modal({ repo, locale, closeModal }: ModalProps) {
         <button
           onClick={closeModal}
           className={styles.modal__close}
-          aria-label="Fermer le modal"
+          aria-label={closeModalAriaLabel}
         >
           <IoMdClose />
         </button>

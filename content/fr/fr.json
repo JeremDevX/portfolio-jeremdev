@@ -51,5 +51,25 @@
       "title": "Personnal Finance App",
       "description": "Application de gestion financière en cours de développement.<br></br>Points clés :<br></br>• Dashboard interactif avec visualisation des différentes données<br></br>• Système de catégorisation des transactions / économies / factures<br></br>• Système de connexion via NextAuth (à venir)<br></br>• Gestion des données via une BDD PostgreSQL (à venir)<br></br> • Interface responsive selon les maquettes Figma de Frontend Mentor<br></br>"
     }
+  },
+  "Github": {
+    "projects": {
+      "noData": "Aucune donnée",
+      "emptyStateMessage": "Impossible de charger les projets pour le moment.",
+      "retryButton": "Réessayer",
+      "tooltip": "Cliquer pour plus d'infos",
+      "liveSite": "Site en ligne",
+      "codeRepo": "Code source",
+      "previousProjectAriaLabel": "Projet précédent",
+      "nextProjectAriaLabel": "Projet suivant",
+      "closeModalAriaLabel": "Fermer la fenêtre modale",
+      "descriptionFallback": "Pas de description"
+    },
+    "contributions": {
+      "title": "Contributions GitHub",
+      "noData": "Erreur : aucune donnée",
+      "inLastYear": "{count, plural, one {contribution au cours de la dernière année} other {contributions au cours de la dernière année}}",
+      "dayTooltipCount": "{count, plural, one {# contribution} other {# contributions}}"
+    }
   }
 }

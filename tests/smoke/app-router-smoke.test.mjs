@@ -155,3 +155,79 @@ test("Home page stylesheet removes unused module classes and keeps one global li
   assert.doesNotMatch(pageStyles, /^\s*\.light\s*\{/m);
   assert.match(globalStyles, /^\s*\.light\s*\{/m);
 });
+
+test("FR and EN locale content expose required GitHub i18n keys", () => {
+  const fr = JSON.parse(readRepoFile("content/fr/fr.json"));
+  const en = JSON.parse(readRepoFile("content/en/en.json"));
+
+  for (const locale of [fr, en]) {
+    assert.equal(typeof locale.Github?.projects?.noData, "string");
+    assert.equal(typeof locale.Github?.projects?.emptyStateMessage, "string");
+    assert.equal(typeof locale.Github?.projects?.retryButton, "string");
+    assert.equal(typeof locale.Github?.projects?.tooltip, "string");
+    assert.equal(typeof locale.Github?.projects?.liveSite, "string");
+    assert.equal(typeof locale.Github?.projects?.codeRepo, "string");
+    assert.equal(
+      typeof locale.Github?.projects?.previousProjectAriaLabel,
+      "string"
+    );
+    assert.equal(
+      typeof locale.Github?.projects?.nextProjectAriaLabel,
+      "string"
+    );
+    assert.equal(typeof locale.Github?.projects?.closeModalAriaLabel, "string");
+    assert.equal(typeof locale.Github?.projects?.descriptionFallback, "string");
+
+    assert.equal(typeof locale.Github?.contributions?.title, "string");
+    assert.equal(typeof locale.Github?.contributions?.noData, "string");
+    assert.equal(typeof locale.Github?.contributions?.inLastYear, "string");
+    assert.equal(typeof locale.Github?.contributions?.dayTooltipCount, "string");
+  }
+
+  assert.notEqual(
+    fr.Github.projects.emptyStateMessage,
+    en.Github.projects.emptyStateMessage
+  );
+  assert.notEqual(fr.Github.projects.retryButton, en.Github.projects.retryButton);
+});
+
+test("GitHub project modal parsing is guarded and no longer parses metadata inline", () => {
+  const projectsListSource = readRepoFile(
+    "src/components/custom/GithubData/GitHubProjects/GitHubProjectsList.tsx"
+  );
+
+  assert.match(projectsListSource, /function parseRepositoryDescription\(/);
+  assert.match(projectsListSource, /try\s*\{\s*const parsedMetadata = JSON\.parse/);
+  assert.match(projectsListSource, /\}\s*catch\s*\{/);
+  assert.match(projectsListSource, /fallbackDescription=\{t\("descriptionFallback"\)\}/);
+  assert.match(
+    projectsListSource,
+    /parseRepositoryDescription\(\s*repo\.object\?\.text,\s*locale,\s*fallbackDescription\s*\)/
+  );
+  assert.doesNotMatch(projectsListSource, /JSON\.parse\(repo\.object\?\.text/);
+});
+
+test("GitHub UI copy is sourced from i18n keys across projects and contributions components", () => {
+  const projectsListSource = readRepoFile(
+    "src/components/custom/GithubData/GitHubProjects/GitHubProjectsList.tsx"
+  );
+  const projectsFetcherSource = readRepoFile(
+    "src/components/custom/GithubData/GitHubProjects/GitHubProjectsFetcher.tsx"
+  );
+  const contributionsSource = readRepoFile(
+    "src/components/custom/GithubData/GithubContributions/GithubContributions.tsx"
+  );
+  const contributionDaySource = readRepoFile(
+    "src/components/custom/GithubData/GithubContributions/ContributionDay.tsx"
+  );
+
+  assert.match(projectsListSource, /useTranslations\("Github\.projects"\)/);
+  assert.match(projectsFetcherSource, /getTranslations\("Github\.projects"\)/);
+  assert.match(contributionsSource, /getTranslations\("Github\.contributions"\)/);
+  assert.match(contributionDaySource, /useTranslations\("Github\.contributions"\)/);
+
+  assert.doesNotMatch(projectsListSource, />\s*Live Site\s*</);
+  assert.doesNotMatch(projectsListSource, />\s*Code Repo\s*</);
+  assert.doesNotMatch(contributionsSource, />\s*GitHub Contributions\s*</);
+  assert.doesNotMatch(contributionsSource, />\s*Error: No data\s*</);
+});

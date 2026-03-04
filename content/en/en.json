@@ -51,5 +51,25 @@
       "title": "Personal Finance App",
       "description": "Financial management application under development.<br></br>Key features:<br></br>• Interactive dashboard with various data visualization<br></br>• Categorization system for transactions / savings / bills<br></br>• Authentication system via NextAuth (upcoming)<br></br>• Data management through PostgreSQL database (upcoming)<br></br>• Responsive interface following Frontend Mentor's Figma designs<br></br>"
     }
+  },
+  "Github": {
+    "projects": {
+      "noData": "No data",
+      "emptyStateMessage": "Unable to load projects right now.",
+      "retryButton": "Retry",
+      "tooltip": "Click for more details",
+      "liveSite": "Live Site",
+      "codeRepo": "Code Repo",
+      "previousProjectAriaLabel": "Previous project",
+      "nextProjectAriaLabel": "Next project",
+      "closeModalAriaLabel": "Close modal",
+      "descriptionFallback": "No description"
+    },
+    "contributions": {
+      "title": "GitHub Contributions",
+      "noData": "Error: No data",
+      "inLastYear": "{count, plural, one {contribution in the last year} other {contributions in the last year}}",
+      "dayTooltipCount": "{count, plural, one {# contribution} other {# contributions}}"
+    }
   }
 }
